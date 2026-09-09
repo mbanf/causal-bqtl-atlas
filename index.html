@@ -163,7 +163,7 @@ svg { width:100%; height:100%; }
             <div class="rl"><span id="eff-lbl">Min: 0</span><span>15</span></div>
         </div>
         <div class="fsec"><h3>Motif Rewiring</h3><div id="f-rewire"></div></div>
-        <div class="fsec"><h3>Signaling Layer</h3><div id="f-layer"></div></div>
+        <div class="fsec"><h3>Functional Category</h3><div id="f-layer"></div></div>
         <div class="fsec"><h3>Disrupted TF Family</h3><div id="f-tf"></div></div>
         <div class="fsec"><h3>Created TF Family</h3><div id="f-tf-created"></div></div>
         <div class="fsec"><h3>Drought Response</h3><div id="f-drought"></div></div>
@@ -553,7 +553,7 @@ function updateSummary(visibleSet) {
             <div class="sum-card"><h4 style="color:#fff;font-size:14px">Maize Causal bQTL Atlas</h4>
                 <div style="color:#999;margin-top:6px;font-size:11px;line-height:1.6">
                     Each gene has a <b>single</b> bQTL variant in its promoter that causally shifts allele-specific expression across NAM hybrids (FDR&lt;0.05).
-                    <br><br>Use the filters on the left to explore by signaling layer, TF family, drought response, or hybrid.
+                    <br><br>Use the filters on the left to explore by functional category, TF family, drought response, or hybrid.
                     <br><br>Click any gene for full details. Use the <b>AI Summary</b> tab to get LLM-powered analysis of your selection.
                 </div>
             </div>
@@ -622,7 +622,7 @@ function updateSummary(visibleSet) {
             <div style="font-size:10px;color:#888;margin-top:4px">${filters.join(' | ') || 'No filters'}</div>
             <div style="font-size:11px;color:#aaa;margin-top:6px">Mean |d| = <b style="color:#66BB6A">${meanD}</b></div>
         </div>
-        <div class="sum-card"><h4>Signaling Layers</h4><div style="font-size:10px;line-height:1.8;margin-top:4px">${layerHTML}</div></div>
+        <div class="sum-card"><h4>Functional Categorys</h4><div style="font-size:10px;line-height:1.8;margin-top:4px">${layerHTML}</div></div>
         <div class="sum-card"><h4>Top TF Families Disrupted</h4><div style="margin-top:4px">${tfHTML}</div></div>
         <div class="sum-card"><h4>Top Genes by Effect Size</h4><div class="sum-list">${geneListHTML}</div></div>
     `;
@@ -758,7 +758,7 @@ Be specific about maize biology when possible. Reference known pathways (BR sign
 // ── Legend ──
 function buildLegend() {
     const leg = document.getElementById('legend');
-    let h = '<div style="font-weight:600;margin-bottom:4px;color:#999">Signaling Layer</div>';
+    let h = '<div style="font-weight:600;margin-bottom:4px;color:#999">Functional Category</div>';
     LAYER_ORDER.forEach(l => {
         const c = GENES.filter(g => g.layer === l).length;
         if (!c) return;
