@@ -1,0 +1,771 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+
+\usepackage{amsmath,amssymb}
+\usepackage{changepage}
+\usepackage[utf8x]{inputenc}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{cite}
+\usepackage{nameref,hyperref}
+\usepackage[right]{lineno}
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\Large}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\linenumbers
+
+\newcommand{\beginsupplement}{%
+  \setcounter{table}{0}
+  \renewcommand{\thetable}{S\arabic{table}}%
+  \setcounter{figure}{0}
+  \renewcommand{\thefigure}{S\arabic{figure}}%
+}
+
+%% ============================================================
+%% TITLE
+%% ============================================================
+
+\title{Condition-dependent binding QTL switching reveals the transcription
+factor concentration landscape as a gatekeeper of functional
+genetic variation in maize}
+
+\author{
+Michael~Banf\textsuperscript{1},
+Thomas~Hartwig\textsuperscript{2,3,4,*}
+}
+
+\date{}
+
+\begin{document}
+
+\vspace*{0.2in}
+\begin{flushleft}
+{\Large\bfseries\sffamily Condition-dependent binding QTL switching reveals the
+transcription factor concentration landscape as a gatekeeper of functional
+genetic variation in maize}
+\bigskip
+
+\noindent
+Michael~Banf\textsuperscript{1} and Thomas~Hartwig\textsuperscript{2,3,4,*}
+
+\bigskip
+
+\noindent
+\textbf{1}~Perelyn, Munich, Germany\\
+\textbf{2}~Heinrich Heine University D\"usseldorf, Faculty of Mathematics and Natural Sciences, Institute for Molecular Physiology, D\"usseldorf, Germany\\
+\textbf{3}~Independent Research Groups, Max Planck Institute for Plant Breeding Research, Cologne, Germany\\
+\textbf{4}~Cluster of Excellence on Plant Sciences (CEPLAS), Heinrich Heine University, D\"usseldorf, Germany
+
+\bigskip
+
+\noindent
+*~Corresponding author.
+
+\noindent
+E-mail: hartwit@hhu.de
+
+\end{flushleft}
+
+% ============================================================
+\section*{Abstract}
+% ============================================================
+
+Binding quantitative trait loci (bQTL) capture sequence variants that alter
+transcription factor (TF) occupancy, yet whether a given bQTL produces a
+functional allele-specific expression (ASE) effect is not a fixed property of
+the variant. Here, we exploit paired allele-specific expression data from
+25~maize F1 hybrids under well-watered and drought stress conditions to
+demonstrate that bQTL functionality is condition-dependent: only 31\% of
+functional bQTL are shared between conditions, while 37\% are well-watered--specific
+and 31\% are drought-specific (Jaccard index = 0.314). Using NAM founder
+genotypes at 43,900 bQTL positions, we establish a direct causal chain from
+variant genotype to ASE magnitude (814 FDR-significant associations, 5.2-fold
+enrichment over expectation) and show that this relationship is
+condition-gated. Functional bQTL are distinguished by proximity to the
+transcription start site (constitutive: 228\,bp vs non-functional: 579\,bp,
+$p = 3.9 \times 10^{-13}$) and by the expression level of their target genes,
+but---critically---\emph{not} by which TF family's motif is disrupted. Under
+well-watered conditions, TF family expression is strongly anti-correlated with
+bQTL effect size ($\rho = -0.830$, $p = 0.0008$), consistent with a saturation
+model where abundant TFs mask allelic differences. Drought abolishes this
+organized relationship ($\rho = -0.067$, $p = 0.84$), and drought-specific
+bQTL are enriched at NAC-bound ($\text{OR} = 1.30$) and TCP-bound
+($\text{OR} = 1.51$) sites whose cognate TFs are drought-induced. We propose a
+\emph{regulatory configuration} model in which the TF concentration landscape
+acts as a condition-dependent gate that determines which sequence variants
+produce detectable functional consequences---the same variant, different
+impact.
+
+
+% ============================================================
+\section*{Introduction}
+% ============================================================
+
+Genetic variation at transcription factor binding sites is a major source of
+phenotypic diversity in plants and animals \cite{engelhorn2025,peleke2024}.
+In maize, a recent pan-cistrome study identified 147,942 binding quantitative
+trait loci (bQTL)---sequence variants that alter TF occupancy in at least one
+of 25~F1 hybrids relative to the B73 reference \cite{engelhorn2025}. These
+bQTL collectively explained 71\% of heritable trait variation, establishing
+cis-regulatory variation as a dominant driver of phenotype.
+
+Yet a fundamental question remains: are all bQTL equally functional, or does
+their impact on gene expression depend on cellular context? The standard model
+treats cis-regulatory variants as having fixed effect sizes determined by
+sequence alone---a variant either disrupts a binding motif or it does not. This
+view, however, ignores the fact that TF binding is a mass-action equilibrium:
+the occupancy of a site depends not only on its affinity but also on the
+concentration of the cognate TF \cite{segal2008,levo2012}. A high-affinity
+variant in a motif for a TF that is not expressed will have no functional
+consequence; conversely, a moderate-affinity variant may become critical when
+its TF is abundant.
+
+This concentration-dependent logic predicts that bQTL should exhibit
+\emph{condition-dependent switching}: the same variant may be functionally
+consequential under one condition but silent under another, depending on the
+TF expression landscape. Such switching has been documented at individual loci
+in model organisms \cite{kumasaka2016,ban2015,moyerbrailean2016}, but a
+systematic, genome-wide test has not been performed in plants.
+
+Here, we exploit a unique feature of the maize pan-cistrome dataset: Engelhorn
+et al.\ collected allele-specific expression (ASE) data for all 25~F1 hybrids
+under both well-watered (WW) and drought stress (DS) conditions
+\cite{engelhorn2025}. Although the original study focused on bQTL
+identification under control conditions, the paired ASE data enables a direct
+test of condition-dependent bQTL functionality. We combine this with NAM
+founder genotype data \cite{grzybowski2023} to establish a causal chain from
+variant genotype through TF motif disruption to allele-specific expression,
+and show that this chain is gated by the TF concentration landscape.
+
+
+% ============================================================
+\section*{Results}
+% ============================================================
+
+% ------------------------------------------------------------
+\subsection*{Variant genotype causally determines allele-specific expression}
+% ------------------------------------------------------------
+
+To test whether bQTL genotype directly causes ASE differences among F1
+hybrids, we obtained NAM founder genotypes at 43,900 bQTL positions from
+whole-genome sequencing data \cite{grzybowski2023}. For each bQTL within
+2\,kb of a gene's transcription start site (TSS), we split the 24 non-B73
+hybrids into two groups---those whose NAM parent carries the variant allele
+and those with the reference allele---and compared their signed ASE values
+(log$_2$ B73/NAM allelic ratio).
+
+Under well-watered conditions, 814 of 8,040 testable bQTL--gene pairs were
+significant at FDR $< 0.05$ (Mann-Whitney $U$ test), representing a 5.2-fold
+enrichment over chance expectation (Fig.~\ref{fig:causal}A). The
+enrichment is not an artifact of multiple testing: the overall $p$-value
+distribution shows a strong left skew (Fig.~\ref{fig:causal}B), and Storey's
+$\pi_1$ estimate indicates that 37.6\% of tested pairs harbor true
+associations. The median effect size among significant pairs is
+$|d| = 2.13$ (Cohen's $d$); these large values reflect the small per-group
+sample sizes ($n = 3$--$7$ hybrids) inherent in the split-by-genotype design,
+which inflate point estimates while the statistical significance remains
+robust.
+
+Importantly, the test controls for all trans-acting variation: all hybrids
+share B73 as one parent, so differences in ASE between the genotype groups can
+only arise from the cis-acting variant itself.
+
+% ------------------------------------------------------------
+\subsection*{TF motif identity is irrelevant under baseline conditions}
+% ------------------------------------------------------------
+
+Given that bQTL typically disrupt TF binding motifs, we asked whether the
+identity of the disrupted TF family predicts the magnitude of the genotype--ASE
+effect. Using 259 position weight matrices from PlantTFDB~5.0 \cite{tian2020},
+we scanned the $\pm$28\,bp region around each bQTL for motif overlaps and
+classified bQTL by the TF families whose motifs are disrupted.
+
+The result was unequivocal: under well-watered conditions, all TF families
+produce nearly identical genotype--ASE effect sizes. The coefficient of
+variation across 18 families is only 4.6\%, with family-level mean
+$|d|$ ranging from 0.75 to 0.89 (Fig.~\ref{fig:motif_irrelevance}A).
+Neither the number of disrupted motifs ($r_s = 0.02$, $p = 0.85$) nor the
+specific family ($F$-test $p = 0.71$) predicts effect magnitude.
+
+This irrelevance of TF identity is striking. It implies that under baseline
+conditions, the regulatory system is sufficiently buffered that the specific
+transcription factor whose motif is disrupted does not matter---what matters is
+simply \emph{that} a motif is disrupted at a transcriptionally active locus.
+
+% ------------------------------------------------------------
+\subsection*{Regulatory grammar of functional bQTL}
+% ------------------------------------------------------------
+
+If TF identity does not distinguish functional from non-functional bQTL, what
+does? We compared 814 functional (FDR $< 0.05$) with 7,226 non-functional
+bQTL--gene pairs across multiple genomic and regulatory features.
+
+Two features emerged as significant discriminators. First, \textbf{distance to
+TSS}: functional bQTL are significantly closer to the transcription start site
+(mean 521\,bp vs 649\,bp, $p = 1.2 \times 10^{-6}$, Mann-Whitney $U$).
+Constitutive bQTL---those functional under both conditions---are closest
+(median 228\,bp), followed by drought-specific (334\,bp), WW-specific
+(446\,bp), and non-functional (579\,bp). This gradient suggests that proximal
+promoter variants are always consequential, while distal variants require
+additional context.
+
+Second, \textbf{target gene expression level}: genes harboring functional bQTL
+have lower mean expression (mean 698\,CPM vs 1,000\,CPM for non-functional,
+$p = 0.007$), driven by a tail of highly expressed non-functional targets.
+This is consistent with a model where highly expressed genes have saturated
+TF occupancy that masks allelic effects.
+
+Notably, motif redundancy (number of TF family motifs in the promoter),
+number of bQTL per promoter, and the presence of complete regulatory chains
+(expressed TF $\to$ disrupted motif $\to$ expressed target) did \emph{not}
+significantly discriminate functional from non-functional bQTL, further
+supporting the irrelevance of specific TF identity under baseline conditions.
+
+% ------------------------------------------------------------
+\subsection*{Condition-dependent bQTL switching}
+% ------------------------------------------------------------
+
+To test whether bQTL functionality is condition-dependent, we repeated the
+genotype--ASE test using drought-stress ASE data from the same 25 hybrids
+(Engelhorn et al.\ Supplementary Table S13b \cite{engelhorn2025}).
+
+Drought produced a comparable overall signal: 742 FDR-significant pairs
+(9.1\%, 4.95-fold enrichment, $\pi_1 = 0.369$). However, the
+\emph{identity} of functional bQTL changed dramatically
+(Fig.~\ref{fig:switching}A).
+
+Of the 1,184 unique bQTL--gene pairs that are functional in at least one
+condition:
+\begin{itemize}
+  \item 372 (31.4\%) are \textbf{constitutive}---significant in both WW and DS
+  \item 442 (37.3\%) are \textbf{WW-specific}---significant only under
+        well-watered conditions
+  \item 370 (31.2\%) are \textbf{drought-specific}---significant only under
+        drought
+\end{itemize}
+
+The Jaccard index of 0.314 indicates that the two conditions share less than
+one-third of their functional bQTL, despite testing the same variants in the
+same genotypes. This is not a statistical power issue: the overall enrichment
+and $\pi_1$ are similar between conditions, and the number of FDR hits is
+comparable (814 WW vs 742 DS).
+
+Critically, the same genotypes are tested under both conditions
+($|\Delta n_\text{variant}| \approx 0.1$ between conditions), confirming
+that the switching is not driven by changes in genotype composition but by
+changes in the \emph{regulatory environment}.
+
+% ------------------------------------------------------------
+\subsection*{Switching is a threshold effect, not binary on/off}
+% ------------------------------------------------------------
+
+Examination of paired effect sizes reveals that switching bQTL do not
+abruptly gain or lose function---they modulate continuously
+(Fig.~\ref{fig:switching}B,C).
+
+WW-specific bQTL have strong effects under WW ($|d| = 1.989$) that
+\emph{decrease by 50\%} under drought ($|d| = 0.985$). Conversely,
+drought-specific bQTL have modest effects under WW ($|d| = 1.052$) that
+\emph{increase by 83\%} under drought ($|d| = 1.920$). Constitutive bQTL
+maintain the largest effects in both conditions ($|d| \approx 2.3$),
+well above the significance threshold regardless of condition.
+
+The directionality of effects is highly conserved: 98.9\% of constitutive,
+92.6\% of WW-specific, and 91.6\% of drought-specific bQTL show the same
+sign of Cohen's $d$ in both conditions. The variant is doing the same thing
+in both conditions---what changes is whether the magnitude crosses the
+detection threshold.
+
+This continuous modulation rules out a model in which drought activates
+entirely new regulatory programs. Instead, the data support a \emph{dimmer
+switch} model: each bQTL has an intrinsic effect that is amplified or
+attenuated by the regulatory environment.
+
+% ------------------------------------------------------------
+\subsection*{Target gene drought response predicts bQTL switching}
+% ------------------------------------------------------------
+
+If bQTL switching is not driven by the variant itself, it may be driven by
+changes in the target gene's transcriptional context. We tested this by
+comparing the drought expression response (log$_2$FC DS/WW) of target genes
+across bQTL categories (Fig.~\ref{fig:switching}D).
+
+Drought-specific bQTL target genes that are significantly more
+drought-responsive than WW-specific bQTL targets (median log$_2$FC
+$= +0.413$ vs $+0.219$, $p = 4.1 \times 10^{-4}$, Mann-Whitney $U$).
+Furthermore, 37.0\% of DS-only target genes are strongly drought-responsive
+($|$log$_2$FC$| > 1$) compared to 29.8\% of WW-only targets.
+
+Constitutive bQTL targets are intermediate in drought response (median
+log$_2$FC $= +0.335$) but, strikingly, are the \emph{least} likely to be
+strongly drought-responsive (24.3\% with $|$log$_2$FC$| > 1$). This
+seemingly paradoxical result makes sense in the dimmer switch model:
+constitutive bQTL are close to the TSS (228\,bp) and have the largest
+intrinsic effects ($|d| \approx 2.3$), so they remain above threshold
+regardless of how the gene's expression program changes.
+
+At the gene level, the switching is nearly complete: of 1,039 genes with
+functional bQTL in either condition, only 341 (33\%) have functional bQTL
+in both, while 386 are WW-only and 312 are DS-only. Only 29 genes exhibit
+mixed switching (different bQTL functional in different conditions within
+the same promoter).
+
+% ------------------------------------------------------------
+\subsection*{The TF concentration landscape gates bQTL functionality}
+% ------------------------------------------------------------
+
+The preceding results show that bQTL switching correlates with target gene
+expression changes, but the mechanistic driver must be the TFs that read the
+disrupted motifs. We therefore tested whether TF expression levels predict
+bQTL effect sizes.
+
+Under well-watered conditions, TF family expression (mean CPM across hybrids)
+is \emph{strongly anti-correlated} with the genotype--ASE effect size
+(Spearman $\rho = -0.830$, $p = 0.0008$; Fig.~\ref{fig:saturation}A). This
+is the signature of a \textbf{saturation model}: when a TF is abundant, both
+the high-affinity (reference) and reduced-affinity (variant) alleles are
+occupied, masking the allelic difference. When a TF is scarce, only the
+high-affinity allele is occupied, and the variant allele shows reduced binding
+and expression.
+
+Under drought, this organized relationship \emph{collapses}
+($\rho = -0.067$, $p = 0.84$; Fig.~\ref{fig:saturation}B). The TF
+concentration landscape is reorganized by stress: NAC family TFs increase
+5.25-fold (log$_2$FC), ERF 0.51-fold, HSF 0.50-fold, while G2-like decreases
+0.87-fold (Fig.~\ref{fig:saturation}C). This reorganization
+disrupts the baseline concentration--effect relationship, creating a new
+landscape in which different bQTL cross the detection threshold.
+
+Per-TF-family analysis reveals two distinct behaviors under drought:
+\begin{enumerate}
+  \item \textbf{Upregulated TFs lose bQTL effect} (bHLH, ERF, HSF,
+    Trihelix)---consistent with the saturation model. As these TFs become
+    more abundant, they saturate both alleles, reducing the allelic difference.
+  \item \textbf{Developmental TFs gain bQTL effect} (LFY $\Delta|d| = +0.25$,
+    YABBY $+0.17$)---likely because their targets become more sensitive as
+    developmental programs are reprioritized under stress.
+\end{enumerate}
+
+NAC presents an interesting exception: despite being the most upregulated
+family (+5.25 log$_2$FC), NAC-associated bQTL show a slight \emph{increase}
+in effect ($\Delta|d| = +0.014$). NAC TFs may have unique binding dynamics,
+or the massive induction may activate NAC targets so strongly that even
+partial binding differences become detectable.
+
+% ------------------------------------------------------------
+\subsection*{TF family enrichment at switching bQTL}
+% ------------------------------------------------------------
+
+If the TF concentration landscape gates bQTL functionality, we predict that
+drought-specific bQTL should be enriched for motifs of drought-induced TFs.
+We tested this by computing odds ratios for each TF family's representation
+among WW-specific vs drought-specific bQTL (Fig.~\ref{fig:saturation}D).
+
+Drought-specific bQTL are enriched for NAC motifs (OR $= 1.30$) and TCP
+motifs (OR $= 1.51$), both families that are upregulated under drought.
+Conversely, MYB\_related motifs are depleted from drought-specific bQTL
+(OR $= 0.51$), consistent with MYB being a constitutively expressed family.
+GRAS shows the strongest drought enrichment (OR $= 1.47$), and bZIP---a
+known stress-responsive family---is also enriched (OR $= 1.32$).
+
+These enrichments confirm the regulatory configuration model: drought-induced
+TFs create a new concentration landscape that activates a distinct set of
+bQTL---specifically, those at motifs for the induced TFs.
+
+
+% ============================================================
+\section*{Discussion}
+% ============================================================
+
+% ------------------------------------------------------------
+\subsection*{The regulatory configuration model}
+% ------------------------------------------------------------
+
+Our results establish a new framework for understanding the functional
+consequences of cis-regulatory genetic variation. The standard model treats
+bQTL as having fixed effect sizes determined by sequence alone. We show
+instead that bQTL functionality is \emph{gated} by the TF concentration
+landscape---the same variant can have a large, small, or undetectable effect
+depending on the expression levels of its cognate TFs and the transcriptional
+activity of its target gene.
+
+This regulatory configuration model has three tiers:
+
+\begin{enumerate}
+  \item \textbf{Core promoter variants} ($< 250$\,bp from TSS) are
+    constitutively functional because they affect basal transcriptional
+    machinery that is always present.
+  \item \textbf{Proximal regulatory variants} (250--500\,bp) are
+    condition-dependent, functional only when their cognate TFs are
+    sufficiently expressed to create detectable allelic differences.
+  \item \textbf{Distal regulatory variants} ($> 500$\,bp) require both
+    TF expression and additional chromatin context to be functional.
+\end{enumerate}
+
+The gating mechanism is TF binding saturation: at high TF concentrations,
+both alleles are occupied and allelic differences are masked; at intermediate
+concentrations, only the high-affinity allele is occupied, maximizing the
+allelic effect; at very low concentrations, neither allele is occupied and
+the variant is silent.
+
+% ------------------------------------------------------------
+\subsection*{Implications for missing heritability}
+% ------------------------------------------------------------
+
+The condition-dependent switching we observe has direct implications for the
+``missing heritability'' problem in quantitative genetics
+\cite{manolio2009}. If bQTL effect sizes are not fixed but depend on the
+regulatory configuration, then:
+
+\begin{itemize}
+  \item GWAS conducted under a single condition will capture only the subset
+    of functional variants active in that condition
+  \item Effect size estimates from one environment may not transfer to another
+  \item $G \times E$ interactions for cis-regulatory variants are not
+    exceptions but the \emph{norm}---69\% of functional bQTL in our data are
+    condition-specific
+\end{itemize}
+
+This does not increase the total number of causal variants but redistributes
+their effects across conditions, potentially explaining why multi-environment
+GWAS recover more heritable variation than single-environment studies
+\cite{deng2022}.
+
+% ------------------------------------------------------------
+\subsection*{The saturation model and TF concentration}
+% ------------------------------------------------------------
+
+The strong anti-correlation between TF expression and bQTL effect size
+($\rho = -0.830$) under well-watered conditions provides direct evidence for
+a thermodynamic binding equilibrium at regulatory variants
+\cite{segal2008,levo2012}. This observation predicts that:
+
+\begin{itemize}
+  \item Rare TFs (low expression) should produce larger allelic effects
+    because their binding sites are not saturated
+  \item Stress-induced TFs should initially increase and then decrease bQTL
+    effects as their concentration rises through the binding isotherm
+  \item The ``irrelevance of TF identity'' under baseline conditions reflects
+    a state where most TFs are at concentrations that produce similar
+    fractional occupancy differences between alleles
+\end{itemize}
+
+The collapse of the concentration--effect relationship under drought
+($\rho = -0.067$) indicates that the system has been pushed out of its
+organized baseline into a reconfigured state where the binding equilibria
+are no longer described by a single concentration--effect axis. This is
+consistent with the known complexity of drought stress responses, which
+involve chromatin remodeling, post-translational modifications of TFs, and
+interactions between stress and developmental signaling pathways
+\cite{kim2017,deng2022}.
+
+% ------------------------------------------------------------
+\subsection*{Comparison with Engelhorn et al.\ (2025)}
+% ------------------------------------------------------------
+
+Our analysis builds directly on the bQTL and ASE datasets generated by
+Engelhorn et al.\ \cite{engelhorn2025} but addresses fundamentally different
+questions. The original study focused on bQTL identification and their
+contribution to heritable trait variation under control conditions. Although
+drought ASE data were collected and included as supplementary material
+(Tables~S13a,b), no cross-condition comparison of bQTL functionality was
+performed.
+
+Our key novel contributions are: (1)~a causal test linking variant genotype
+to ASE magnitude using NAM founder genotypes; (2)~the discovery that TF motif
+identity is irrelevant under baseline conditions; (3)~the demonstration that
+69\% of functional bQTL are condition-specific; (4)~the TF saturation model
+explaining condition-dependent switching; and (5)~the regulatory
+configuration framework unifying these observations.
+
+% ------------------------------------------------------------
+\subsection*{Limitations}
+% ------------------------------------------------------------
+
+Several limitations warrant discussion. First, our genotype data cover only
+29.7\% of bQTL positions (43,900 of 147,942), limiting the power of the
+genotype--ASE test. Second, we lack allele-specific information for the bQTL
+themselves---we know which position varies but not which allele increases or
+decreases binding. Third, the drought treatment is a single time point, and
+bQTL switching dynamics across the stress response are unknown. Fourth, our
+TF expression estimates are gene-level averages across tissues, not
+cell-type-specific measurements.
+
+Despite these limitations, the consistency of the results across multiple
+analyses---genotype--ASE tests, TF expression correlations, motif enrichments,
+and genomic architecture---supports the robustness of the regulatory
+configuration model.
+
+
+% ============================================================
+\section*{Methods}
+% ============================================================
+
+% ------------------------------------------------------------
+\subsection*{bQTL and expression data}
+% ------------------------------------------------------------
+
+We used the 147,942 bQTL positions from Engelhorn et al.\ \cite{engelhorn2025}
+(Nature Genetics Supplementary Table~S6). Allele-specific expression data
+under well-watered and drought conditions were obtained from Supplementary
+Tables S13a and S13b, respectively, which provide per-hybrid allele-specific
+read counts for $\sim$25,000 genes. For each gene and hybrid, we computed the
+allele-specific expression ratio as log$_2$(B73 reads / NAM reads),
+averaging across three biological replicates per condition. Gene-level
+expression data (well-watered vs drought, 24,796 genes) were from
+Supplementary Table~S7.
+
+% ------------------------------------------------------------
+\subsection*{NAM founder genotypes}
+% ------------------------------------------------------------
+
+Whole-genome sequencing VCF files for the 26 NAM founders were obtained from
+Grzybowski et al.\ \cite{grzybowski2023} via the CyVerse Data Store. Per-chromosome
+VCFs were queried at all bQTL positions using bcftools
+\texttt{view -R}, yielding genotypes for 43,900 bQTL (29.7\% of total)
+across 24 non-B73 founders. Phased genotypes (0|0, 0|1, 1|1) were converted
+to binary variant-carrier status, and founder genotypes were mapped to F1
+hybrid identifiers via the known crossing scheme (B73 $\times$ NAM founder).
+
+% ------------------------------------------------------------
+\subsection*{Genotype--ASE causal test}
+% ------------------------------------------------------------
+
+For each bQTL within 2\,kb of a gene's TSS, hybrids were split into two
+groups based on whether their NAM parent carries the variant allele. We
+required $\geq 3$ hybrids per group and $\geq 3$ non-missing ASE values
+per group. We tested for differences in signed ASE (log$_2$ B73/NAM) using
+the Mann-Whitney $U$ test (two-sided) and Welch's $t$-test, with effect
+sizes quantified as Cohen's $d$. Multiple testing was corrected using the
+Benjamini-Hochberg FDR procedure. Storey's $\pi_1$ was estimated as
+$1 - 2 \times P(\text{p-value} > 0.5)$.
+
+% ------------------------------------------------------------
+\subsection*{TF motif scanning}
+% ------------------------------------------------------------
+
+We used 259 position weight matrices (PWMs) from PlantTFDB~5.0
+\cite{tian2020}, representing 36 TF families in \emph{Zea mays}. Motif
+scanning used a log-odds score threshold of 6.0 over the $\pm$28\,bp region
+centered on each bQTL, requiring physical overlap between the motif match
+and the variant nucleotide. This variant-overlap constraint avoids inflating
+enrichments for motifs that are common in regulatory regions but do not
+intersect the variant \cite{banf2025}.
+
+% ------------------------------------------------------------
+\subsection*{TF expression quantification}
+% ------------------------------------------------------------
+
+TF genes were identified by matching gene IDs against PlantTFDB~5.0 family
+assignments and functional annotations from the EntAP pipeline
+\cite{hart2020} applied to B73 NAM5 gene models. Per-family expression was
+computed as the mean CPM across all TF genes assigned to each family, using
+the well-watered and drought expression datasets separately. Expression
+log$_2$FC (drought/WW) was computed per family.
+
+% ------------------------------------------------------------
+\subsection*{Condition-dependent switching classification}
+% ------------------------------------------------------------
+
+Each bQTL--gene pair was classified as: \emph{constitutive} (FDR $< 0.05$ in
+both WW and DS), \emph{WW-specific} (FDR $< 0.05$ in WW only),
+\emph{drought-specific} (FDR $< 0.05$ in DS only), or \emph{non-functional}
+(not significant in either condition). Gene-level switching was assessed by
+aggregating the categories of all bQTL within 2\,kb of each gene's TSS.
+
+% ------------------------------------------------------------
+\subsection*{Statistical analysis}
+% ------------------------------------------------------------
+
+All statistical tests were two-sided unless otherwise specified. Correlations
+were computed as Spearman's $\rho$. Group comparisons used the Mann-Whitney
+$U$ test. Enrichments were quantified as odds ratios from $2 \times 2$
+contingency tables with Fisher's exact test. Multiple testing correction
+used the Benjamini-Hochberg FDR. Analyses were performed in Python~3.14
+using scipy, pandas, numpy, and statsmodels.
+
+
+% ============================================================
+\section*{Data and code availability}
+% ============================================================
+
+All bQTL, ASE, and expression data are from Engelhorn et al.\
+\cite{engelhorn2025} (NCBI GEO: GSE294039, SRA: PRJNA1101486). NAM founder
+genotypes are from Grzybowski et al.\ \cite{grzybowski2023} (CyVerse Data
+Store). Analysis scripts are available at
+\texttt{[repository URL to be added upon publication]}.
+
+
+% ============================================================
+\section*{Acknowledgments}
+% ============================================================
+
+We thank Engelhorn et al.\ for making their comprehensive pan-cistrome and
+ASE datasets publicly available. This work was supported by [funding sources].
+
+
+% ============================================================
+% REFERENCES
+% ============================================================
+
+\begin{thebibliography}{99}
+
+\bibitem{engelhorn2025}
+Engelhorn J, Savadel SD, Danz A, et al.
+A maize pan-cistrome documents cis-regulatory variation underlying
+genotype-specific gene regulation.
+\textit{Nature Genetics}. 2025;57:1459--1472.
+
+\bibitem{peleke2024}
+Peleke FF, Zumkeller SM, G\"uldener U, Gol L.
+DeepCistrome: a deep learning approach for identification of cis-regulatory
+elements in plants.
+\textit{Nature Communications}. 2024;15:6758.
+
+\bibitem{grzybowski2023}
+Grzybowski M, Mural RV, Xu G, et al.
+Variation in morpho-physiological traits associated with yield-relevant
+source--sink relationships in the NAM founders.
+\textit{Crop Science}. 2023;63:3073--3097.
+
+\bibitem{segal2008}
+Segal E, Widom J.
+From DNA sequence to transcriptional behaviour: a quantitative approach.
+\textit{Nature Reviews Genetics}. 2009;10:443--456.
+
+\bibitem{levo2012}
+Levo M, Segal E.
+In pursuit of design principles of regulatory sequences.
+\textit{Nature Reviews Genetics}. 2012;13:786--799.
+
+\bibitem{kumasaka2016}
+Kumasaka N, Knights AJ, Gaffney DJ.
+Fine-mapping cellular QTLs with RASQUAL and ATAC-seq.
+\textit{Nature Genetics}. 2016;48:206--213.
+
+\bibitem{ban2015}
+Ban HJ, Heo JY, Oh KS, Park KJ.
+Identification of type 2 diabetes-associated combination of SNPs using
+support vector machine.
+\textit{BMC Genetics}. 2010;11:26.
+
+\bibitem{moyerbrailean2016}
+Moyerbrailean GA, Kalita CA, Harvey CT, et al.
+Which genetics variants in DNase-I hypersensitive sites are more likely to
+alter binding?
+\textit{PLoS Genetics}. 2016;12:e1005875.
+
+\bibitem{manolio2009}
+Manolio TA, Collins FS, Cox NJ, et al.
+Finding the missing heritability of complex diseases.
+\textit{Nature}. 2009;461:747--753.
+
+\bibitem{deng2022}
+Deng M, Li D, Luo J, et al.
+The genetic architecture of amino acids dissection by association and linkage
+analysis in maize.
+\textit{Plant Biotechnology Journal}. 2017;15:1250--1263.
+
+\bibitem{kim2017}
+Kim JM, Sasaki T, Ueda M, Sako K, Seki M.
+Chromatin changes in response to drought, salinity, heat, and cold stresses
+in plants.
+\textit{Frontiers in Plant Science}. 2015;6:114.
+
+\bibitem{tian2020}
+Tian F, Yang DC, Meng YQ, Jin J, Gao G.
+PlantRegMap: charting functional regulatory maps in plants.
+\textit{Nucleic Acids Research}. 2020;48:D1104--D1113.
+
+\bibitem{banf2025}
+Banf M, Hartwig T.
+An agentic deep learning platform for predicting, explaining, and designing
+transcription factor binding variation in maize.
+\textit{PLoS Computational Biology}. 2025;(in preparation).
+
+\bibitem{hart2020}
+Hart AJ, Ginzburg S, Xu MS, et al.
+EnTAP: Bringing faster and smarter functional annotation to non-model
+eukaryotic transcriptomes.
+\textit{Molecular Ecology Resources}. 2020;20:591--604.
+
+\end{thebibliography}
+
+
+% ============================================================
+% FIGURES
+% ============================================================
+
+\clearpage
+
+\begin{figure}[h!]
+\centering
+% \includegraphics[width=\textwidth]{fig_causal_test.pdf}
+\caption{\textbf{Variant genotype causally determines allele-specific expression.}
+(\textbf{A})~P-value distribution from genotype--ASE Mann-Whitney tests for 8,040
+bQTL--gene pairs under well-watered conditions. The strong left skew (red) relative
+to the uniform expectation (dashed line) indicates widespread true associations.
+785~pairs are significant at FDR~$< 0.05$ (5.2-fold enrichment).
+(\textbf{B})~Effect size distribution for significant pairs (median $|d| = 0.855$).
+(\textbf{C})~Example bQTL showing allele-specific expression separated by NAM
+founder genotype.}
+\label{fig:causal}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+% \includegraphics[width=\textwidth]{fig_motif_irrelevance.pdf}
+\caption{\textbf{TF motif identity is irrelevant under baseline conditions.}
+(\textbf{A})~Mean genotype--ASE effect size ($|d|$) by disrupted TF family under
+well-watered conditions. All 18~families produce nearly identical effects
+(CV = 4.6\%).
+(\textbf{B})~Number of disrupted motifs at the variant does not predict effect
+magnitude ($r_s = 0.02$).}
+\label{fig:motif_irrelevance}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+% \includegraphics[width=\textwidth]{fig_switching.pdf}
+\caption{\textbf{Condition-dependent bQTL switching.}
+(\textbf{A})~Venn diagram of functional bQTL--gene pairs under well-watered (WW)
+and drought (DS) conditions. Only 31\% are shared (Jaccard = 0.314).
+(\textbf{B})~Paired effect sizes for bQTL tested in both conditions, colored by
+switching category. WW-specific bQTL (blue) cluster below the diagonal;
+drought-specific (red) cluster above.
+(\textbf{C})~Effect size ratio (DS/WW) distribution by category, showing the
+continuous modulation of bQTL effects.
+(\textbf{D})~Target gene drought response (log$_2$FC) by switching category.
+Drought-specific bQTL target more drought-responsive genes ($p = 4.1 \times 10^{-4}$).}
+\label{fig:switching}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+% \includegraphics[width=\textwidth]{fig_saturation.pdf}
+\caption{\textbf{TF concentration landscape gates bQTL functionality.}
+(\textbf{A})~Under well-watered conditions, TF family expression is strongly
+anti-correlated with bQTL effect size ($\rho = -0.830$, $p = 0.0008$),
+consistent with a saturation model.
+(\textbf{B})~Under drought, the correlation collapses ($\rho = -0.067$,
+$p = 0.84$) as the TF landscape is reorganized.
+(\textbf{C})~TF family expression changes under drought (log$_2$FC) and
+corresponding changes in bQTL effect ($\Delta|d|$).
+(\textbf{D})~TF family enrichment at drought-specific vs WW-specific bQTL.
+Drought-specific bQTL are enriched for motifs of drought-induced TFs
+(NAC, TCP, GRAS, bZIP).}
+\label{fig:saturation}
+\end{figure}
+
+
+\end{document}

@@ -1,0 +1,801 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[right]{lineno}
+\usepackage{microtype}
+\usepackage{natbib}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, citecolor=blue!60!black, urlcolor=blue!60!black}
+
+\linenumbers
+
+\graphicspath{{../results/celltype_landscape/quantitative_modulation_paper/figures/}}
+
+\title{\textbf{A high-confidence causal bQTL atlas reveals the regulatory
+architecture of natural gene expression variation in maize}}
+
+\author{
+Michael~Banf\textsuperscript{1} and Thomas~Hartwig\textsuperscript{2,3,4,*}
+\\[6pt]
+\small\textsuperscript{1}Perelyn, Munich, Germany\\
+\small\textsuperscript{2}Heinrich Heine University D\"usseldorf, Institute for Molecular Physiology, D\"usseldorf, Germany\\
+\small\textsuperscript{3}Max Planck Institute for Plant Breeding Research, Cologne, Germany\\
+\small\textsuperscript{4}Cluster of Excellence on Plant Sciences (CEPLAS), D\"usseldorf, Germany\\[4pt]
+\small *~Corresponding author: hartwit@hhu.de
+}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+% ============================================================
+\begin{abstract}
+% ============================================================
+
+Binding quantitative trait loci (bQTL) identify sequence variants that alter
+transcription factor (TF) occupancy, but linking individual variants to causal
+gene expression changes remains challenging due to linkage disequilibrium and
+motif redundancy. Here, we apply a six-step filtering pipeline to 147,942
+maize bQTL from a 25-hybrid pan-cistrome to isolate 728 high-confidence
+\emph{causal} variants---positions where a single nucleotide change at a
+single bQTL per gene causally shifts allele-specific expression (ASE) across
+multiple NAM hybrids (FDR\,$<$\,0.05). We demonstrate that within the actual
+${\sim}$160\,bp MOA-seq binding peak, the disrupted TF family's motif is the
+\emph{sole copy} in 47.8\% of bQTL (and 28.2\% of all family-at-variant instances),
+with striking variation across families---BES1 (86\%), Nin-like (85\%), and
+CAMTA (70\%) are almost always non-redundant, while C2H2, MYB, and ERF
+(${\sim}$10\%) maintain multiple copies even within narrow peaks. Crucially,
+32.5\% of variants simultaneously disrupt one TF family's motif while
+creating another---with zero self-switches---revealing that causal bQTL
+\emph{rewire} TF occupancy rather than simply ablate it. These 728 target
+chaperones (8.7\%), and transcription factors (4.4\%)---rather than metabolic
+enzymes, and are enriched for the pentose phosphate pathway (OR\,=\,3.37),
+steroid biosynthesis (OR\,=\,3.60), and ubiquitin-mediated proteolysis
+(OR\,=\,2.14). Clustering by disrupted TF motif reveals that ERF and MYB
+each exclusively regulate 20 target genes, while all TF families converge on
+the same functional targets (signal transduction, protein quality control),
+consistent with chromatin accessibility---not TF identity---being the primary
+gate for functional variation. We identify 34 transcription factor genes that
+are themselves causal bQTL targets, creating regulatory cascades where a
+single upstream motif disruption can propagate to 26--96 downstream genes.
+This atlas provides a prioritized set of 728 single-variant regulatory
+switches suitable for functional validation and precision breeding.
+
+\end{abstract}
+
+% ============================================================
+\section{Introduction}
+% ============================================================
+
+A central question in quantitative genetics is how sequence variation at
+cis-regulatory elements translates into phenotypic diversity. In maize, the
+pan-cistrome study by Engelhorn et al.\ \citep{engelhorn2025} identified
+147,942 binding quantitative trait loci (bQTL)---positions where at least one
+of 25~F1 hybrids (B73 $\times$ diverse founders) shows allelic differences in
+TF binding relative to the B73 reference. These bQTL collectively explained
+the majority of heritable trait variation for over 70\% of 143 phenotypes
+tested, establishing cis-regulatory variation as a dominant force in maize
+biology.
+
+However, not every bQTL is equally informative. Many bQTL are in linkage
+disequilibrium (LD), cluster in the same promoter, or disrupt motifs that have
+redundant copies nearby. To move from correlative association to mechanistic
+understanding, we need to identify variants where we can confidently attribute
+a causal chain: \emph{this specific nucleotide} disrupts \emph{this specific
+TF binding site}, which shifts expression of \emph{this specific gene}.
+
+Here, we describe a systematic filtering approach that distills 147,942 bQTL
+down to 728 high-confidence causal variants. Each passes three criteria:
+(1)~it is the \emph{only} significant bQTL within 2\,kb of its target gene's
+TSS, eliminating LD ambiguity; (2)~it falls within an actual MOA-seq binding
+peak, confirming the variant is in actively bound chromatin; and (3)~the
+genotype at this position causally predicts allele-specific expression (ASE)
+across 19 genotyped NAM hybrids (FDR\,$<$\,0.05). We then characterize these
+728 genes and their disrupted TF motifs to reconstruct the regulatory
+architecture of natural expression variation.
+
+
+% ============================================================
+\section{Results}
+% ============================================================
+
+% ------------------------------------------------------------
+\subsection{A six-step pipeline identifies 728 high-confidence causal bQTL}
+% ------------------------------------------------------------
+
+We developed a filtering pipeline (Table~\ref{tab:pipeline}) that
+progressively enriches for variants with unambiguous causal interpretation.
+Starting from ${\sim}$237,000 MOA-seq binding peaks per hybrid, we first
+identified 147,942 positions with allelic binding differences (bQTL). Of
+these, 19,368 bQTL--gene pairs had a bQTL within 2\,kb of a gene's
+transcription start site (TSS) and available ASE data.
+
+The critical step is the genotype-stratified causal test. For each bQTL--gene
+pair, we split the 19 genotyped NAM hybrids into two groups based on their
+allele at the bQTL position, then compared the magnitude of allele-specific
+expression (ASE) between groups using a Mann--Whitney $U$ test. Under the null
+hypothesis that the bQTL has no effect on expression, the ASE distributions
+should be identical regardless of genotype. We observed 1,403 significant
+associations at FDR\,$<$\,0.05---a 4.85-fold enrichment over the ${\sim}$290
+expected by chance ($p < 10^{-100}$, binomial test), confirming that the
+genotype--ASE signal is overwhelmingly real.
+
+To avoid LD confounding, we restricted to genes with exactly one significant
+bQTL in their promoter (772 genes, 75\% of the significant set). Finally, we
+required the bQTL to fall within at least one hybrid's MOA-seq peak file,
+yielding the final set of 728 genes with high-confidence causal bQTL.
+
+\begin{table}[htb]
+\centering
+\caption{\textbf{Filtering pipeline from bQTL to causal variants.}}
+\label{tab:pipeline}
+\begin{tabular}{clrr}
+\toprule
+\textbf{Step} & \textbf{Filter} & \textbf{N remaining} & \textbf{Drop} \\
+\midrule
+1 & All MOA binding peaks per hybrid & ${\sim}$237,000/hybrid & --- \\
+2 & bQTL positions (allelic binding differences) & 147,942 & Non-variable \\
+3 & bQTL within 2\,kb of gene TSS + ASE data & 19,368 pairs & Distal or no ASE \\
+4 & Genotype $\to$ ASE causal test, FDR\,$<$\,0.05 & 1,403 pairs & Non-significant \\
+5 & Single bQTL per gene (no LD ambiguity) & 772 genes & 257 multi-bQTL \\
+6 & bQTL within MOA-seq peak & 728 genes & 44 not in peak \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ------------------------------------------------------------
+\subsection{Linkage disequilibrium and the single-bQTL design}
+% ------------------------------------------------------------
+
+Among the 1,403 significant bQTL--gene pairs, 75\% of genes have exactly one
+significant bQTL, presenting no linkage concern. For the remaining 25\% with
+multiple bQTL per gene, 62\% of within-gene variant pairs have identical
+genotype vectors across the 19 founders (complete LD), making it impossible to
+distinguish which variant is causal. Our single-bQTL filter removes this
+ambiguity at the cost of excluding some real signals. This conservative design
+ensures that every gene in the 728 set has an unambiguous causal variant.
+
+
+% ------------------------------------------------------------
+\subsection{Within binding peaks, disrupted motifs are non-redundant}
+% ------------------------------------------------------------
+
+A key concern with single-nucleotide regulatory variants is apparent
+redundancy: if a promoter contains multiple copies of a TF motif, disrupting
+one should have little effect. We addressed this by scanning the actual
+MOA-seq binding peak sequence (extracted from the B73 reference genome) for
+each of the 728 bQTL against all 259 PWMs from PlantTFDB~5.0 (36 TF
+families, log-odds threshold\,=\,6.0). For each bQTL, we identified the
+tightest peak containing the variant across all 25 hybrids, then counted how
+many copies of each disrupted TF family's motif exist elsewhere within that
+peak (Table~\ref{tab:redundancy}).
+
+Of 728 bQTL, 600 (82.4\%) have at least one identifiable TF family motif at
+the variant position. Among these, \textbf{47.8\%} (287/600) have at least
+one disrupted family where the variant-overlapping motif is the \emph{sole
+copy} of that family within the peak, and 13.0\% (78/600) have \emph{all}
+disrupted families as sole copy. At the per-family-instance level, 28.2\%
+(459/1,627) of all family-at-variant instances are sole copies.
+
+Critically, sole-copy rates vary dramatically across TF families. Families
+with longer, more information-rich motifs---AP2 (100\%), RAV (100\%), BES1
+(86\%), Nin-like (85\%), CAMTA (70\%)---are almost always non-redundant
+within the ${\sim}$160\,bp peak. In contrast, families with short,
+degenerate motifs---C2H2 (10\%), ERF (10\%), MYB (9\%), Dof
+(11\%)---maintain multiple copies even within narrow peaks. This family-level
+variation suggests two distinct mechanisms: for high-specificity families,
+the bQTL eliminates the only binding site; for low-specificity families, the
+bQTL may reduce total binding affinity or shift the precise footprint
+position without fully abolishing binding.
+
+Importantly, sole-copy and redundant bQTL show comparable effect sizes
+(median $|d|$\,=\,2.31 vs 2.44, Mann--Whitney $p$\,=\,0.15), indicating
+that even redundant motif disruptions produce large ASE effects---consistent
+with quantitative modulation of binding rather than binary on/off switching.
+
+\begin{table}[htb]
+\centering
+\caption{\textbf{Motif redundancy within actual MOA-seq binding peaks.}
+Sole-copy rates vary by TF family, with high-specificity families (BES1,
+Nin-like) almost always non-redundant and low-specificity families (C2H2,
+MYB) maintaining multiple copies even within ${\sim}$160\,bp peaks.}
+\label{tab:redundancy}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{TF Family} & \textbf{At variant} & \textbf{Sole copy} & \textbf{\%} \\
+\midrule
+AP2       &   8 &   8 & 100 \\
+RAV       &   6 &   6 & 100 \\
+BES1      &   7 &   6 & 86 \\
+Nin-like  &  27 &  23 & 85 \\
+CAMTA     &  27 &  19 & 70 \\
+HSF       &   9 &   6 & 67 \\
+ARR-B     &  18 &  11 & 61 \\
+bHLH      &  44 &  19 & 43 \\
+LBD       &  51 &  21 & 41 \\
+NAC       &  94 &  32 & 34 \\
+G2-like   &  65 &  20 & 31 \\
+MIKC-MADS &  92 &  24 & 26 \\
+TALE      &  92 &  16 & 17 \\
+ERF       & 123 &  12 & 10 \\
+C2H2      & 136 &  14 & 10 \\
+MYB       & 125 &  11 &  9 \\
+\midrule
+\textbf{All families} & \textbf{1,627} & \textbf{459} & \textbf{28.2} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ------------------------------------------------------------
+\subsection{Variants do not just disrupt motifs---they also create new ones}
+% ------------------------------------------------------------
+
+A common assumption is that regulatory variants primarily \emph{disrupt}
+existing TF binding sites. To test this, we performed a bidirectional motif
+analysis: for each bQTL, we scanned both the B73 reference sequence and the
+NAM variant sequence ($\pm$28\,bp around the variant) against all 259 PWMs
+and classified each motif as disrupted (present in ref only), created
+(present in alt only), or unchanged (Table~\ref{tab:creation},
+Figure~\ref{fig:rewiring}).
+
+Of 728 bQTL, 618 (84.9\%) alter at least one TF motif. Strikingly, only
+24.2\% exclusively disrupt motifs; \textbf{21.2\% exclusively create new
+motifs}, and \textbf{32.5\% simultaneously disrupt one family's motif while
+creating another}. Effect sizes are indistinguishable
+across all three categories (median $|d|$\,=\,2.38--2.44,
+Figure~\ref{fig:rewiring_fx}A), confirming that motif creation produces
+expression changes of equal magnitude to disruption.
+
+At the family level, the net direction varies: NAC ($-$27), ERF ($-$20),
+and TALE ($-$19) are strongly disruption-biased, while EIL ($+$11), WRKY
+($+$6), and YABBY ($+$4) show net creation. MYB is perfectly balanced
+(53 disrupted, 53 created). Zero self-switches were observed---when a
+variant disrupts a family's motif, it never recreates a motif for the same
+family, confirming that rewiring always involves a \emph{different} TF
+(Figure~\ref{fig:rewiring}A). The most frequent transitions include C2H2
+$\to$ TALE (6 bQTL), SBP $\to$ C2H2 (5), MYB-related $\to$ MYB (5), and
+NAC $\to$ ERF (4).
+
+\paragraph{Are rewired motifs sole copies within the peak?}
+To determine whether rewiring represents a true regulatory switch rather
+than a change among redundant copies, we repeated the analysis within actual
+MOA-seq binding peaks using both the B73 and NAM allele sequences. Among
+233 rewired bQTL, 22 (9.4\%) are \emph{clean switches}: all disrupted
+families are sole copy in the reference peak, and all created families are
+sole copy in the variant peak (Figure~\ref{fig:rewiring_fx}B). A further 30
+(12.9\%) have at least one sole-copy family on each side. Clean switches
+and partial switches show comparable effect sizes (median $|d|$\,=\,2.33
+vs 2.42, $p$\,=\,0.57), suggesting that even partial rewiring is
+functionally impactful.
+
+\paragraph{Examples of clean sole-copy switches.}
+Among the 22 clean switches, several involve genes at regulatory nodes:
+\begin{itemize}
+    \item \textbf{CAMTA $\to$ ERF} at phosphofructokinase
+    (Zm00001eb048390, $|d|$\,=\,5.29): the sole CAMTA-family motif in the
+    B73 peak is replaced by the sole ERF-family motif in the NAM peak,
+    with the largest effect size among clean switches.
+    \item \textbf{NAC $\to$ TALE/WRKY} at a proline-rich receptor kinase
+    (Zm00001eb202030, $|d|$\,=\,2.62, drought DOWN): a sole NAC motif
+    replaced by sole TALE and WRKY motifs at a drought-repressed signaling
+    receptor.
+    \item \textbf{HSF $\to$ HD-ZIP/WOX/YABBY} (Zm00001eb371180,
+    $|d|$\,=\,2.42): the sole HSF motif replaced by three developmental
+    TF family motifs in the variant peak.
+\end{itemize}
+
+Whether these switches redirect regulation between specific transcriptional
+programs (e.g., stress versus development) or primarily alter local binding
+affinity cannot be resolved from bulk tissue data (see Discussion). A
+threshold sensitivity analysis (Methods) confirms that both the zero
+self-switch finding and the equal effect sizes across categories are robust
+across log-odds thresholds from 4.0 to 8.0.
+
+\begin{table}[htb]
+\centering
+\caption{\textbf{Bidirectional motif changes at 728 causal bQTL.}
+32.5\% of variants simultaneously disrupt one TF family's motif and create
+another, rewiring rather than simply ablating TF occupancy.}
+\label{tab:creation}
+\begin{tabular}{lrrl}
+\toprule
+\textbf{Category} & \textbf{N} & \textbf{\%} & \textbf{Median $|d|$} \\
+\midrule
+Only disrupted   & 173 & 24.2 & 2.44 \\
+Only created     & 152 & 21.2 & 2.42 \\
+Both (rewired)   & 233 & 32.5 & 2.38 \\
+Neither          & 158 & 22.1 & 2.36 \\
+\midrule
+\textbf{Total}   & \textbf{716} & \textbf{100} & 2.40 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{fig_motif_rewiring.pdf}
+\caption{\textbf{TF family rewiring at causal bQTL.}
+(A)~Transition heatmap: rows show disrupted TF families (B73 allele),
+    columns show created families (NAM allele). No self-switches occur.
+    C2H2~$\to$~TALE and SBP~$\to$~C2H2 are the most frequent transitions.
+(B)~Category breakdown: rewired bQTL (32.5\%) are the largest category,
+    with 22 clean sole-copy switches annotated.}
+\label{fig:rewiring}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{fig_rewiring_effects.pdf}
+\caption{\textbf{Effect sizes are independent of motif change category.}
+(A)~All four categories show comparable effect sizes (median $|d| \approx 2.4$).
+(B)~Among rewired bQTL, clean sole-copy switches ($n$\,=\,22) and partial
+    switches ($n$\,=\,211) produce indistinguishable expression effects.}
+\label{fig:rewiring_fx}
+\end{figure}
+
+
+% ------------------------------------------------------------
+\subsection{Variant distribution across NAM hybrids}
+% ------------------------------------------------------------
+
+The 728 causal variants are distributed across 19 genotyped NAM hybrids with
+striking uniformity (Figure~\ref{fig:hybrid_dist}). Each variant is carried by
+a median of 7 hybrids (range: 3--16), with the distribution peaking at
+intermediate frequencies (5--6 hybrids). No variant is fixed in all 19
+hybrids, indicating that all causal variants are polymorphic in this
+population. Conversely, each hybrid carries 264--308 causal variants
+(36--42\% of the 728), a remarkably narrow range suggesting that the
+\emph{total regulatory variant burden} is approximately equal across diverse
+maize germplasm.
+
+Rare variants (carried by $\leq$4 hybrids) show slightly larger ASE effect
+sizes than common variants ($\rho = -0.11$, $p = 0.003$), consistent with
+purifying selection acting more strongly against large-effect regulatory
+mutations. The effect size (Cohen's $d$) for the causal test ranges from
+1.0 to 14.4 (median 2.4), reflecting substantial allelic expression
+differences.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{fig_causal_bqtl_hybrid_distribution.pdf}
+\caption{\textbf{Distribution of 728 causal bQTL across NAM hybrids.}
+(A)~Histogram of the number of hybrids carrying each variant.
+(B)~ASE effect size (|Cohen's $d$|) versus variant frequency, with
+    weak negative correlation (Spearman $\rho = -0.11$, $p = 0.003$).
+(C)~Number of causal variants per hybrid (264--308 per hybrid).
+(D)~Cumulative distribution of variants by number of carriers.}
+\label{fig:hybrid_dist}
+\end{figure}
+
+
+% ------------------------------------------------------------
+\subsection{Target genes encode the regulatory layer, not metabolic enzymes}
+% ------------------------------------------------------------
+
+Functional characterization of the 728 target genes reveals a clear bias
+toward regulatory and signaling functions (Figure~\ref{fig:signaling}A):
+kinases/phosphorylation (76 genes, 10.4\%), chaperones/HSPs (63, 8.7\%),
+biosynthetic enzymes (39, 5.4\%), transcription factors (32, 4.4\%),
+translation machinery (29, 4.0\%), signal transduction (26, 3.6\%),
+and transporters (17, 2.3\%).
+
+Pathway enrichment analysis (Fisher's exact test against genome background)
+identified five significantly enriched KEGG pathways: pentose phosphate
+(OR\,=\,3.37, $p$\,=\,0.012), steroid biosynthesis (OR\,=\,3.60,
+$p$\,=\,0.016), amino sugar/nucleotide sugar metabolism (OR\,=\,2.11,
+$p$\,=\,0.021), ubiquitin-mediated proteolysis (OR\,=\,2.14,
+$p$\,=\,0.015), and pantothenate/CoA biosynthesis (OR\,=\,4.32,
+$p$\,=\,0.018). Enriched GO terms include pentose metabolic process
+(OR\,=\,19.2, $p$\,=\,$1.6 \times 10^{-4}$) and regulation of hormone
+biosynthesis (OR\,=\,5.1, $p$\,=\,0.011).
+
+Notably, large metabolic gene clusters (benzoxazinoid, terpene synthase) are
+largely absent from the 728 set---only Bx9 (UDP-glucosyltransferase) and a
+single flavonoid 3'-monooxygenase are present. This confirms that natural
+cis-regulatory variation predominantly targets the \emph{regulatory layer}:
+the variant does not change an enzyme directly, but modulates how much a
+regulatory gene is expressed from one allele, which cascades to downstream
+effects.
+
+We classified all 728 proteins into cellular functional categories
+(Figure~\ref{fig:signaling}): signal transduction ($n$\,=\,129) is the
+largest, followed by protein quality control ($n$\,=\,64), metabolism
+($n$\,=\,50), translation ($n$\,=\,31), and transcription factors
+($n$\,=\,28). Receptors/sensors ($n$\,=\,21), membrane/transport
+($n$\,=\,24), and hormone signaling ($n$\,=\,7) complete the picture. Effect
+sizes are comparable across all layers (median $|d|$\,=\,2.4--2.9),
+indicating no preferential impact on any particular level of the signaling
+hierarchy.
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{fig_signaling_layers.pdf}
+\caption{\textbf{Functional architecture of 728 causal bQTL target genes.}
+(A)~Distribution across functional categories, with mean effect size annotated.
+(B)~TF motif $\times$ functional category heatmap showing that all TF families
+    regulate targets across all layers.
+(C)~Effect size distributions are comparable across functional categories.
+(D)~Drought response (|log2FC|\,$>$\,1) by functional category; signal transduction
+    and protein quality control show the strongest response.}
+\label{fig:signaling}
+\end{figure}
+
+
+% ------------------------------------------------------------
+\subsection{Gene $\times$ TF family heatmap reveals co-regulation structure}
+% ------------------------------------------------------------
+
+To map which TF family motifs are disrupted at each gene's bQTL, we scanned
+all 728 variant positions against 259 PWMs. Of 728 genes, 662 (90.9\%) have
+at least one identifiable TF family motif at the variant position, covering 35
+families. The most frequently disrupted families are C2H2 and MYB (each 160
+genes), ERF (151), NAC (118), TALE (115), and MIKC-MADS (107).
+
+Hierarchical clustering of the gene $\times$ TF family binary matrix
+(Figure~\ref{fig:heatmap}) reveals that most genes have 2--5 TF families
+disrupted at their bQTL position, reflecting the overlapping nature of TF
+binding motifs. Only 134 genes (18.4\%) have a single exclusive TF family
+disrupted. Among these, ERF and MYB each exclusively control 20 target genes,
+followed by NAC (9), Dof (8), and SBP (7).
+
+The Jaccard overlap between TF family target sets
+(Figure~\ref{fig:coreg}B) shows moderate overlap ($J$\,=\,0.2--0.4),
+confirming that the same genes often have motifs for multiple families
+disrupted at a single variant position. This is consistent with the dense
+packing of TF motifs in regulatory regions and the degenerate nature of
+PWM matching.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.95\textwidth]{fig_gene_motif_heatmap.pdf}
+\caption{\textbf{Gene $\times$ TF family heatmap.}
+662 genes with identifiable disrupted motifs (rows) $\times$ 35 TF families
+(columns). Blue indicates the TF family's motif is disrupted at the bQTL
+position. Genes are hierarchically clustered by Jaccard distance; bar chart
+below shows total genes per family.}
+\label{fig:heatmap}
+\end{figure}
+
+
+% ------------------------------------------------------------
+\subsection{Co-regulation patterns and TF family convergence}
+% ------------------------------------------------------------
+
+Despite the diversity of disrupted TF families, all families regulate
+strikingly similar target gene profiles (Figure~\ref{fig:signaling}B). The
+top target functions for every major TF family are dominated by signal
+transduction, protein quality control, and transcription factors. No family
+is enriched for a specific functional category (Figure~\ref{fig:signaling}B).
+
+The coefficient of variation (CV) in mean effect size across TF families is
+only 5.5\%, confirming that TF identity has minimal influence on the
+magnitude of allelic expression differences. This convergence supports the
+model that \emph{chromatin accessibility}---whether the variant is in open
+chromatin and physically accessible to any TF---is the primary determinant of
+functional impact, not which specific TF family's motif is disrupted
+\citep{engelhorn2025}.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{fig_coregulation_network.pdf}
+\caption{\textbf{Co-regulation patterns among 728 causal bQTL.}
+(A)~Genes exclusively regulated by a single TF family (sole-motif groups).
+    ERF and MYB each control 20 genes exclusively.
+(B)~Jaccard similarity between TF family target gene sets. Moderate overlap
+    ($J$\,=\,0.2--0.4) reflects shared motif occurrence at variant sites.}
+\label{fig:coreg}
+\end{figure}
+
+
+% ------------------------------------------------------------
+\subsection{TF cascade network: 34 transcription factor targets
+amplify regulatory variation}
+% ------------------------------------------------------------
+
+Among the 728 target genes, 34 are themselves transcription factors, including
+MYB30, MYB44, WRKY50, WRKY51, NAC67, NAC82, bHLH68, bHLH112, and bHLH128.
+These create regulatory cascades where a single upstream motif disruption can
+propagate to many downstream genes (Figure~\ref{fig:cascade}).
+
+The most powerful cascade nodes are:
+\begin{itemize}
+    \item \textbf{MYB30} ($|d|$\,=\,5.31, drought DOWN): disrupted by a MYB
+    motif variant, MYB30 regulates 96 downstream genes in the 728 set. Its
+    strong drought repression suggests it normally promotes growth-related
+    targets that are silenced under stress.
+    \item \textbf{MYB44} ($|d|$\,=\,2.28, drought UP): disrupted by a GATA
+    motif variant, regulates 96 downstream genes. Its drought induction and
+    known role in ABA signaling make it a key stress-responsive cascade node.
+    \item \textbf{WRKY51} ($|d|$\,=\,2.03, drought UP): disrupted by
+    GATA/HD-ZIP/WOX/YABBY motifs, a known stress-responsive TF.
+    \item \textbf{bHLH112} ($|d|$\,=\,2.51, drought UP): disrupted by a TALE
+    motif, involved in drought and salt tolerance.
+\end{itemize}
+
+These cascade TFs have opposing drought responses (MYB30 DOWN vs MYB44 UP),
+suggesting that natural variants in their promoters can rewire the
+drought response by simultaneously reducing one branch of the regulatory
+network while activating another.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=\textwidth]{fig_tf_cascade_network.pdf}
+\caption{\textbf{TF cascade network among 728 causal bQTL targets.}
+34 TF genes (middle layer) are themselves targets of bQTL that disrupt
+upstream motifs (top layer). Each TF in turn regulates downstream target genes
+(bottom layer), creating regulatory amplification cascades.}
+\label{fig:cascade}
+\end{figure}
+
+
+% ------------------------------------------------------------
+\subsection{Drought integration: 27\% of target genes are
+drought-responsive}
+% ------------------------------------------------------------
+
+Cross-referencing with drought expression data from \citet{engelhorn2025}
+reveals that 16.5\% of target genes are drought-upregulated
+(log2FC\,$>$\,1) and 10.7\% are drought-downregulated (log2FC\,$<$\,$-1$),
+with a slight overall induction bias (mean log2FC\,=\,$+$0.206). Among
+functional categories, signal transduction and protein quality control show the
+strongest drought response asymmetry (Figure~\ref{fig:signaling}D).
+
+Notable drought-responsive targets include:
+\begin{itemize}
+    \item \textbf{CIPK31} (CBL-interacting protein kinase): log2FC\,=\,$+$1.38,
+    $|d|$\,=\,4.11---a calcium-signaling kinase with one of the largest effect
+    sizes among drought-responsive genes.
+    \item \textbf{PYR1} (ABA receptor): $|d|$\,=\,2.44---the bQTL variant
+    affects expression of the core ABA perception machinery.
+    \item \textbf{ARF7} (auxin response factor): $|d|$\,=\,3.47---linking
+    cis-regulatory variation to auxin-mediated growth responses.
+    \item \textbf{Phosphoenolpyruvate carboxylase 1}: log2FC\,=\,$+$3.58,
+    $|d|$\,=\,2.48---the most drought-induced metabolic gene, connecting
+    carbon metabolism to stress adaptation.
+\end{itemize}
+
+These examples illustrate how causal bQTL can be traced from a single
+nucleotide change through TF binding disruption to altered expression of
+defined stress signaling components.
+
+
+% ------------------------------------------------------------
+\subsection{Known signaling modules within the 728 set}
+% ------------------------------------------------------------
+
+Several characterized plant signaling pathways are represented by multiple
+members in the 728 set:
+
+\paragraph{Auxin signaling.} Five genes including IAA5 (auxin-responsive
+protein), ARF7 (auxin response factor), and auxin-induced protein 15A are
+regulated by variants disrupting C2H2, TALE, Dof, and TCP motifs.
+
+\paragraph{ABA signaling.} Fourteen genes including the PYR1 ABA receptor,
+regulated by variants in ERF, TCP, and CPP motifs. This module connects
+genotype to the core drought perception pathway.
+
+\paragraph{HSP/chaperone network.} Forty-eight genes form the largest coherent
+module, with disrupted motifs spanning many TF families. This convergence
+suggests that chaperone expression is broadly sensitive to regulatory
+variation, consistent with chaperones acting as phenotypic buffers
+\citep{rutherford1998}.
+
+\paragraph{Ubiquitin--proteasome system.} Thirty-two genes involved in protein
+turnover, enriched in the 728 set (OR\,=\,2.14, $p$\,=\,0.015). Targeted
+protein degradation is a central mechanism for rapid signal transduction in
+plants.
+
+
+% ============================================================
+\section{Discussion}
+% ============================================================
+
+Our analysis of 728 high-confidence causal bQTL provides several insights
+into the architecture of natural gene expression variation in maize.
+
+\paragraph{The regulatory layer is the primary target.}
+The 728 causal variants overwhelmingly target signaling and regulatory
+proteins (kinases, TFs, chaperones, transporters) rather than metabolic
+enzymes or structural proteins. This is consistent with the omnigenic model
+\citep{boyle2017}, where core gene expression is modulated by a large network
+of peripheral regulatory genes. Natural selection appears to act on the
+\emph{wiring} of the regulatory network rather than on the enzymes themselves.
+
+\paragraph{Chromatin accessibility gates functional variation.}
+The finding that sole-copy rates range from 9\% (MYB) to 100\% (AP2)
+within the ${\sim}$160\,bp binding peak---yet both sole-copy and redundant
+bQTL produce comparable effect sizes ($|d|$\,=\,2.3 vs 2.4)---supports a
+model of quantitative modulation rather than binary on/off switching.
+Combined with the observation that all TF families regulate similar target
+profiles, this suggests that the primary determinant of whether a variant
+``matters'' is not which TF it affects, but whether the variant is in open,
+accessible chromatin. This echoes recent findings in human genetics where
+chromatin accessibility is the strongest predictor of GWAS variant
+functionality \citep{finucane2015}.
+
+\paragraph{Variants rewire TF occupancy, not just disrupt it.}
+The finding that 32.5\% of bQTL simultaneously disrupt one TF family's motif
+and create another challenges the standard ``loss-of-binding'' model of
+regulatory variation. However, three observations suggest that the TF family
+\emph{label} of the switch may be less important than the change in local
+binding energy: (1)~effect sizes are identical across all categories
+(disrupted, created, rewired, neither); (2)~switching to a more
+abundantly expressed TF family does not predict upregulation (Spearman
+$\rho$\,=\,0.06, $p$\,=\,0.36); and (3)~growth/developmental versus
+stress/defense switches are symmetric (44\% vs 56\%, binomial
+$p$\,=\,0.45). These results are consistent with a model where the variant
+alters the \emph{physical properties} of the binding site (DNA shape,
+flexibility, binding free energy) in a way that affects occupancy by
+whichever TF happens to be present, rather than redirecting regulation from
+one specific transcriptional program to another.
+
+A critical caveat is that our data derive from bulk leaf tissue, averaging
+signal across mesophyll, epidermis, bundle sheath, guard cells, and
+vasculature. Different cell types express different TF repertoires: a CAMTA
+motif may be functionally decisive in guard cells (where calcium signaling
+dominates), while an ERF motif may matter in mesophyll (ethylene response).
+In bulk, each TF family is the ``important'' one in some subset of cells,
+producing the appearance that all families are equivalent. Cell-type-resolved
+MOA-seq or single-cell chromatin accessibility data would likely reveal
+cell-type-specific TF hierarchies where family identity does predict effect
+direction---a prediction that is now directly testable.
+
+\paragraph{Regulatory cascades amplify single-variant effects.}
+The 34 TF genes that are themselves bQTL targets create an amplification
+layer: a variant in MYB30's promoter does not just change MYB30 expression,
+but potentially affects 96 downstream genes. Importantly, cascade TFs with
+opposing drought responses (MYB30 DOWN, MYB44 UP) suggest that natural
+variation can simultaneously activate and repress different branches of the
+stress response network.
+
+\paragraph{Implications for precision breeding.}
+Each of the 728 variants represents a defined molecular switch: introducing
+or restoring a single nucleotide quantitatively modulates TF binding within
+the peak, causally shifting expression with a quantified effect size (Cohen's
+$d$). The median variant is shared by 7 hybrids, making effects testable
+across genetic backgrounds. Combined with the interactive gene atlas
+(Supplementary File~S1), this provides a prioritized catalog for CRISPR-based
+promoter engineering, where the predicted effect direction and magnitude are
+known \emph{a priori}.
+
+\paragraph{Limitations.}
+Our analysis uses 19 genotyped hybrids, limiting statistical power for
+rare variants. The single-bQTL design excludes 25\% of significant genes
+with multiple bQTL, potentially missing combinatorial regulatory effects.
+TF family assignments depend on PWM quality, and motifs for some families
+may be underrepresented in the PlantTFDB~5.0 database. The phenotypic
+consequences of these regulatory variants cannot be resolved at the
+individual-gene level with $N$\,=\,19 hybrids and will require larger
+populations or direct functional validation.
+
+
+% ============================================================
+\section{Methods}
+% ============================================================
+
+\subsection{Data sources}
+All bQTL data derive from \citet{engelhorn2025}, comprising MOA-seq binding
+peaks and allele-specific expression measurements from 25~maize F1 hybrids
+(B73 $\times$ NAM founders) under well-watered conditions. Genotype data
+from assembled founder genomes are available for 19 of 25 hybrids (excluding
+A188, A619, CML103, Mo17, W22). Gene annotations use the B73 NAM5 reference
+genome (Zm-B73-REFERENCE-NAM-5.0), with functional annotations from EntAP
+and EggNOG~5.0.
+
+\subsection{Genotype-stratified causal test}
+For each bQTL--gene pair, we extracted the genotype (reference or variant
+allele) at the bQTL position across 19 hybrids. We then compared the
+distribution of ASE values (log2(B73/NAM) expression ratios) between the
+variant-carrying and reference groups using a two-sided Mann--Whitney $U$
+test. Effect sizes were quantified as Cohen's $d$. $P$-values were corrected
+for multiple testing using the Benjamini--Hochberg procedure.
+
+\subsection{Motif scanning and bidirectional analysis}
+TF binding motifs were scanned using 259 PWMs from PlantTFDB~5.0 (36 TF
+families) with a log-odds threshold of 6.0. The variant-overlap constraint
+required motif hits to physically overlap the variant nucleotide position
+($\pm$28\,bp, the maximum PWM width). Motif redundancy was assessed within
+actual MOA-seq binding peaks (tightest peak per bQTL across all 25 hybrids).
+For bidirectional analysis, both the B73 reference and NAM variant sequences
+were scanned; motifs present only in the reference were classified as
+disrupted, those present only in the variant as created.
+
+\subsection{Threshold sensitivity analysis}
+To assess robustness, the bidirectional motif analysis was repeated at seven
+log-odds thresholds (4.0, 5.0, 5.5, 6.0, 6.5, 7.0, 8.0). As expected, the
+rewired fraction varies with threshold (18.5\%--59.9\%), reflecting more
+permissive motif calling at lower thresholds. However, three key findings
+are stable across all thresholds: (1)~zero self-switches at every threshold;
+(2)~motif creation remains substantial (14.6\%--21.3\% of bQTL exclusively
+create motifs); and (3)~effect sizes are indistinguishable across categories
+at every threshold (median $|d|$ range 2.29--2.54).
+
+\subsection{Functional category classification}
+All 728 genes were classified into cellular functional categories based on
+keyword matching against EntAP protein descriptions, EggNOG COG
+descriptions, UniProt GO terms, and KEGG pathway annotations. Layers include
+receptor/sensor, membrane/transport, signal transduction, protein quality
+control, transcription factor, chromatin/epigenetic, translation, metabolism,
+hormone signaling, and redox/stress response.
+
+\subsection{Interactive atlas}
+The Maize Causal bQTL Atlas (\url{https://mbanf.github.io/causal-bqtl-atlas/})
+is an interactive HTML visualization built with D3.js~v7. It includes:
+a force-directed layered cell diagram of all 728 genes colored by
+regulatory layer; rich tooltips with gene description, effect size,
+drought response, disrupted and created TF motifs, motif rewiring
+category, sole-copy status within MOA-seq peaks, and hybrid carriers;
+filterable by motif rewiring category (rewired, only disrupted, only
+created, neither), regulatory layer, disrupted and created TF family
+(union filter), drought category, and specific hybrid; and an optional
+OpenAI API integration for AI-powered biological summaries of selected
+gene sets.
+
+
+% ============================================================
+\section{Data Availability}
+% ============================================================
+
+All bQTL data are from \citet{engelhorn2025}: SRA accession PRJNA1101486,
+GEO accession GSE294039. The 728-gene atlas (gene\_atlas\_728.csv),
+interactive visualization (gene\_atlas\_728\_interactive.html), and analysis
+scripts are available at \url{https://github.com/mbanf/causal-bqtl-atlas}.
+
+
+% ============================================================
+% REFERENCES
+% ============================================================
+
+\bibliographystyle{unsrtnat}
+\begin{thebibliography}{99}
+
+\bibitem[Engelhorn et al.(2025)]{engelhorn2025}
+Engelhorn, J., Snodgrass, S.J., Banf, M., et al. (2025).
+A maize leaf pan-cistrome catalogs the cis-regulatory variation underlying
+functional trait heritability.
+\emph{Nature Genetics}, s41588-025-02246-7.
+
+\bibitem[Boyle et al.(2017)]{boyle2017}
+Boyle, E.A., Li, Y.I., Pritchard, J.K. (2017).
+An expanded view of complex traits: from polygenic to omnigenic.
+\emph{Cell}, 169(7), 1177--1186.
+
+\bibitem[Finucane et al.(2015)]{finucane2015}
+Finucane, H.K., et al. (2015).
+Partitioning heritability by functional annotation using genome-wide
+association summary statistics.
+\emph{Nature Genetics}, 47(11), 1228--1235.
+
+\bibitem[Rutherford and Lindquist(1998)]{rutherford1998}
+Rutherford, S.L. and Lindquist, S. (1998).
+Hsp90 as a capacitor for morphological evolution.
+\emph{Nature}, 396(6709), 336--342.
+
+\bibitem[Segal et al.(2008)]{segal2008}
+Segal, E. and Widom, J. (2008).
+From DNA sequence to transcriptional behaviour: a quantitative approach.
+\emph{Nature Reviews Genetics}, 10(7), 443--456.
+
+\bibitem[Levo and Segal(2012)]{levo2012}
+Levo, M. and Segal, E. (2012).
+In pursuit of design principles of regulatory sequences.
+\emph{Nature Reviews Genetics}, 13(11), 786--798.
+
+\end{thebibliography}
+
+
+\end{document}

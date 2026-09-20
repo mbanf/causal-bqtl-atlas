@@ -1,0 +1,41 @@
+# Large result CSVs (>10MB) — regenerable from pipeline
+results/quantitative_modulation_full.csv
+results/hybrid_binding_features.csv
+results/bound_region_motifs.csv
+results/tf_saturation_analysis_table.csv
+results/pan_cistrome_peaks.csv
+
+# Large intermediate files in scripts
+scripts/ramp_training/bqtl_peak_mapping.csv
+scripts/ramp_training/pooled_moa_bqtl_results.csv
+
+# Symlinked data (lives in shared_data/)
+data/raw
+data/processed
+
+# Symlinked cross-project files
+results/regulatory_chains.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# LaTeX build artifacts
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+paper/archive/*.aux
+paper/archive/*.out
+
+# Logs
+*.log
+results/logs/
+main.log
+53_download.log
