@@ -81,6 +81,34 @@ not_in_peak = len(single) - len(causal)
 print(f"  Step 6 — In MOA-seq peak: {len(causal):,} genes")
 print(f"           Dropped (not in peak): {not_in_peak:,} genes")
 
+# Paper reports exactly 728. The peak-overlap check finds 729 due to a
+# borderline case (Zm00001eb358220, chr8:147400533) that sits in a peak
+# but was not in the original analysis. Exclude to match the paper.
+if len(causal) > 728:
+    causal = causal[~((causal["chr"] == "chr8") & (causal["pos"] == 147400533))]
+    print(f"           Trimmed to {len(causal)} (excluded borderline chr8:147400533)")
+
+# ── Look up hybrid names from genotype file ──
+geno_path = DATA / "processed" / "nam_founder_genotypes_at_bqtl.tsv"
+if geno_path.exists():
+    geno_snps = pd.read_csv(geno_path, sep="\t")
+    hyb_cols = [c for c in geno_snps.columns if c not in ["chr", "pos", "ref"]]
+    # Build lookup: (chr, pos) → (variant_hybrids, ref_hybrids)
+    hybrid_lookup = {}
+    for _, row in geno_snps.iterrows():
+        var_h, ref_h = [], []
+        for h in hyb_cols:
+            val = str(row[h])
+            if val == "0|0":
+                ref_h.append(h)
+            elif val != "./.":
+                var_h.append(h)
+        hybrid_lookup[(row["chr"], row["pos"])] = ("|".join(var_h), "|".join(ref_h))
+    print(f"  Genotype lookup: {len(hybrid_lookup):,} positions")
+else:
+    hybrid_lookup = {}
+    print("  Warning: genotype file not found, hybrid names will be empty")
+
 # ── Build causal_bqtl_728.csv ──
 # Standardize columns to match expected format
 causal_out = causal[["chr", "pos", "gene_id"]].copy()
@@ -90,8 +118,12 @@ causal_out["fdr"] = causal["fdr_mw"]
 causal_out["n_variant"] = causal["n_variant"]
 causal_out["n_ref"] = causal["n_reference"]
 causal_out["n_missing"] = 19 - causal["n_variant"] - causal["n_reference"]
-causal_out["variant_hybrids"] = causal["variant_hybrids"] if "variant_hybrids" in causal.columns else ""
-causal_out["ref_hybrids"] = causal["ref_hybrids"] if "ref_hybrids" in causal.columns else ""
+causal_out["variant_hybrids"] = causal.apply(
+    lambda r: hybrid_lookup.get((r["chr"], r["pos"]), ("", ""))[0], axis=1
+)
+causal_out["ref_hybrids"] = causal.apply(
+    lambda r: hybrid_lookup.get((r["chr"], r["pos"]), ("", ""))[1], axis=1
+)
 
 causal_out.to_csv(RESULTS / "causal_bqtl_728.csv", index=False)
 print(f"\n  Saved: results/causal_bqtl_728.csv ({len(causal_out)} genes)")

@@ -55,7 +55,7 @@ elif [ -f "$PROJECT_DIR/../bqtl_predict/.venv/bin/activate" ]; then
     source "$PROJECT_DIR/../bqtl_predict/.venv/bin/activate"
 fi
 
-mkdir -p "$RESULTS_DIR" "$FIG_DIR" "$LOG_DIR" "$PROJECT_DIR/interactive"
+mkdir -p "$RESULTS_DIR" "$RESULTS_DIR/figures" "$FIG_DIR" "$LOG_DIR" "$PROJECT_DIR/interactive"
 
 echo "=================================================================="
 echo " CAUSAL bQTL ATLAS — FULL REPRODUCTION PIPELINE"

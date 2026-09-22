@@ -94,12 +94,18 @@ pheno_df.index.name = 'hybrid'
 print(f"\nPhenotype data for {len(pheno_df)} founders")
 print(pheno_df.describe().round(1))
 
+# Build case-insensitive lookup for phenotype index
+pheno_name_map = {h.upper(): h for h in pheno_df.index}
+
 # For each causal bQTL: compare phenotype means between variant-carrying
 # and reference hybrids
 results_pheno = []
 for _, row in causal.iterrows():
-    var_hybrids = row['variant_hybrids'].split('|') if pd.notna(row['variant_hybrids']) else []
-    ref_hybrids = row['ref_hybrids'].split('|') if pd.notna(row['ref_hybrids']) else []
+    var_raw = row['variant_hybrids'].split('|') if pd.notna(row['variant_hybrids']) and str(row['variant_hybrids']).strip() else []
+    ref_raw = row['ref_hybrids'].split('|') if pd.notna(row['ref_hybrids']) and str(row['ref_hybrids']).strip() else []
+    # Map hybrid names to phenotype index (case-insensitive)
+    var_hybrids = [pheno_name_map[h.upper()] for h in var_raw if h.upper() in pheno_name_map]
+    ref_hybrids = [pheno_name_map[h.upper()] for h in ref_raw if h.upper() in pheno_name_map]
 
     for trait in ['DTA', 'height_cm', 'ear_ht_ratio']:
         var_vals = [pheno_df.loc[h, trait] for h in var_hybrids if h in pheno_df.index]
@@ -127,10 +133,17 @@ print(f"\nTested {len(pheno_results)} gene×trait combinations")
 
 # FDR correction per trait
 from statsmodels.stats.multitest import multipletests
-for trait in ['DTA', 'height_cm', 'ear_ht_ratio']:
-    mask = pheno_results['trait'] == trait
-    _, fdr, _, _ = multipletests(pheno_results.loc[mask, 'pval'], method='fdr_bh')
-    pheno_results.loc[mask, 'fdr'] = fdr
+if len(pheno_results) > 0:
+    for trait in ['DTA', 'height_cm', 'ear_ht_ratio']:
+        mask = pheno_results['trait'] == trait
+        if mask.sum() > 0:
+            _, fdr, _, _ = multipletests(pheno_results.loc[mask, 'pval'], method='fdr_bh')
+            pheno_results.loc[mask, 'fdr'] = fdr
+else:
+    print("  WARNING: No gene×trait tests had enough hybrids (need ≥3 per group)")
+    pheno_results = pd.DataFrame(columns=['gene_id','chr','pos','trait','mean_variant',
+                                          'mean_ref','diff','pval','n_var','n_ref',
+                                          'cohens_d_ase','fdr'])
 
 sig_pheno = pheno_results[pheno_results['fdr'] < 0.05]
 print(f"\nSignificant gene×trait associations (FDR<0.05): {len(sig_pheno)}")
@@ -437,7 +450,7 @@ data_box = [
     enz_df.loc[enz_df['is_reversible'], 'abs_d'].dropna(),
     enz_df.loc[~enz_df['is_enzyme'], 'abs_d'].dropna()
 ]
-bp = ax6.boxplot([d.values for d in data_box], labels=cats, patch_artist=True)
+bp = ax6.boxplot([d.values for d in data_box], tick_labels=cats, patch_artist=True)
 for patch, color in zip(bp['boxes'], ['#E53935', '#FFC107', '#BDBDBD']):
     patch.set_facecolor(color)
     patch.set_alpha(0.7)

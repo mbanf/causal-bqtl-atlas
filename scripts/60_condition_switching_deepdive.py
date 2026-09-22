@@ -36,6 +36,7 @@ from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent
 DATA = BASE / 'data' / 'processed'
+RESULTS = BASE / 'results'
 FIG_DIR = BASE / 'figures' / 'paper_figures'
 
 print("=" * 70)
@@ -44,7 +45,7 @@ print("=" * 70)
 
 # ── 1. Load data ──
 print("\n1. Loading data...")
-rdf = pd.read_csv(BASE / 'ww_vs_drought_genotype_bqtl.csv')
+rdf = pd.read_csv(RESULTS / 'ww_vs_drought_genotype_bqtl.csv')
 rdf_ww = rdf[rdf['condition'] == 'WW'].copy()
 rdf_ds = rdf[rdf['condition'] == 'DS'].copy()
 
@@ -173,7 +174,7 @@ for a, b in [('constitutive', 'non_functional'), ('ww_only', 'ds_only')]:
 
 # ── 6. TF motif context ──
 print("\n6. TF motif context at switching bQTL...")
-grammar = pd.read_csv(BASE / 'functional_bqtl_grammar.csv')
+grammar = pd.read_csv(RESULTS / 'functional_bqtl_grammar.csv')
 # Join grammar features to merged data
 grammar_key = grammar[['chr', 'pos', 'gene_id', 'n_families_at_variant',
                          'n_motifs_at_variant', 'families_at_variant',
@@ -483,7 +484,7 @@ print(f"  Saved: figures/fig17_switching_deepdive.pdf")
 plt.close()
 
 # ── Save results ──
-merged.to_csv(BASE / 'condition_switching_deepdive.csv', index=False)
+merged.to_csv(RESULTS / 'condition_switching_deepdive.csv', index=False)
 print(f"\n  Saved: condition_switching_deepdive.csv")
 
 print("\n" + "=" * 70)
