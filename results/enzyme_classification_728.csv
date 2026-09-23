@@ -1,0 +1,729 @@
+gene_id,func_category,enzyme_types,is_committed,is_reversible,is_enzyme,abs_d,description
+Zm00001eb284450,Unknown,ubiquitin|ligase,True,False,True,1.6809466919998697,xp_006655126.2 e3 ubiquitin-protein ligase sinat5 [oryza brachyantha] e3 ubiquitin-protein ligase that mediates ubiquitination and subsequent proteasomal degradation of target proteins. e3 ubiquitin l
+Zm00001eb071290,Unknown,none,False,False,False,2.1910098163731746,xp_021318518.1 uncharacterized protein loc8072313 isoform x1 [sorghum bicolor] yt521-b-like domain
+Zm00001eb213050,Unknown,none,False,False,False,2.251004547954921,xp_004981444.1 uncharacterized protein loc101773895 [setaria italica] nan
+Zm00001eb363730,Unknown,none,False,False,False,2.819579796012812,xp_002459025.1 long chain base biosynthesis protein 2d [sorghum bicolor] c-palmitoyltransferase activity
+Zm00001eb323570,Unknown,none,False,False,False,2.326173244124276,"xp_002462979.2 peptide chain release factor prfb1, chloroplastic [sorghum bicolor] pcrf"
+Zm00001eb370490,Unknown,none,False,False,False,5.369328196090953,xp_021311575.1 probable protein abil5 isoform x2 [sorghum bicolor] protein abil5 isoform x1
+Zm00001eb117470,Unknown,none,False,False,False,1.933356301671669,xp_002461478.1 uncharacterized protein loc8086421 [sorghum bicolor] nan
+Zm00001eb358310,Unknown,none,False,False,False,4.062382971328123,xp_021310930.1 probable aldo-keto reductase 1 isoform x2 [sorghum bicolor] aldo/keto reductase family
+Zm00001eb228660,Unknown,none,False,False,False,1.667096797464452,xp_002437637.1 epidermal growth factor receptor substrate 15-like 1 isoform x1 [sorghum bicolor] eps15 homology domain
+Zm00001eb356280,Unknown,none,False,False,False,2.668331204954375,
+Zm00001eb084920,Unknown,none,False,False,False,2.3696942297445207,xp_004953540.1 60s ribosomal protein l12-1 [setaria italica] belongs to the universal ribosomal protein ul11 family
+Zm00001eb172780,Unknown,kinase,True,False,True,3.0310799984111823,xp_021321172.1 sphingoid long-chain bases kinase 1 isoform x2 [sorghum bicolor] diacylglycerol kinase catalytic domain (presumed)
+Zm00001eb289530,Unknown,none,False,False,False,2.2084959121108656,xp_002439908.1 protein yipf1 homolog [sorghum bicolor] yip1 domain
+Zm00001eb002060,Unknown,none,False,False,False,3.089173372090931,"xp_002468591.1 adp,atp carrier protein 1, mitochondrial [sorghum bicolor] belongs to the mitochondrial carrier (tc 2.a.29) family"
+Zm00001eb218270,Unknown,none,False,False,False,1.4031557575826,"xp_003561615.1 protein photosystem i assembly 2, chloroplastic isoform x1 [brachypodium distachyon] dnaj hsp40 cysteine-rich domain superfamily protein"
+Zm00001eb131860,Unknown,none,False,False,False,2.648928550238483,xp_002457859.1 protein sodium potassium root defective 1 [sorghum bicolor] heavy-metal-associated domain
+Zm00001eb335380,Unknown,none,False,False,False,3.8109937345835183,xp_052140472.1 delta(7)-sterol-c5(6)-desaturase-like [oryza glaberrima] belongs to the sterol desaturase family
+Zm00001eb330450,Unknown,none,False,False,False,2.9306116708948107,xp_002463372.2 f-actin-capping protein subunit alpha [sorghum bicolor] f-actin-capping proteins bind in a ca(2 )-independent manner to the fast growing ends of actin filaments (barbed end) thereby blo
+Zm00001eb201100,Unknown,none,False,False,False,5.598555575237356,xp_004978846.1 serine/arginine repetitive matrix protein 1 [setaria italica] nan
+Zm00001eb360260,Unknown,none,False,False,False,2.5420296378071634,xp_004969524.2 protein ataf2 [setaria italica] no apical meristem (nam) protein
+Zm00001eb314230,Unknown,none,False,False,False,1.7220254620463895,xp_021308282.1 protein gamete expressed 1 [sorghum bicolor] protein gamete expressed
+Zm00001eb204030,Unknown,none,False,False,False,3.776154804882046,xp_021315064.1 protein rdm16 isoform x1 [sorghum bicolor] pre-mrna processing factor 3 (prp3)
+Zm00001eb106240,Unknown,kinase,True,False,True,0.774454218968955,"xp_002460802.1 pyruvate, phosphate dikinase regulatory protein, chloroplastic [sorghum bicolor] bifunctional serine threonine kinase and phosphorylase involved in the dark light-mediated regulation of"
+Zm00001eb252460,Unknown,none,False,False,False,2.800267841073044,xp_004953663.1 17.8 kda heat shock protein [setaria italica] belongs to the small heat shock protein (hsp20) family
+Zm00001eb045280,Unknown,none,False,False,False,4.228606261614184,xp_021306524.1 vacuolar protein sorting-associated protein 52 a isoform x1 [sorghum bicolor] vps52 / sac2 family
+Zm00001eb215480,Unknown,none,False,False,False,2.0849681970533394,xp_002463926.1 endoplasmic reticulum oxidoreductin-1 [sorghum bicolor] endoplasmic reticulum oxidoreductin 1 (ero1)
+Zm00001eb010900,Unknown,kinase,True,False,True,3.0203014131688506,"xp_002465546.1 phosphomevalonate kinase, peroxisomal [sorghum bicolor] ghmp kinases n terminal domain"
+Zm00001eb043450,Unknown,none,False,False,False,1.784514558719577,"xp_002464366.1 uncharacterized protein loc8065156 [sorghum bicolor] protein of unknown function, duf538"
+Zm00001eb068910,Unknown,none,False,False,False,2.9487015875250875,xp_002448622.1 binding partner of acd11 1 [sorghum bicolor] rna recognition motif
+Zm00001eb395470,Unknown,none,False,False,False,3.936818185586951,xp_003558010.1 probable arabinosyltransferase arad1 [brachypodium distachyon] exostosin family
+Zm00001eb155350,Unknown,none,False,False,False,1.861742683775256,xp_002458377.1 anoctamin-like protein os01g0706700 [sorghum bicolor] calcium-activated chloride channel
+Zm00001eb125670,Unknown,ubiquitin,True,False,True,2.153081217691684,xp_002457448.1 probable ubiquitin-conjugating enzyme e2 23 [sorghum bicolor] belongs to the ubiquitin-conjugating enzyme family
+Zm00001eb356410,Unknown,none,False,False,False,1.002036770545491,xp_052155031.1 nucleosome assembly protein 1;2 [oryza glaberrima] belongs to the nucleosome assembly protein (nap) family
+Zm00001eb064190,Unknown,none,False,False,False,3.4095005292035405,xp_002463535.1 poly(adp-ribose) glycohydrolase 1 [sorghum bicolor] poly (adp-ribose) glycohydrolase (parg)
+Zm00001eb104710,Unknown,none,False,False,False,1.991401602261453,xp_021307826.1 mitochondrial amidoxime reducing component 2-like [sorghum bicolor] mosc n-terminal beta barrel domain
+Zm00001eb387530,Unknown,none,False,False,False,3.517068454399342,xp_021304932.1 nudix hydrolase 2 isoform x3 [sorghum bicolor] belongs to the nudix hydrolase family
+Zm00001eb094240,Unknown,none,False,False,False,2.7660951915360297,"xp_002450097.1 mrna turnover protein 4 homolog [sorghum bicolor] component of the ribosome assembly machinery. nuclear paralog of the ribosomal protein p0, it binds pre-60s subunits at an early stage "
+Zm00001eb240160,Unknown,none,False,False,False,3.150560673239874,xp_004951439.1 aminopeptidase m1-a [setaria italica] erap1-like c-terminal domain
+Zm00001eb385600,Unknown,none,False,False,False,1.945641899503812,"xp_002438639.1 adenine nucleotide transporter bt1, chloroplastic/mitochondrial [sorghum bicolor] belongs to the mitochondrial carrier (tc 2.a.29) family"
+Zm00001eb209100,Unknown,none,False,False,False,2.161064757111342,xp_021315999.1 phosphatidylinositol/phosphatidylcholine transfer protein sfh6 isoform x2 [sorghum bicolor] cral/trio domain
+Zm00001eb366050,Unknown,none,False,False,False,2.5632794191115544,xp_021313667.1 uncharacterized protein loc110434194 isoform x2 [sorghum bicolor] nan
+Zm00001eb350050,Unknown,none,False,False,False,2.270372570453316,xp_002440740.1 derlin-1.2 [sorghum bicolor] may be involved in the degradation of misfolded endoplasmic reticulum (er) luminal proteins
+Zm00001eb433520,Unknown,none,False,False,False,2.1607528247400194,xp_002448756.1 upf0496 protein 4 [sorghum bicolor] upf0496 protein 4-like
+Zm00001eb397090,Unknown,none,False,False,False,4.221908761750404,xp_004984841.1 alpha-taxilin [setaria italica] myosin-like coiled-coil protein
+Zm00001eb203240,Unknown,none,False,False,False,3.341135025387979,xp_002451996.2 uncharacterized protein loc8077779 isoform x1 [sorghum bicolor] protein of unknown function (duf563)
+Zm00001eb316410,Unknown,none,False,False,False,3.622077143871217,xp_002460433.1 heat shock protein 81-2 [sorghum bicolor] heat shock protein
+Zm00001eb374330,Unknown,none,False,False,False,1.6181686821158872,xp_002437991.1 uncharacterized protein loc8065438 isoform x1 [sorghum bicolor] isoform x1
+Zm00001eb117460,Unknown,none,False,False,False,3.3114651472125205,xp_002459360.1 putative deoxyribonuclease tatdn1 isoform x1 [sorghum bicolor] tatd related dnase
+Zm00001eb046960,Unknown,none,False,False,False,1.4931449668293355,xp_021306519.1 putative transporter arsb [sorghum bicolor] citrate transporter
+Zm00001eb359400,Unknown,none,False,False,False,4.113862535067752,xp_002458242.2 uncharacterized protein loc8058256 isoform x1 [sorghum bicolor] wd40 repeats
+Zm00001eb171030,Unknown,none,False,False,False,1.972462297927824,xp_004972559.1 mitochondrial pyruvate carrier 4 [setaria italica] mediates the uptake of pyruvate into mitochondria
+Zm00001eb104300,Unknown,kinase,True,False,True,2.0729768128253014,xp_021308164.1 g-type lectin s-receptor-like serine/threonine-protein kinase b120 [sorghum bicolor] protein kinase domain
+Zm00001eb000920,Unknown,kinase,True,False,True,1.008744758576002,xp_021302596.1 serine/threonine-protein kinase osr1-like isoform x1 [sorghum bicolor] protein kinase domain
+Zm00001eb373600,Unknown,none,False,False,False,2.3386125552092167,"xp_004964928.1 kinesin-like protein kin-7d, chloroplastic isoform x1 [setaria italica] belongs to the trafac class myosin-kinesin atpase superfamily. kinesin family"
+Zm00001eb422400,Unknown,none,False,False,False,3.864737213611521,xp_002447825.1 abscisic stress-ripening protein 3 [sorghum bicolor] aba/wds induced protein
+Zm00001eb106100,Unknown,none,False,False,False,2.2421915352182813,xp_021309817.1 tortifolia1-like protein 1 isoform x2 [sorghum bicolor] microtubule-associated protein
+Zm00001eb313460,Unknown,none,False,False,False,2.315207457748919,xp_002460242.1 tetraspanin-8 [sorghum bicolor] belongs to the tetraspanin (tm4sf) family
+Zm00001eb398750,Unknown,synthase,True,False,True,2.1202665528226134,xp_021306946.1 3-ketoacyl-coa synthase 1 [sorghum bicolor] 3-ketoacyl-coa synthase
+Zm00001eb072790,Unknown,none,False,False,False,2.599665427912612,xp_002446995.1 uncharacterized protein loc8057699 [sorghum bicolor] alpha and gamma adaptin binding protein p34
+Zm00001eb304560,Unknown,synthase,True,False,True,3.8414810666527024,xp_002459635.1 probable cellulose synthase a catalytic subunit 6 [udp-forming] [sorghum bicolor] belongs to the glycosyltransferase 2 family. plant cellulose synthase subfamily
+Zm00001eb013520,Unknown,decarboxylase|carboxylase,True,False,True,1.971193291247158,xp_002465414.1 pyruvate decarboxylase 2 [sorghum bicolor] belongs to the tpp enzyme family
+Zm00001eb358690,Unknown,none,False,False,False,3.271785325755113,xp_002455982.1 kinesin-like protein kin-13b [sorghum bicolor] belongs to the trafac class myosin-kinesin atpase superfamily. kinesin family
+Zm00001eb321330,Unknown,none,False,False,False,2.1201122687053937,xp_004957681.1 serine carboxypeptidase-like [setaria italica] belongs to the peptidase s10 family
+Zm00001eb153500,Unknown,kinase,True,False,True,4.407908919107358,xp_002458500.1 28 kda heat- and acid-stable phosphoprotein [sorghum bicolor] casein kinase substrate phosphoprotein pp28
+Zm00001eb122170,Unknown,none,False,False,False,1.6246188408538758,xp_004968432.1 ddt domain-containing protein ddr4 [setaria italica] nan
+Zm00001eb381470,Unknown,none,False,False,False,2.0357283788875327,xp_002438307.1 65-kda microtubule-associated protein 1 [sorghum bicolor] microtubule associated protein (map65/ase1 family)
+Zm00001eb390480,Unknown,cyclase,True,False,True,2.5792444565528156,xp_002467452.1 abscisic acid receptor pyr1 [sorghum bicolor] polyketide cyclase / dehydrase and lipid transport
+Zm00001eb291350,Unknown,none,False,False,False,2.8153083422748817,"xp_002441302.1 myb family transcription factor phl7 [sorghum bicolor] myb-cc type transfactor, lheqle motif"
+Zm00001eb234620,Unknown,none,False,False,False,3.4991405375220848,xp_002451689.1 uncharacterized protein loc8079424 isoform x2 [sorghum bicolor] metallo-beta-lactamase superfamily
+Zm00001eb405450,Unknown,none,False,False,False,5.308221308528998,"xp_021321584.1 transcription factor myb30 [sorghum bicolor] sant  swi3, ada2, n-cor and tfiiib'' dna-binding domains"
+Zm00001eb153580,Unknown,protease,True,False,True,1.862591488812747,xp_021313590.1 uncharacterized protein loc8062173 isoform x6 [sorghum bicolor] atp-dependent protease la (lon) substrate-binding domain
+Zm00001eb370480,Unknown,synthetase,True,False,True,2.015279933830635,"xp_002456389.1 protein curvature thylakoid 1c, chloroplastic isoform x3 [sorghum bicolor] caad domains of cyanobacterial aminoacyl-trna synthetase"
+Zm00001eb191380,Unknown,none,False,False,False,1.4725591162438447,xp_004954378.1 probable voltage-gated potassium channel subunit beta [setaria italica] aldo/keto reductase family
+Zm00001eb290750,Unknown,kinase,True,False,True,2.687972913495488,xp_002441272.1 probable inactive receptor kinase at5g58300 [sorghum bicolor] leucine rich repeat n-terminal domain
+Zm00001eb153760,Unknown,none,False,False,False,1.9868312836539712,"xp_004969894.1 profilin-a [setaria italica] binds to actin and affects the structure of the cytoskeleton. at high concentrations, profilin prevents the polymerization of actin, whereas it enhances it "
+Zm00001eb322940,Unknown,none,False,False,False,1.6639237476891189,
+Zm00001eb104810,Unknown,kinase,True,False,True,3.306003782257017,xp_002460675.1 serine/threonine-protein kinase/endoribonuclease ire1 isoform x1 [sorghum bicolor] ribonuclease 2-5a
+Zm00001eb179290,Unknown,none,False,False,False,2.5907585948602705,
+Zm00001eb425580,Unknown,none,False,False,False,1.359398667383342,xp_002446718.1 uncharacterized protein loc8073710 [sorghum bicolor] lysine methyltransferase
+Zm00001eb110020,Unknown,kinase,True,False,True,2.196394333079513,xp_002461094.1 cbl-interacting protein kinase 21 [sorghum bicolor] non-specific serine threonine protein kinase
+Zm00001eb379070,Unknown,synthase,True,False,True,3.622352488728783,xp_004964325.1 cellulose synthase-like protein d2 [setaria italica] belongs to the glycosyltransferase 2 family
+Zm00001eb289600,Unknown,isomerase,False,True,True,1.881835007983475,xp_002441215.1 peptidyl-prolyl cis-trans isomerase fkbp20-1 [sorghum bicolor] peptidyl-prolyl cis-trans isomerase
+Zm00001eb163880,Unknown,none,False,False,False,1.6116800895543422,xp_004978531.1 non-specific lipid-transfer protein 1 [setaria italica] plant non-specific lipid-transfer proteins transfer phospholipids as well as galactolipids across membranes. may play a role in w
+Zm00001eb344390,Unknown,none,False,False,False,5.125252714907451,xp_002441558.1 uncharacterized protein loc8083789 [sorghum bicolor] nan
+Zm00001eb241400,Unknown,none,False,False,False,2.227398896228534,xp_002453869.1 galacturonosyltransferase 8 [sorghum bicolor] belongs to the glycosyltransferase 8 family
+Zm00001eb123270,Unknown,none,False,False,False,2.1331547323847975,xp_002455126.1 mini-chromosome maintenance complex-binding protein [sorghum bicolor] mini-chromosome maintenance replisome factor
+Zm00001eb208710,Unknown,none,False,False,False,1.9439999256388856,xp_021315652.1 rna polymerase ii transcription factor b subunit 4 [sorghum bicolor] transcription factor tfb4
+Zm00001eb182260,Unknown,none,False,False,False,3.4683844000086848,xp_002453992.1 auxin response factor 7 [sorghum bicolor] auxin response factors (arfs) are transcriptional factors that bind specifically to the dna sequence 5'-tgtctc-3' found in the auxin-responsive
+Zm00001eb143460,Unknown,none,False,False,False,2.8587039833583954,xp_004971047.1 selenium-binding protein 1 [setaria italica] selenium-binding protein
+Zm00001eb201090,Unknown,none,False,False,False,6.454553502625511,xp_002450410.1 uncharacterized protein loc8079718 [sorghum bicolor] nan
+Zm00001eb257810,Unknown,none,False,False,False,3.7401838527052793,xp_004954215.1 transcription factor bhlh82 [setaria italica] helix loop helix domain
+Zm00001eb312440,Unknown,none,False,False,False,1.95379483851799,xp_052166829.1 o-fucosyltransferase 31-like [oryza glaberrima] gdp-fucose protein o-fucosyltransferase
+Zm00001eb379200,Unknown,phosphatase|mutase,True,False,True,2.094570252486709,xp_052158782.1 phosphoglycerate mutase-like protein at74h [oryza glaberrima] histidine phosphatase superfamily (branch 1)
+Zm00001eb385310,Unknown,none,False,False,False,5.4563074515983665,xp_021306093.1 uncharacterized protein loc8079312 [sorghum bicolor] nan
+Zm00001eb162130,Unknown,none,False,False,False,1.9819117322033593,xp_021312417.1 zinc finger ccch domain-containing protein 8-like isoform x2 [sorghum bicolor] zinc finger c-x8-c-x5-c-x3-h type (and similar)
+Zm00001eb246440,Unknown,none,False,False,False,2.855413475989271,"xp_004953013.1 transcription termination factor mterf5, chloroplastic [setaria italica] mterf"
+Zm00001eb295800,Unknown,none,False,False,False,2.572293252703069,xp_004961229.1 homeobox-ddt domain protein rlt2 [setaria italica] isoform x1
+Zm00001eb094520,Unknown,ubiquitin|ligase,True,False,True,1.8043074544860256,xp_021309874.1 e3 ubiquitin-protein ligase upl1-like isoform x2 [sorghum bicolor] domain of unknown function (duf913)
+Zm00001eb127860,Unknown,kinase,True,False,True,1.6422511574694476,xp_002455388.1 probable serine/threonine-protein kinase pbl7 [sorghum bicolor] belongs to the protein kinase superfamily
+Zm00001eb169990,Unknown,none,False,False,False,6.817995601954361,"xp_004979240.1 uv-b-induced protein at3g17800, chloroplastic [setaria italica] protein of unknown function (duf760)"
+Zm00001eb056930,Unknown,none,False,False,False,1.8450745007643008,xp_021311613.1 stem-specific protein tsjt1-like [sorghum bicolor] duf3700
+Zm00001eb356090,Unknown,none,False,False,False,2.489816512747927,xp_021302707.1 abc transporter d family member 1 [sorghum bicolor] abc transporter transmembrane region 2
+Zm00001eb009870,Unknown,none,False,False,False,2.263909599998336,xp_002468212.1 uncharacterized protein loc8056841 [sorghum bicolor] nan
+Zm00001eb303060,Unknown,kinase,True,False,True,1.7875926306467889,xp_002461672.1 leucine-rich repeat receptor-like tyrosine-protein kinase pxc3 [sorghum bicolor] protein kinase domain
+Zm00001eb268420,Unknown,none,False,False,False,2.5182726232604637,xp_002437661.2 protein mei2-like 2 [sorghum bicolor] rna recognition motif 2
+Zm00001eb356430,Unknown,none,False,False,False,2.9344690963873594,xp_002440147.1 probable wrky transcription factor 50 [sorghum bicolor] wrky dna -binding domain
+Zm00001eb150550,Unknown,none,False,False,False,0.99628196713376,xp_002458647.1 cytochrome p450 98a1-like [sorghum bicolor] belongs to the cytochrome p450 family
+Zm00001eb365780,Unknown,none,False,False,False,2.983379014839409,xp_002456774.1 calreticulin-3 isoform x1 [sorghum bicolor] calreticulin family
+Zm00001eb161090,Unknown,none,False,False,False,1.882268508015435,
+Zm00001eb113090,Unknown,none,False,False,False,3.226892876942958,xp_002449536.1 cbby-like protein [sorghum bicolor] haloacid dehalogenase-like hydrolase
+Zm00001eb360390,Unknown,none,False,False,False,1.8816870182450085,xp_004969542.1 uncharacterized protein loc101780019 [setaria italica] yt521-b-like domain
+Zm00001eb260350,Unknown,none,False,False,False,2.401949872078158,xp_021320295.1 glycolipid transfer protein 2 [sorghum bicolor] glycolipid transfer protein (gltp)
+Zm00001eb301540,Unknown,synthase,True,False,True,5.061909574591178,xp_006657506.2 tryptophan synthase alpha chain-like [oryza brachyantha] belongs to the trpa family
+Zm00001eb144320,Unknown,none,False,False,False,3.130841108192741,xp_002456801.1 uncharacterized protein loc8056129 isoform x4 [sorghum bicolor] protein of unknown function (duf971)
+Zm00001eb390620,Unknown,none,False,False,False,3.000648476281756,xp_002467460.1 nadh dehydrogenase [ubiquinone] 1 alpha subcomplex assembly factor 3 [sorghum bicolor] protein of unknown function (duf498/duf598)
+Zm00001eb094480,Unknown,none,False,False,False,2.6400627341813325,"xp_002459926.1 sec14 cytosolic factor isoform x4 [sorghum bicolor] cral/trio, n-terminal domain"
+Zm00001eb311230,Unknown,phosphatase,True,False,True,3.004041531384752,xp_010519815.1 predicted: probable trehalose-phosphate phosphatase j isoform x2 [tarenaya hassleriana] removes the phosphate from trehalose 6-phosphate to produce free trehalose
+Zm00001eb126650,Unknown,none,False,False,False,2.613780193933824,xp_002457516.1 cation/calcium exchanger 4 [sorghum bicolor] belongs to the ca(2 ) cation antiporter (caca) (tc 2.a.19) family
+Zm00001eb237500,Unknown,none,False,False,False,3.7666607845588014,"xp_006647151.2 d-amino-acid transaminase, chloroplastic [oryza brachyantha] amino-transferase class iv"
+Zm00001eb219040,Unknown,oxygenase,True,False,True,2.410048121163423,xp_004982424.1 probable 2-oxoglutarate-dependent dioxygenase at5g05600 [setaria italica] belongs to the iron ascorbate-dependent oxidoreductase family
+Zm00001eb325330,Unknown,none,False,False,False,2.856167218397106,xp_004958115.1 vacuolar protein sorting-associated protein 62 [setaria italica] vacuolar protein sorting-associated protein 62
+Zm00001eb010650,Unknown,none,False,False,False,1.7228995125959938,xp_002468177.1 pentatricopeptide repeat-containing protein at4g21065 [sorghum bicolor] dyw family of nucleic acid deaminases
+Zm00001eb102050,Unknown,none,False,False,False,2.633437955533686,xp_021308234.1 titin homolog [sorghum bicolor] single fertilization
+Zm00001eb091420,Unknown,none,False,False,False,1.5741093788501044,xp_002450415.2 abc transporter g family member 25 [sorghum bicolor] abc-2 type transporter
+Zm00001eb022580,Unknown,none,False,False,False,3.6209706774235326,xp_002465000.1 hippocampus abundant transcript 1 protein [sorghum bicolor] hippocampus abundant transcript-like protein
+Zm00001eb403450,Unknown,none,False,False,False,1.6746920973337742,xp_002465804.1 protein sulfur deficiency-induced 1 [sorghum bicolor] protein sulfur deficiency-induced
+Zm00001eb064000,Unknown,none,False,False,False,2.7193341663871995,"xp_002463547.1 prohibitin-1, mitochondrial [sorghum bicolor] spfh domain / band 7 family"
+Zm00001eb023220,Unknown,none,False,False,False,2.27054529992127,
+Zm00001eb252250,Unknown,kinase,True,False,True,3.1936707580998416,xp_002454414.1 uridine-cytidine kinase c [sorghum bicolor] cyth domain
+Zm00001eb371520,Unknown,none,False,False,False,1.8181388931208795,xp_021305299.1 nf-x1-type zinc finger protein nfxl1 [sorghum bicolor] znf_nfx
+Zm00001eb175230,Unknown,none,False,False,False,2.288702790845905,xp_002445809.1 protein nuclear fusion defective 4 [sorghum bicolor] nodulin-like
+Zm00001eb430800,Unknown,none,False,False,False,2.73154651053456,xp_002448522.1 methyl-cpg-binding domain-containing protein 13 [sorghum bicolor] methyl-cpg binding domain
+Zm00001eb078890,Unknown,none,False,False,False,2.040393037676521,xp_002446711.1 ankyrin-3 [sorghum bicolor] ankyrin repeats (many copies)
+Zm00001eb159400,Unknown,none,False,False,False,1.7755265048836455,xp_002455982.1 kinesin-like protein kin-13b [sorghum bicolor] belongs to the trafac class myosin-kinesin atpase superfamily. kinesin family
+Zm00001eb402390,Unknown,epimerase,False,True,True,4.027247771856735,"xp_004985559.1 ribulose-phosphate 3-epimerase, chloroplastic [setaria italica] ribulose-phosphate 3 epimerase family"
+Zm00001eb404040,Unknown,none,False,False,False,2.5965898104389025,xp_021318451.1 uncharacterized protein loc8059491 [sorghum bicolor] senescence regulator
+Zm00001eb248620,Unknown,none,False,False,False,3.566530348832343,xp_021316110.1 protein shortage in chiasmata 1 isoform x2 [sorghum bicolor] nan
+Zm00001eb043170,Unknown,none,False,False,False,2.452830718673834,nan nan
+Zm00001eb227240,Unknown,none,False,False,False,2.614639658175785,xp_002437553.1 zinc finger ccch domain-containing protein 46 isoform x1 [sorghum bicolor] zinc finger c-x8-c-x5-c-x3-h type (and similar)
+Zm00001eb246850,Unknown,none,False,False,False,2.116124084261831,"xp_002452434.1 pentatricopeptide repeat-containing protein at5g04810, chloroplastic [sorghum bicolor] pentatricopeptide repeat domain"
+Zm00001eb001150,Unknown,none,False,False,False,2.0803573236363664,xp_004985979.2 vacuolar protein 8 isoform x1 [setaria italica] armadillo/beta-catenin-like repeats
+Zm00001eb283200,Unknown,none,False,False,False,2.0579915874978787,xp_002450034.2 putative disease resistance rpp13-like protein 3 [sorghum bicolor] nb-arc domain
+Zm00001eb193640,Unknown,none,False,False,False,3.1278602552196215,xp_002452882.1 uncharacterized protein loc8078922 [sorghum bicolor] protein of unknown function (duf1685)
+Zm00001eb152120,Unknown,none,False,False,False,3.5931912782003255,
+Zm00001eb302940,Unknown,none,False,False,False,4.686390244607297,"xp_002459524.1 zeta-carotene desaturase, chloroplastic/chromoplastic [sorghum bicolor] catalyzes the conversion of zeta-carotene to lycopene via the intermediary of neurosporene. it carries out two co"
+Zm00001eb336750,Unknown,none,False,False,False,1.4278999050363927,xp_002455104.1 uncharacterized protein loc8056548 isoform x2 [sorghum bicolor] protein of unknown function (duf4050)
+Zm00001eb150960,Unknown,none,False,False,False,6.626846311236884,xp_002458630.1 protein translation factor sui1 homolog [sorghum bicolor] translation initiation factor sui1
+Zm00001eb058750,Unknown,none,False,False,False,2.289258328627231,"xp_002463825.1 30s ribosomal protein s9, chloroplastic [sorghum bicolor] belongs to the universal ribosomal protein us9 family"
+Zm00001eb397900,Unknown,none,False,False,False,2.6311028284089657,xp_004984915.1 protein da1-related 2 isoform x2 [setaria italica] protein da1
+Zm00001eb371150,Unknown,none,False,False,False,1.9059675586076643,xp_002456339.1 probable glutamate carboxypeptidase lamp1 [sorghum bicolor] glutamate carboxypeptidase 2
+Zm00001eb079420,Unknown,none,False,False,False,5.825883962535814,xp_002446676.1 uncharacterized protein loc8058730 [sorghum bicolor] methyltransferase domain
+Zm00001eb214630,Unknown,kinase,True,False,True,3.4581827083427767,xp_002463860.1 lrr receptor-like serine/threonine-protein kinase rpk2 [sorghum bicolor] belongs to the protein kinase superfamily. ser thr protein kinase family
+Zm00001eb157820,Unknown,none,False,False,False,2.7854375855586,xp_002456083.1 acidic endochitinase [sorghum bicolor] belongs to the glycosyl hydrolase 18 family
+Zm00001eb253150,Unknown,none,False,False,False,1.66884832394174,xp_002454366.1 zinc finger protein constans-like 9 [sorghum bicolor] zinc finger protein
+Zm00001eb312990,Unknown,none,False,False,False,5.4270744724144935,
+Zm00001eb206800,Unknown,none,False,False,False,1.5748227706490667,xp_002453396.1 calmodulin-binding protein 60 b [sorghum bicolor] calmodulin binding protein-like
+Zm00001eb243970,Unknown,oxygenase,True,False,True,2.201691679038871,xp_004952758.1 monooxygenase 1 [setaria italica] fad binding domain
+Zm00001eb062220,Unknown,none,False,False,False,1.556245220513922,xp_002463653.1 u-box domain-containing protein 62 isoform x1 [sorghum bicolor] u-box domain-containing protein
+Zm00001eb138300,Unknown,none,False,False,False,2.1895306784654274,"xp_021301983.1 glutathione s-transferase [sorghum bicolor] glutathione s-transferase, n-terminal domain"
+Zm00001eb298180,Unknown,none,False,False,False,2.905709175966613,xp_002461301.1 ddrgk domain-containing protein 1 [sorghum bicolor] ddrgk domain
+Zm00001eb001340,Unknown,synthase,True,False,True,3.0172447030203235,"xp_002468628.2 hydroxymethylglutaryl-coa synthase [sorghum bicolor] this enzyme condenses acetyl-coa with acetoacetyl-coa to form hmg-coa, which is the substrate for hmg-coa reductase"
+Zm00001eb100140,Unknown,none,False,False,False,1.9935988145958217,
+Zm00001eb080510,Unknown,synthase,True,False,True,4.4901050570846515,"xp_021318573.1 anthranilate synthase beta subunit 1, chloroplastic-like [sorghum bicolor] peptidase c26"
+Zm00001eb030710,Unknown,none,False,False,False,3.170737524891494,xp_002443475.1 spx and exs domain-containing protein 1 [sorghum bicolor] exs family
+Zm00001eb413740,Unknown,none,False,False,False,2.411421748480584,xp_021321509.1 uncharacterized protein loc8071173 isoform x3 [sorghum bicolor] aicarft/impchase bienzyme
+Zm00001eb335350,Unknown,none,False,False,False,2.1145856324838888,xp_021311394.1 plastidic glucose transporter 4 isoform x2 [sorghum bicolor] belongs to the major facilitator superfamily. sugar transporter (tc 2.a.1.1) family
+Zm00001eb315000,Unknown,kinase,True,False,True,2.7010650497920357,xp_004957025.1 probable bri1 kinase inhibitor 1 [setaria italica] bri1 kinase inhibitor
+Zm00001eb316180,Unknown,protease,True,False,True,2.0457408494500875,xp_002460418.2 subtilisin-like protease sbt5.3 [sorghum bicolor] subtilisin-like protease
+Zm00001eb350800,Unknown,none,False,False,False,3.043002445624664,
+Zm00001eb386920,Unknown,ligase|synthetase,True,False,True,4.391702011792004,"xp_021304963.1 isoleucine--trna ligase, cytoplasmic [sorghum bicolor] belongs to the class-i aminoacyl-trna synthetase family"
+Zm00001eb394390,Unknown,none,False,False,False,2.190089812577919,xp_004960369.1 phosphoinositide phospholipase c 2 [setaria italica] phosphoinositide phospholipase c
+Zm00001eb301430,Unknown,none,False,False,False,1.4359456092472174,xp_004983791.1 abc transporter f family member 4 [setaria italica] abc transporter f family member 4
+Zm00001eb173230,Unknown,none,False,False,False,3.241273396577517,xp_021320645.1 uncharacterized protein loc8066142 [sorghum bicolor] snapin/pallidin
+Zm00001eb006880,Unknown,none,False,False,False,1.6360159962413543,xp_002465720.1 uncharacterized protein loc8057635 isoform x1 [sorghum bicolor] n-terminal cysteine-rich region of transmembrane protein 135
+Zm00001eb418090,Unknown,oxidase,True,False,True,2.353892134412911,xp_002439286.1 1-aminocyclopropane-1-carboxylate oxidase [sorghum bicolor] belongs to the iron ascorbate-dependent oxidoreductase family
+Zm00001eb122000,Unknown,none,False,False,False,2.492254597951363,xp_021312215.1 f-box protein at2g05970-like [sorghum bicolor] protein of unknown function (duf295)
+Zm00001eb214080,Unknown,none,False,False,False,2.2064550188307166,xp_004981644.1 uncharacterized protein loc101782522 [setaria italica] petm family of cytochrome b6f complex subunit 7
+Zm00001eb328440,Unknown,none,False,False,False,6.513330994649963,xp_021309299.1 plasmodesmata callose-binding protein 5 [sorghum bicolor] possibly involved in carbohydrate binding
+Zm00001eb337820,Unknown,none,False,False,False,3.057842496153543,"xp_004974407.1 uncharacterized protein loc101770604 [setaria italica] protein of unknown function, duf594"
+Zm00001eb147750,Unknown,phosphatase,True,False,True,1.3081921082906085,"xp_004970606.1 sedoheptulose-1,7-bisphosphatase, chloroplastic [setaria italica] fructose-1-6-bisphosphatase, n-terminal domain"
+Zm00001eb055720,Unknown,none,False,False,False,2.346077363192974,xp_021307524.1 random slug protein 5-like [sorghum bicolor] domain in homologues of a s. cerevisiae phosphatidylinositol transfer protein (sec14p)
+Zm00001eb431690,Unknown,none,False,False,False,2.1140167710302453,xp_003580633.1 n-terminal acetyltransferase a complex catalytic subunit naa10 [brachypodium distachyon] fr47-like protein
+Zm00001eb163100,Unknown,none,False,False,False,2.4322249176079063,xp_021317072.1 uncharacterized protein loc8079950 isoform x2 [sorghum bicolor] rnase p subunit p30
+Zm00001eb329780,Unknown,none,False,False,False,2.548671317761873,xp_021308965.1 haloacid dehalogenase-like hydrolase domain-containing protein 3 [sorghum bicolor] had-hyrolase-like
+Zm00001eb282040,Unknown,none,False,False,False,2.0901105758952907,xp_004973627.1 germin-like protein 8-14 [setaria italica] cupin
+Zm00001eb365940,Unknown,kinase,True,False,True,2.272348125964605,"xp_021313301.1 serine/threonine-protein kinase rio2 [sorghum bicolor] rio2, n-terminal"
+Zm00001eb227400,Unknown,kinase,True,False,True,2.8731706347228676,xp_002437560.1 mitogen-activated protein kinase 12 isoform x1 [sorghum bicolor] mitogen-activated protein kinase
+Zm00001eb047770,Unknown,oxygenase,True,False,True,7.1755794559533985,"xp_021307089.1 1,2-dihydroxy-3-keto-5-methylthiopentene dioxygenase 4-like [sorghum bicolor] catalyzes the formation of formate and 2-keto-4- methylthiobutyrate (kmtb) from 1,2-dihydroxy-3-keto-5- met"
+Zm00001eb258970,Unknown,none,False,False,False,1.890023995138449,xp_021314017.1 protein n-lysine methyltransferase mettl21a [sorghum bicolor] lysine methyltransferase
+Zm00001eb286540,Unknown,none,False,False,False,1.5857986645549182,xp_012700165.1 senescence associated gene 20-like [setaria italica] wound-induced protein wi12
+Zm00001eb217560,Unknown,none,False,False,False,1.8976472087481904,xp_021317506.1 glycine-rich rna-binding protein 2 [sorghum bicolor] glycine-rich rna-binding protein
+Zm00001eb101450,Unknown,none,False,False,False,2.771010529896668,xp_021309232.1 putative serine carboxypeptidase-like 23 [sorghum bicolor] belongs to the peptidase s10 family
+Zm00001eb020110,Unknown,none,False,False,False,2.288149136505908,xp_002465124.1 protein spiral1-like 1 [sorghum bicolor] spiral1-like
+Zm00001eb125470,Unknown,none,False,False,False,2.5685126941439624,
+Zm00001eb361900,Unknown,none,False,False,False,3.050999025132883,xp_004969830.1 uncharacterized protein loc101757985 [setaria italica] nan
+Zm00001eb265520,Unknown,isomerase,False,True,True,1.7809825153208412,xp_002439226.2 cycloeucalenol cycloisomerase isoform x1 [sorghum bicolor] cycloeucalenol cycloisomerase
+Zm00001eb013870,Unknown,none,False,False,False,3.131431563537838,xp_002465403.1 u2 small nuclear ribonucleoprotein b'' [sorghum bicolor] u2 small nuclear ribonucleoprotein b''
+Zm00001eb248350,Unknown,none,False,False,False,1.8501334723944156,xp_004979172.1 low quality protein: gem-associated protein 2-like [setaria italica] survival motor neuron (smn) interacting protein 1 (sip1)
+Zm00001eb363480,Unknown,none,False,False,False,2.543557184954071,xp_021312735.1 mitochondrial thiamine diphosphate carrier 2 isoform x1 [sorghum bicolor] belongs to the mitochondrial carrier (tc 2.a.29) family
+Zm00001eb202030,Unknown,kinase,True,False,True,2.616696406649417,xp_004968008.1 proline-rich receptor-like protein kinase perk3 [setaria italica] g-type lectin s-receptor-like serine threonine-protein kinase sd2-5
+Zm00001eb430780,Unknown,none,False,False,False,2.6065774439903566,xp_021317962.1 udp-n-acetylglucosamine diphosphorylase 1 [sorghum bicolor] utp--glucose-1-phosphate uridylyltransferase
+Zm00001eb148640,Unknown,decarboxylase|carboxylase,True,False,True,2.2057095350318794,"xp_002456603.1 udp-glucuronic acid decarboxylase 1 [sorghum bicolor] gdp-mannose 4,6 dehydratase"
+Zm00001eb386410,Unknown,kinase,True,False,True,4.2711141341040735,xp_002438654.1 cbl-interacting protein kinase 24 [sorghum bicolor] non-specific serine threonine protein kinase
+Zm00001eb106160,Unknown,none,False,False,False,1.6798491547575147,"xp_004957888.3 glucose-6-phosphate/phosphate translocator 2, chloroplastic [setaria italica] triose-phosphate transporter family"
+Zm00001eb121000,Unknown,kinase,True,False,True,1.5710459829429757,xp_004968517.1 receptor-like serine/threonine-protein kinase ale2 [setaria italica] receptor-like serine threonine-protein kinase
+Zm00001eb227670,Unknown,none,False,False,False,5.5371808019707265,nan pentatricopeptide repeat domain
+Zm00001eb423410,Unknown,none,False,False,False,2.204669172080929,xp_012703017.1 pentatricopeptide repeat-containing protein at2g06000 [setaria italica] ppr repeat
+Zm00001eb046280,Unknown,ubiquitin|ligase,True,False,True,1.8903427375092523,xp_052134140.1 e3 ubiquitin-protein ligase wav3-like [oryza glaberrima] vwa domain containing coxe-like protein
+Zm00001eb283750,Unknown,none,False,False,False,3.2282312202661316,xp_002440709.1 leucine-rich repeat extensin-like protein 4 [sorghum bicolor] leucine rich repeat
+Zm00001eb148130,Unknown,none,False,False,False,2.0891111623814975,
+Zm00001eb010370,Unknown,none,False,False,False,2.252685603445886,xp_004985039.1 actin-depolymerizing factor 5 [setaria italica] belongs to the actin-binding proteins adf family
+Zm00001eb251070,Unknown,none,False,False,False,1.8363397923573328,xp_003570129.1 serine/arginine repetitive matrix protein 1 [brachypodium distachyon] nan
+Zm00001eb260480,Unknown,none,False,False,False,3.5478175791548217,xp_004972469.1 phospholipase sgr2 isoform x1 [setaria italica] phospholipase
+Zm00001eb097990,Unknown,none,False,False,False,3.416799706097878,xp_002462170.1 protein sawadee homeodomain homolog 2 isoform x2 [sorghum bicolor] sawadee domain
+Zm00001eb172970,Unknown,none,False,False,False,1.6631135426244656,"xp_002445027.1 external alternative nad(p)h-ubiquinone oxidoreductase b2, mitochondrial [sorghum bicolor] pyridine nucleotide-disulphide oxidoreductase"
+Zm00001eb392740,Unknown,none,False,False,False,3.72080896068054,xp_002467738.1 vacuolar cation/proton exchanger 2 isoform x2 [sorghum bicolor] belongs to the ca(2 ) cation antiporter (caca) (tc 2.a.19) family
+Zm00001eb327480,Unknown,synthase,True,False,True,1.751090382141502,"xp_002463181.1 3-oxoacyl-[acyl-carrier-protein] synthase ii, chloroplastic [sorghum bicolor] belongs to the beta-ketoacyl-acp synthases family"
+Zm00001eb211780,Unknown,none,False,False,False,1.4740766603580426,xp_002466197.1 ras-related protein rabe1c [sorghum bicolor] rab subfamily of small gtpases
+Zm00001eb379770,Unknown,none,False,False,False,4.225863212824155,xp_002438190.1 uncharacterized protein at1g66480 [sorghum bicolor] at1g66480-like
+Zm00001eb117970,Unknown,none,False,False,False,2.2725010919480866,"xp_021309515.1 succinate dehydrogenase [ubiquinone] flavoprotein subunit, mitochondrial [sorghum bicolor] flavoprotein (fp) subunit of succinate dehydrogenase (sdh) that is involved in complex ii of t"
+Zm00001eb192150,Unknown,none,False,False,False,1.899920669382254,xp_002454721.1 calcineurin subunit b [sorghum bicolor] calcineurin subunit b
+Zm00001eb379950,Unknown,none,False,False,False,2.0105873563987866,xp_002436824.1 zinc finger protein constans-like 16 [sorghum bicolor] cct motif
+Zm00001eb407090,Unknown,none,False,False,False,1.703172273664204,xp_002442837.1 uncharacterized protein loc8079844 [sorghum bicolor] nan
+Zm00001eb011070,Unknown,none,False,False,False,1.044301392229479,xp_021310343.1 uncharacterized protein loc8078835 [sorghum bicolor] far1 dna-binding domain
+Zm00001eb118790,Unknown,none,False,False,False,2.2539416957231064,xp_004986052.1 uncharacterized protein loc101760145 [setaria italica] rwp-rk domain
+Zm00001eb215780,Unknown,none,False,False,False,1.63281724559116,"xp_021306749.1 lariat debranching enzyme [sorghum bicolor] lariat debranching enzyme, c-terminal domain"
+Zm00001eb351640,Unknown,none,False,False,False,4.244194216337269,xp_021303289.1 probable dna helicase mcm8 isoform x1 [sorghum bicolor] belongs to the mcm family
+Zm00001eb144650,Unknown,none,False,False,False,2.719783098047161,xp_002456783.1 uncharacterized protein loc8078675 [sorghum bicolor] ribosomal protein l13
+Zm00001eb246590,Unknown,none,False,False,False,3.533033625402345,xp_002454142.1 uncharacterized protein loc8072433 [sorghum bicolor] nan
+Zm00001eb288130,Unknown,kinase,True,False,True,2.150577722344607,xp_002441100.1 probably inactive leucine-rich repeat receptor-like protein kinase at5g48380 [sorghum bicolor] belongs to the protein kinase superfamily
+Zm00001eb406080,Unknown,none,False,False,False,2.7982092159957124,xp_010922739.1 ring-h2 finger protein atl74 [elaeis guineensis] ring-like zinc finger
+Zm00001eb360330,Unknown,none,False,False,False,2.4156289925880072,"xp_004969532.1 30s ribosomal protein s20, chloroplastic [setaria italica] ribosomal protein s20"
+Zm00001eb418940,Unknown,none,False,False,False,2.012100027216712,xp_002447404.2 fatty acid amide hydrolase [sorghum bicolor] amidase
+Zm00001eb153020,Unknown,none,False,False,False,2.0950216625681706,xp_002456349.1 uncharacterized protein loc8075566 isoform x3 [sorghum bicolor] pddexk-like family of unknown function
+Zm00001eb241520,Unknown,none,False,False,False,2.556548502981683,xp_021314048.1 uncharacterized protein loc8056066 isoform x1 [sorghum bicolor] protein of unknown function (duf563)
+Zm00001eb352940,Unknown,none,False,False,False,2.9148668990011504,xp_021303631.1 transmembrane protein 56-like [sorghum bicolor] tlc domain
+Zm00001eb260970,Unknown,none,False,False,False,1.9402762306550076,xp_002444936.1 probable calcium-binding protein cml7 [sorghum bicolor] ef-hand domain
+Zm00001eb026930,Unknown,none,False,False,False,2.116487974353716,
+Zm00001eb329360,Unknown,phosphatase,True,False,True,4.1646562021484925,xp_021307748.1 probable protein phosphatase 2c 65 isoform x2 [sorghum bicolor] protein phosphatase 2c
+Zm00001eb398660,Unknown,protease,True,False,True,3.5421658958831186,"xp_002465558.1 atp-dependent clp protease atp-binding subunit clpt1, chloroplastic [sorghum bicolor] clp amino terminal domain, pathogenicity island component"
+Zm00001eb094610,Unknown,protease,True,False,True,1.9148125674673215,xp_002459717.1 putative lipid-transfer protein dir1 [sorghum bicolor] protease inhibitor/seed storage/ltp family
+Zm00001eb267380,Unknown,none,False,False,False,4.525144469814204,xp_004960573.2 macpf domain-containing protein at4g24290 [setaria italica] mac/perforin domain
+Zm00001eb334480,Unknown,none,False,False,False,2.4471928673778685,xp_004967981.1 protein decapping 5 isoform x2 [setaria italica] fdf
+Zm00001eb094220,Unknown,ubiquitin,True,False,True,3.2553440919204037,xp_002450102.1 ubiquitin-activating enzyme e1 1 [sorghum bicolor] belongs to the ubiquitin-activating e1 family
+Zm00001eb364700,Unknown,none,False,False,False,3.596626692460872,xp_002458986.1 crib domain-containing protein ric4 [sorghum bicolor] p21-rho-binding domain
+Zm00001eb407680,Unknown,none,False,False,False,2.3016985233742973,xp_021301650.1 tubby-like f-box protein 14 [sorghum bicolor] belongs to the tub family
+Zm00001eb423440,Unknown,none,False,False,False,12.93827720009006,xp_002446557.1 serine carboxypeptidase-like 7 [sorghum bicolor] belongs to the peptidase s10 family
+Zm00001eb010730,Unknown,none,False,False,False,1.524366505225603,xp_022678693.1 uncharacterized protein loc111255782 isoform x2 [setaria italica] calcium-binding ef-hand family protein
+Zm00001eb092900,Unknown,none,False,False,False,3.683282732956356,xp_002448974.1 protein trauco [sorghum bicolor] set1 ash2 histone methyltransferase complex subunit
+Zm00001eb272170,Unknown,none,False,False,False,3.261713651505997,
+Zm00001eb044650,Unknown,none,False,False,False,2.886499000041,"xp_002467010.1 protochlorophyllide reductase b, chloroplastic [sorghum bicolor] short chain dehydrogenase"
+Zm00001eb392270,Unknown,none,False,False,False,3.042346253705929,xp_004984213.1 probable methyltransferase pmt2 [setaria italica] putative s-adenosyl-l-methionine-dependent methyltransferase
+Zm00001eb429910,Unknown,kinase,True,False,True,2.7576048593546143,xp_021319757.1 uncharacterized protein loc8060472 isoform x2 [sorghum bicolor] phosphoenolpyruvate carboxykinase
+Zm00001eb176590,Unknown,kinase,True,False,True,1.3981270049641512,"xp_021319868.1 junctophilin-4-like [sorghum bicolor] possible plasma membrane-binding motif in junctophilins, pip-5-kinases and protein kinases."
+Zm00001eb272520,Unknown,none,False,False,False,2.0781202486092107,xp_002437583.1 lysophospholipid acyltransferase lpeat2 isoform x1 [sorghum bicolor] phosphate acyltransferases
+Zm00001eb257390,Unknown,none,False,False,False,2.3146076263908677,xp_021901879.1 hsp70-hsp90 organizing protein 1-like [carica papaya] tetratricopeptide repeats
+Zm00001eb273360,Unknown,none,False,False,False,3.373963504912398,"xp_002438920.2 uncharacterized protein loc8063795 isoform x2 [sorghum bicolor] protein of unknown function, duf547"
+Zm00001eb172450,Unknown,none,False,False,False,1.918596607040125,xp_002443890.1 protein cca1 [sorghum bicolor] protein lhy-like isoform x1
+Zm00001eb343490,Unknown,none,False,False,False,2.5924416296542545,xp_002440234.1 probable glucuronosyltransferase os05g0559600 [sorghum bicolor] involved in the synthesis of glucuronoxylan hemicellulose in secondary cell walls
+Zm00001eb153460,Unknown,isomerase,False,True,True,3.7848065277793816,xp_002458497.1 3-hydroxyisobutyryl-coa hydrolase-like protein 5 [sorghum bicolor] belongs to the enoyl-coa hydratase isomerase family
+Zm00001eb269310,Unknown,none,False,False,False,2.1641728756155523,xp_021305767.1 probable transcriptional regulator slk2 [sorghum bicolor] lim-domain binding protein
+Zm00001eb119270,Unknown,none,False,False,False,2.135287702759879,xp_021312761.1 transcription factor bhlh68 [sorghum bicolor] helix loop helix domain
+Zm00001eb373580,Unknown,kinase,True,False,True,1.6602529183513337,xp_021305259.1 pantothenate kinase 1-like [sorghum bicolor] fumble
+Zm00001eb245410,Unknown,none,False,False,False,3.7983113281608527,xp_004952916.1 uncharacterized protein loc101784075 [setaria italica] nan
+Zm00001eb396520,Unknown,none,False,False,False,2.252981731306229,xp_021303816.1 uncharacterized protein loc110430400 isoform x2 [sorghum bicolor] dnaj domain
+Zm00001eb303740,Unknown,oxidase,True,False,True,2.5093168700910597,"xp_021308300.1 nitrile-specifier protein 5 [sorghum bicolor] galactose oxidase, central domain"
+Zm00001eb156500,Unknown,synthase,True,False,True,14.427226648287652,"xp_021312631.1 atp synthase subunit beta, mitochondrial [sorghum bicolor] produces atp from adp in the presence of a proton gradient across the membrane"
+Zm00001eb298400,Unknown,none,False,False,False,2.4936713485215716,xp_002459219.1 serine/arginine-rich splicing factor 4 [sorghum bicolor] nan
+Zm00001eb015900,Unknown,none,False,False,False,1.9620971190194931,xp_021312231.1 uncharacterized protein loc8083667 isoform x2 [sorghum bicolor] nan
+Zm00001eb013720,Unknown,none,False,False,False,2.0162190655371113,xp_002468020.2 uncharacterized protein loc8081119 [sorghum bicolor] autophagy-related protein 27
+Zm00001eb200590,Unknown,none,False,False,False,3.1115924936727684,xp_002449762.1 eto1-like protein 1 [sorghum bicolor] eto1-like protein 1
+Zm00001eb232710,Unknown,lyase,True,False,True,1.8662184300906264,xp_002442919.2 probable pectate lyase 4 [sorghum bicolor] pectate lyase
+Zm00001eb332530,Unknown,none,False,False,False,1.1478488548900925,"xp_021311625.1 coatomer subunit beta-2 [sorghum bicolor] the coatomer is a cytosolic protein complex that binds to dilysine motifs and reversibly associates with golgi non- clathrin-coated vesicles, w"
+Zm00001eb227200,Unknown,none,False,False,False,2.305646447426234,"xp_002437549.2 protein phosphate starvation response 3 [sorghum bicolor] myb-cc type transfactor, lheqle motif"
+Zm00001eb185040,Unknown,oxidase,True,False,True,1.9027022709126704,xp_002454188.1 long-chain-alcohol oxidase fao2 [sorghum bicolor] long-chain fatty alcohol oxidase involved in the omega- oxidation pathway of lipid degradation
+Zm00001eb241780,Unknown,none,False,False,False,2.649178803799349,
+Zm00001eb036910,Unknown,none,False,False,False,2.11257112829817,"xp_021320584.1 glycerophosphodiester phosphodiesterase gdpd1, chloroplastic [sorghum bicolor] glycerophosphoryl diester phosphodiesterase family"
+Zm00001eb081030,Unknown,none,False,False,False,1.9362284424257552,xp_004975826.1 plat domain-containing protein 3 [setaria italica] plat/lh2 domain
+Zm00001eb091780,Unknown,none,False,False,False,2.4401060658236484,xp_002450376.1 v-type proton atpase 16 kda proteolipid subunit [sorghum bicolor] proton-conducting pore forming subunit of the membrane integral v0 complex of vacuolar atpase. v-atpase is responsible 
+Zm00001eb031670,Unknown,none,False,False,False,2.7747387468313107,xp_002443548.1 homeobox-leucine zipper protein hox33 [sorghum bicolor] mekhla domain
+Zm00001eb012570,Unknown,none,False,False,False,3.1836539394163976,xp_002465466.1 cysteine-rich repeat secretory protein 55 [sorghum bicolor] salt stress response/antifungal
+Zm00001eb002000,Unknown,none,False,False,False,1.993102093160976,xp_021306340.1 uncharacterized protein loc110431557 isoform x1 [sorghum bicolor] phd zinc finger
+Zm00001eb020690,Unknown,none,False,False,False,4.470013059440195,
+Zm00001eb365690,Unknown,none,False,False,False,2.0716104883894,xp_002456785.1 beta-glucosidase 4 [sorghum bicolor] glycosyl hydrolase family 1
+Zm00001eb375690,Unknown,none,False,False,False,3.0463858326444253,xp_004964761.1 uncharacterized protein loc101786711 [setaria italica] alpha/beta hydrolase fold
+Zm00001eb396060,Unknown,ubiquitin,True,False,True,2.8374729660761338,xp_004984611.1 ubiquitin-conjugating enzyme e2 32 [setaria italica] belongs to the ubiquitin-conjugating enzyme family
+Zm00001eb064350,Unknown,none,False,False,False,2.4350892059607414,xp_012704141.1 pirin-like protein isoform x2 [setaria italica] belongs to the pirin family
+Zm00001eb402200,Unknown,none,False,False,False,3.1749636009854254,xp_002465781.1 sucrose transport protein sut1 [sorghum bicolor] mfs/sugar transport protein
+Zm00001eb391500,Unknown,none,False,False,False,2.465390847641111,xp_024987169.1 uncharacterized protein loc112522279 [cynara cardunculus var. scolymus] u1-like zinc finger
+Zm00001eb283110,Unknown,synthase,True,False,True,2.856266283830376,xp_002440694.1 probable cellulose synthase a catalytic subunit 1 [udp-forming] [sorghum bicolor] belongs to the glycosyltransferase 2 family. plant cellulose synthase subfamily
+Zm00001eb055620,Unknown,none,False,False,False,3.0840355488625844,xp_021320574.1 swi/snf complex subunit swi3d isoform x1 [sorghum bicolor] swirm-associated region 1
+Zm00001eb048710,Unknown,none,False,False,False,3.3080792392493015,
+Zm00001eb303280,Unknown,none,False,False,False,2.66532678268429,xp_021309903.1 upf0613 protein pb24d3.06c [sorghum bicolor] protein of unknown function (duf1749)
+Zm00001eb364360,Unknown,none,False,False,False,3.2527941695374234,xp_002456859.1 squamosa promoter-binding-like protein 2 [sorghum bicolor] sbp domain
+Zm00001eb105590,Unknown,none,False,False,False,3.1140159289396037,xp_002460737.1 gtpase activating protein 1 [sorghum bicolor] c2 domain
+Zm00001eb159080,Unknown,none,False,False,False,1.996860070827555,"xp_002458204.1 50s ribosomal protein l31, chloroplastic [sorghum bicolor] belongs to the bacterial ribosomal protein bl31 family"
+Zm00001eb148780,Unknown,oxidase,True,False,True,1.530576759378904,xp_006646457.2 putative respiratory burst oxidase homolog protein h [oryza brachyantha] ferric reductase nad binding domain
+Zm00001eb316700,Unknown,none,False,False,False,3.1490789213321686,xp_015947520.1 uncharacterized protein loc107472510 [arachis duranensis] nan
+Zm00001eb112590,Unknown,isomerase,False,True,True,1.7042008650994074,xp_021316986.1 protein disulfide-isomerase [sorghum bicolor] disulfide-isomerase
+Zm00001eb248530,Unknown,none,False,False,False,2.0869914285378406,xp_002452863.1 membrane steroid-binding protein 1 [sorghum bicolor] cytochrome b5-like heme/steroid binding domain
+Zm00001eb333100,Unknown,none,False,False,False,1.9944068305931155,xp_002441298.1 calmodulin [sorghum bicolor] serine hydrolase (fsh1)
+Zm00001eb228160,Unknown,none,False,False,False,2.0854684599772058,xp_002439032.1 senescence/dehydration-associated protein at3g51250 [sorghum bicolor] senescence-associated protein
+Zm00001eb422560,Unknown,none,False,False,False,2.777517257311887,xp_002446497.1 uncharacterized protein at4g26450 [sorghum bicolor] nan
+Zm00001eb039610,Unknown,phosphatase,True,False,True,5.018659294750796,xp_002445697.1 uncharacterized protein loc8057823 [sorghum bicolor] low molecular weight phosphatase family
+Zm00001eb425960,Unknown,none,False,False,False,2.588903946380261,xp_004976129.1 btb/poz domain-containing protein at2g24240-like [setaria italica] btb poz domain-containing protein
+Zm00001eb198110,Unknown,none,False,False,False,2.308612467412072,xp_004979377.1 n-alpha-acetyltransferase mak3 [setaria italica] acetyltransferase (gnat) family
+Zm00001eb320580,Unknown,none,False,False,False,2.132742940570341,xp_002460645.1 protein phox1 [sorghum bicolor] pb1 domain
+Zm00001eb156460,Unknown,none,False,False,False,2.599210689514044,
+Zm00001eb135710,Unknown,kinase,True,False,True,4.5840249634856125,"xp_021321585.1 serine/threonine-protein kinase nek2 [sorghum bicolor] serine/threonine protein kinases, catalytic domain"
+Zm00001eb052110,Unknown,none,False,False,False,2.124106917694363,
+Zm00001eb093120,Unknown,none,False,False,False,4.107570323715804,"xp_021317136.1 l-galactono-1,4-lactone dehydrogenase 2, mitochondrial [sorghum bicolor] l-galactono-1,4-lactone dehydrogenase"
+Zm00001eb089390,Unknown,none,False,False,False,1.929141988092667,xp_002447427.2 atp sulfurylase 2 [sorghum bicolor] pua-like domain
+Zm00001eb099930,Unknown,none,False,False,False,2.043435168426184,np_001332089.1 histone superfamily protein [arabidopsis thaliana] histone cluster 1
+Zm00001eb365530,Unknown,none,False,False,False,3.918592705554616,xp_021312853.1 uncharacterized protein loc8078693 [sorghum bicolor] abc1 family
+Zm00001eb063300,Unknown,none,False,False,False,1.6836412220269683,"xp_021319783.1 dead-box atp-dependent rna helicase 3, chloroplastic [sorghum bicolor] nuclear genome-encoded factor involved in ribosome biogenesis in chloroplasts. binds specific group ii introns in "
+Zm00001eb252380,Unknown,kinase,True,False,True,1.331292388796791,xp_052141931.1 cysteine-rich receptor-like protein kinase 44 [oryza glaberrima] protein kinase domain
+Zm00001eb227020,Unknown,none,False,False,False,1.887218699133968,xp_012700889.1 auxin-induced protein 15a [setaria italica] auxin responsive protein
+Zm00001eb115000,Unknown,none,False,False,False,3.363154782404735,xp_002449815.1 abc transporter f family member 5 [sorghum bicolor] abc transporter
+Zm00001eb019230,Unknown,none,False,False,False,4.5395507311740175,
+Zm00001eb216000,Unknown,none,False,False,False,2.796844178065814,"xp_002463979.1 uncharacterized protein loc8059995 [sorghum bicolor] serine aminopeptidase, s33"
+Zm00001eb099850,Unknown,none,False,False,False,1.5555304707154634,xp_022679920.1 pentatricopeptide repeat-containing protein at5g10690 isoform x2 [setaria italica] pentatricopeptide repeat domain
+Zm00001eb374160,Unknown,none,False,False,False,2.633921684721882,"xp_021306216.1 uncharacterized protein loc110431424 [sorghum bicolor] 5' nucleotidase, deoxy (pyrimidine), cytosolic type c protein (nt5c)"
+Zm00001eb251900,Unknown,none,False,False,False,2.0480367921719203,"xp_002454426.1 pectin acetylesterase 8 isoform x1 [sorghum bicolor] hydrolyzes acetyl esters in homogalacturonan regions of pectin. in type i primary cell wall, galacturonic acid residues of pectin ca"
+Zm00001eb365820,Unknown,none,False,False,False,2.1078338164841717,"xp_004970863.1 pectin acetylesterase 5 isoform x1 [setaria italica] hydrolyzes acetyl esters in homogalacturonan regions of pectin. in type i primary cell wall, galacturonic acid residues of pectin ca"
+Zm00001eb129370,Unknown,none,False,False,False,1.9990235414204056,xp_002457678.1 uncharacterized protein loc8054684 [sorghum bicolor] best arabidopsis thaliana protein match is glycosyltransferase family protein 2 (tair at5g60700.1)
+Zm00001eb304110,Unknown,phosphatase,True,False,True,2.6149041861269624,xp_021309538.1 uncharacterized protein loc110432864 isoform x2 [sorghum bicolor] protein phosphatase inhibitor 2 (ipp-2)
+Zm00001eb375670,Unknown,phosphatase,True,False,True,3.623948571308909,xp_002437892.1 serine/threonine-protein phosphatase pp1 [sorghum bicolor] serine threonine-protein phosphatase
+Zm00001eb392420,Unknown,none,False,False,False,2.5552530787738763,"xp_002465192.1 copper-transporting atpase paa1, chloroplastic [sorghum bicolor] heavy-metal-associated domain"
+Zm00001eb332500,Unknown,none,False,False,False,2.437675494292419,"xp_002457681.1 rhomboid-like protein 14, mitochondrial [sorghum bicolor] rhomboid family"
+Zm00001eb017050,Unknown,none,False,False,False,1.1137561866149133,xp_002467852.1 u4/u6 small nuclear ribonucleoprotein prp4-like protein [sorghum bicolor] source uniprotkb
+Zm00001eb327830,Unknown,none,False,False,False,2.3878964371314235,xp_002463204.2 putative pentatricopeptide repeat-containing protein at1g19290 [sorghum bicolor] pentacotripeptide-repeat region of prorp
+Zm00001eb344340,Unknown,none,False,False,False,2.3683562503991604,"xp_002441555.1 malate dehydrogenase, mitochondrial [sorghum bicolor] malate dehydrogenase"
+Zm00001eb347380,Unknown,none,False,False,False,2.113338649333199,xp_021898010.1 60s ribosomal protein l11-like isoform x2 [carica papaya] rrna binding
+Zm00001eb108620,Unknown,kinase,True,False,True,2.3199534970626376,xp_004960457.1 mitogen-activated protein kinase 14 isoform x1 [setaria italica] mitogen-activated protein kinase
+Zm00001eb106770,Unknown,none,False,False,False,2.4188644177408363,"xp_021309466.1 abc1 family protein ypl109c, mitochondrial-like [sorghum bicolor] abc1 family"
+Zm00001eb010590,Unknown,protease,True,False,True,2.890233195828243,"xp_002465558.1 atp-dependent clp protease atp-binding subunit clpt1, chloroplastic [sorghum bicolor] clp amino terminal domain, pathogenicity island component"
+Zm00001eb401030,Unknown,none,False,False,False,1.7195219639960633,
+Zm00001eb120360,Unknown,none,False,False,False,3.413018641119319,xp_021313426.1 protein male discoverer 2 [sorghum bicolor] leucine rich repeat n-terminal domain
+Zm00001eb276190,Unknown,ubiquitin|ligase,True,False,True,2.448600298541365,xp_021306063.1 e3 ubiquitin-protein ligase rglg2-like [sorghum bicolor] copine
+Zm00001eb425180,Unknown,none,False,False,False,3.1339485522332793,xp_002446692.1 uncharacterized protein loc8073684 [sorghum bicolor] yqaj-like viral recombinase domain
+Zm00001eb059970,Unknown,none,False,False,False,3.75243387349988,xp_002463775.1 ccr4-not transcription complex subunit 3 [sorghum bicolor] zinc finger
+Zm00001eb256460,Unknown,none,False,False,False,2.535602526846472,xp_002452902.1 universal stress protein phos32 [sorghum bicolor] universal stress protein family
+Zm00001eb364260,Unknown,none,False,False,False,2.024191433349474,xp_002456866.1 protein mak16 homolog [sorghum bicolor] belongs to the mak16 family
+Zm00001eb137500,Unknown,none,False,False,False,2.4802241689362075,np_189372.1 histone superfamily protein [arabidopsis thaliana] histone h3
+Zm00001eb198120,Unknown,none,False,False,False,1.490005611164971,"xp_002449596.2 protein cofactor assembly of complex c subunit b ccb1, chloroplastic [sorghum bicolor] cofactor assembly of complex c subunit b"
+Zm00001eb195000,Unknown,ubiquitin,True,False,True,1.6814761433417835,xp_002450102.1 ubiquitin-activating enzyme e1 1 [sorghum bicolor] belongs to the ubiquitin-activating e1 family
+Zm00001eb252640,Unknown,none,False,False,False,2.184338854040075,"xp_021313992.1 at-rich interactive domain-containing protein 5-like [sorghum bicolor] bright, arid (a/t-rich interaction domain) domain"
+Zm00001eb015210,Unknown,kinase,True,False,True,4.106711314474418,xp_021319570.1 cbl-interacting protein kinase 31 isoform x2 [sorghum bicolor] non-specific serine threonine protein kinase
+Zm00001eb295170,Unknown,phosphatase,True,False,True,1.8153955865546871,sp|q93yv6|2a5k_arath serine/threonine protein phosphatase 2a 57 kda regulatory subunit b' kappa isoform os=arabidopsis thaliana ox=3702 gn=b'kappa pe=2 sv=1 the b regulatory subunit might modulate sub
+Zm00001eb122970,Unknown,none,False,False,False,2.7552397663550363,xp_021313605.1 uncharacterized protein loc8056554 isoform x2 [sorghum bicolor] isoform x1
+Zm00001eb139660,Unknown,kinase,True,False,True,3.9622906001192386,xp_021312811.1 probable lrr receptor-like serine/threonine-protein kinase at1g67720 [sorghum bicolor] carbohydrate-binding protein of the er
+Zm00001eb301470,Unknown,none,False,False,False,1.3331421122645593,"xp_002459436.2 pentatricopeptide repeat-containing protein at5g64320, mitochondrial [sorghum bicolor] pentacotripeptide-repeat region of prorp"
+Zm00001eb258170,Unknown,protease,True,False,True,4.794391153447574,xp_021315749.1 26s protease regulatory subunit 6a homolog [sorghum bicolor] aaa domain (cdc48 subfamily)
+Zm00001eb037210,Unknown,kinase,True,False,True,2.443463835576049,xp_002445776.1 pti1-like tyrosine-protein kinase 3 [sorghum bicolor] belongs to the protein kinase superfamily. tyr protein kinase family
+Zm00001eb131690,Unknown,none,False,False,False,2.46461909420489,"xp_002455620.1 acyltransferase-like protein at1g54570, chloroplastic [sorghum bicolor] diacylglycerol acyltransferase"
+Zm00001eb342350,Unknown,ligase|synthetase,True,False,True,2.869637650985566,"xp_002440155.1 phosphoribosylamine--glycine ligase [sorghum bicolor] phosphoribosylglycinamide synthetase, atp-grasp (a) domain"
+Zm00001eb153830,Unknown,kinase,True,False,True,1.9320962088902591,"xp_003569758.2 atp-dependent 6-phosphofructokinase 6 [brachypodium distachyon] catalyzes the phosphorylation of d-fructose 6-phosphate to fructose 1,6-bisphosphate by atp, the first committing step of"
+Zm00001eb378810,Unknown,none,False,False,False,3.006792439729751,xp_002468057.1 elongator complex protein 6 isoform x1 [sorghum bicolor] elongation complex protein 6
+Zm00001eb331960,Unknown,none,False,False,False,7.313591831593177,xp_021308684.1 beta-galactosidase 12 [sorghum bicolor] glycosyl hydrolases family 35
+Zm00001eb036550,Unknown,none,False,False,False,3.589115459714462,xp_002445820.1 exocyst complex component exo70b1 [sorghum bicolor] exo70 exocyst complex subunit
+Zm00001eb294740,Unknown,none,False,False,False,1.9243978925261265,xp_002441470.2 uncharacterized protein loc8069011 isoform x2 [sorghum bicolor] wd repeat-containing protein
+Zm00001eb371200,Unknown,none,False,False,False,2.5344946963916644,xp_021311353.1 elongation factor 2 [sorghum bicolor] elongation factor 2
+Zm00001eb139920,Unknown,synthase,True,False,True,3.0395723230038407,xp_021311109.1 cellulose synthase-like protein g2 [sorghum bicolor] belongs to the glycosyltransferase 2 family
+Zm00001eb129580,Unknown,none,False,False,False,3.570384747350408,xp_002457688.1 pentatricopeptide repeat-containing protein at2g13600 [sorghum bicolor] pentatricopeptide repeat domain
+Zm00001eb163480,Unknown,kinase,True,False,True,2.23081181371385,xp_052138402.1 cbl-interacting protein kinase 32 [oryza glaberrima] non-specific serine threonine protein kinase
+Zm00001eb050350,Unknown,none,False,False,False,2.967144294346598,xp_004982316.1 dna-directed rna polymerase ii subunit rpb2 [setaria italica] dna-dependent rna polymerase catalyzes the transcription of dna into rna using the four ribonucleoside triphosphates as sub
+Zm00001eb375480,Unknown,kinase,True,False,True,2.889897845155618,xp_002437918.1 probable serine/threonine-protein kinase pix7 isoform x1 [sorghum bicolor] belongs to the protein kinase superfamily
+Zm00001eb102250,Unknown,none,False,False,False,2.374165845346326,xp_002460481.1 60s ribosomal protein l32-1 [sorghum bicolor] ribosomal protein l32
+Zm00001eb095350,Unknown,synthase,True,False,True,1.7922653212566346,xp_021308623.1 probable cellulose synthase a catalytic subunit 8 [udp-forming] [sorghum bicolor] belongs to the glycosyltransferase 2 family. plant cellulose synthase subfamily
+Zm00001eb391000,Unknown,none,False,False,False,3.6825842980269456,
+Zm00001eb159550,Unknown,none,False,False,False,2.041224938227776,xp_002458178.2 uncharacterized protein loc8084846 isoform x2 [sorghum bicolor] glycosyl transferase family 1 protein
+Zm00001eb046750,Unknown,none,False,False,False,2.221385354874377,xp_002464532.1 ras-related protein rabc2a [sorghum bicolor] ras family
+Zm00001eb419190,Unknown,none,False,False,False,3.2089875544793545,"xp_002449977.1 probable glutathione s-transferase gstu6 [sorghum bicolor] glutathione s-transferase, c-terminal domain"
+Zm00001eb144450,Unknown,none,False,False,False,2.5403550348152293,xp_002456792.2 transcription factor bhlh128 [sorghum bicolor] helix-loop-helix dna-binding domain
+Zm00001eb266600,Unknown,none,False,False,False,1.3833691488817503,xp_004960505.1 cation/h(+) antiporter 20 [setaria italica] sodium/hydrogen exchanger family
+Zm00001eb061760,Unknown,none,False,False,False,2.2616050530421106,xp_002466244.1 40s ribosomal protein s2-3 [sorghum bicolor] belongs to the universal ribosomal protein us5 family
+Zm00001eb028820,Unknown,none,False,False,False,3.4905867984114125,xp_021321599.1 myb-related protein mybas2-like isoform x3 [sorghum bicolor] myb-like dna-binding domain
+Zm00001eb016400,Unknown,none,False,False,False,2.6790199520921387,
+Zm00001eb033220,Unknown,none,False,False,False,2.4420295470223596,
+Zm00001eb162710,Unknown,none,False,False,False,2.2204319656711395,xp_002455762.1 spx domain-containing protein 6 [sorghum bicolor] spx domain
+Zm00001eb022750,Unknown,kinase,True,False,True,1.3956871185277226,xp_002464994.1 cyclin-dependent protein kinase inhibitor smr1 [sorghum bicolor] cyclin-dependent protein kinase inhibitor
+Zm00001eb339970,Unknown,none,False,False,False,2.2879860081957872,xp_004967532.1 putative methyltransferase ddb_g0268948 [setaria italica] methyltransferase domain
+Zm00001eb336310,Unknown,none,False,False,False,2.0356181013936263,np_001332089.1 histone superfamily protein [arabidopsis thaliana] histone cluster 1
+Zm00001eb149900,Unknown,none,False,False,False,1.7551391449030909,xp_004970339.1 dentin sialophosphoprotein [setaria italica] f-box protein
+Zm00001eb361180,Unknown,none,False,False,False,2.784443667316501,xp_002456230.1 vesicle transport v-snare 13 [sorghum bicolor] vesicle transport v-snare protein n-terminus
+Zm00001eb365060,Unknown,none,False,False,False,2.194329974718386,xp_002458959.1 glycine-rich cell wall structural protein 1.8 [sorghum bicolor] nan
+Zm00001eb374170,Unknown,ubiquitin|ligase,True,False,True,2.8780626893577255,xp_004964598.1 e3 ubiquitin-protein ligase el5 [setaria italica] ring-like zinc finger
+Zm00001eb252160,Unknown,ubiquitin,True,False,True,2.355996357405278,xp_002454420.1 protein radialis-like 3 [sorghum bicolor] ubiquitin modification-dependent histone binding
+Zm00001eb322430,Unknown,protease,True,False,True,1.820101042836913,xp_015695016.2 lon protease-like [oryza brachyantha] atp-dependent protease la (lon) substrate-binding domain
+Zm00001eb211740,Unknown,none,False,False,False,2.0055852743209135,xp_021306792.1 actin-depolymerizing factor 3 [sorghum bicolor] belongs to the actin-binding proteins adf family
+Zm00001eb385450,Unknown,none,False,False,False,2.048481055420191,xp_021305774.1 protein nrt1/ ptr family 4.6 isoform x2 [sorghum bicolor] pot family
+Zm00001eb064930,Unknown,none,False,False,False,4.1461282108010815,xp_002466067.2 atp-dependent dna helicase 2 subunit ku80 [sorghum bicolor] atp-dependent dna helicase 2 subunit ku80
+Zm00001eb006410,Unknown,none,False,False,False,2.2701140403215683,xp_040378548.1 tryptamine benzoyltransferase 1-like [oryza brachyantha] hydroxycinnamoyltransferase activity
+Zm00001eb057160,Unknown,none,False,False,False,1.9297323311764496,xp_002466462.1 phd finger protein ing2 [sorghum bicolor] inhibitor of growth proteins n-terminal histone-binding
+Zm00001eb005920,Unknown,oxygenase,True,False,True,3.900235613086104,"xp_002468402.1 probable lipoxygenase 6 [sorghum bicolor] plant lipoxygenase may be involved in a number of diverse aspects of plant physiology including growth and development, pest resistance, and se"
+Zm00001eb124780,Unknown,kinase,True,False,True,6.626307350143475,xp_002457393.1 receptor-like protein kinase at3g21340 [sorghum bicolor] carbohydrate-binding protein of the er
+Zm00001eb295120,Unknown,synthase,True,False,True,1.8619740594255063,xp_002440211.1 cdp-diacylglycerol--serine o-phosphatidyltransferase 2 [sorghum bicolor] phosphatidyl serine synthase
+Zm00001eb241810,Unknown,synthase,True,False,True,2.3548519731405695,"xp_004952560.1 acetolactate synthase 1, chloroplastic [setaria italica] acetolactate synthase activity"
+Zm00001eb044910,Unknown,none,False,False,False,2.1490725006497247,"xp_021307649.1 protein tic110, chloroplastic [sorghum bicolor] chloroplast envelope transporter"
+Zm00001eb293130,Unknown,none,False,False,False,3.7275814784711905,xp_021302883.1 calcineurin b-like protein 4 [sorghum bicolor] calcineurin b-like protein
+Zm00001eb021800,Unknown,none,False,False,False,2.653164141231232,"xp_002467594.1 transcription repressor ofp8 [sorghum bicolor] transcriptional repressor, ovate"
+Zm00001eb073810,Unknown,none,False,False,False,2.74040437964149,xp_002448347.2 protein argonaute 1b isoform x2 [sorghum bicolor] belongs to the argonaute family
+Zm00001eb293310,Unknown,none,False,False,False,2.6627355488071776,"xp_004961417.1 chaperone protein dnaj c76, chloroplastic [setaria italica] 4fe-4s single cluster domain"
+Zm00001eb060410,Unknown,none,False,False,False,2.382455404355214,xp_002466320.1 25.3 kda vesicle transport protein [sorghum bicolor] belongs to the synaptobrevin family
+Zm00001eb144360,Unknown,none,False,False,False,3.0999196988574975,xp_002458935.1 probable carboxylesterase 16 [sorghum bicolor] alpha/beta hydrolase fold
+Zm00001eb114030,Unknown,kinase,True,False,True,2.9034353041982452,xp_021316477.1 serine/threonine-protein kinase-like protein at1g28390 [sorghum bicolor] protein serine/threonine kinase activity
+Zm00001eb255980,Unknown,none,False,False,False,2.8306111394814533,"xp_002454606.2 uncharacterized protein loc8078924 isoform x1 [sorghum bicolor] remorin, c-terminal region"
+Zm00001eb335870,Unknown,isomerase,False,True,True,2.0682081316758447,"xp_004968207.1 triosephosphate isomerase, cytosolic [setaria italica] triosephosphate isomerase"
+Zm00001eb355170,Unknown,none,False,False,False,7.387917666386748,xp_002439201.1 tetraspanin-3 [sorghum bicolor] belongs to the tetraspanin (tm4sf) family
+Zm00001eb052270,Unknown,none,False,False,False,2.0778879095474374,xp_002466690.2 deoxyuridine 5'-triphosphate nucleotidohydrolase [sorghum bicolor] dutpase
+Zm00001eb416110,Unknown,none,False,False,False,2.0762577909849704,xp_021320679.1 vesicle-associated protein 1-3-like isoform x1 [sorghum bicolor] msp (major sperm protein) domain
+Zm00001eb360250,Unknown,none,False,False,False,2.1140533884354262,xp_004969523.1 auxin-responsive protein iaa5 [setaria italica] aux iaa proteins are short-lived transcriptional factors that function as repressors of early auxin response genes at low auxin concentra
+Zm00001eb016800,Unknown,none,False,False,False,1.3864165469043874,xp_002467862.1 zinc finger protein constans-like 13 [sorghum bicolor] cct motif
+Zm00001eb060330,Unknown,none,False,False,False,1.7107850348014724,xp_004981481.1 replication factor c subunit 5 [setaria italica] rad17 cell cycle checkpoint protein
+Zm00001eb086540,Unknown,lyase,True,False,True,5.451041171360822,"xp_021318420.1 lactoylglutathione lyase [sorghum bicolor] catalyzes the conversion of hemimercaptal, formed from methylglyoxal and glutathione, to s-lactoylglutathione"
+Zm00001eb048860,Unknown,none,False,False,False,3.03060708710378,xp_002464321.1 protein detoxification 40 [sorghum bicolor] belongs to the multi antimicrobial extrusion (mate) (tc 2.a.66.1) family
+Zm00001eb044970,Unknown,none,False,False,False,2.283194705250409,xp_004982769.1 ndr1/hin1-like protein 6 [setaria italica] late embryogenesis abundant protein
+Zm00001eb061820,Unknown,none,False,False,False,1.8927238208995572,"xp_006651938.2 remorin 4.1-like [oryza brachyantha] remorin, c-terminal region"
+Zm00001eb113900,Unknown,none,False,False,False,2.2053015643042735,xp_021316440.1 putative disease resistance protein at1g50180 [sorghum bicolor] disease resistance protein
+Zm00001eb278130,Unknown,kinase,True,False,True,2.9195594793576416,xp_002437039.1 cyclin-dependent kinase f-1 [sorghum bicolor] protein kinase domain
+Zm00001eb090620,Unknown,none,False,False,False,2.2895812390196606,xp_012704094.2 cytochrome p450 94b3 [setaria italica] cytochrome p450
+Zm00001eb294000,Unknown,none,False,False,False,2.0012701891866422,xp_002440140.2 trna(his) guanylyltransferase 1 [sorghum bicolor] thg1 c terminal domain
+Zm00001eb099240,Unknown,none,False,False,False,2.3588175467836083,xp_002462352.1 protein tify 6b [sorghum bicolor] tify
+Zm00001eb187800,Unknown,kinase,True,False,True,2.2977816876713417,xp_004953528.1 serine/threonine-protein kinase/endoribonuclease ire1 isoform x1 [setaria italica] nan
+Zm00001eb034990,Unknown,none,False,False,False,3.154118781316213,xp_002444772.2 abc transporter c family member 10 [sorghum bicolor] abc transporter c family member
+Zm00001eb105750,Unknown,none,False,False,False,3.984082892776928,xp_002462913.1 sh3 domain-containing protein 3 [sorghum bicolor] variant sh3 domain
+Zm00001eb356920,Unknown,none,False,False,False,2.1281626349460367,
+Zm00001eb403000,Unknown,ubiquitin,True,False,True,2.350186336232038,xp_002465854.1 ubiquitin-conjugating enzyme e2 4 [sorghum bicolor] belongs to the ubiquitin-conjugating enzyme family
+Zm00001eb370290,Unknown,none,False,False,False,1.07472545154466,xp_006644760.2 formamidase-like [oryza brachyantha] acetamidase/formamidase family
+Zm00001eb126330,Unknown,none,False,False,False,2.5423300346672986,xp_002457496.1 uncharacterized protein loc8070452 [sorghum bicolor] universal stress protein family
+Zm00001eb416770,Unknown,none,False,False,False,2.007903871939698,xp_021319985.1 uncharacterized protein loc110436801 isoform x1 [sorghum bicolor] nan
+Zm00001eb127420,Unknown,none,False,False,False,2.8313009384028605,"xp_002457566.1 probable transcription factor at3g04930 [sorghum bicolor] protein of unknown function, duf573"
+Zm00001eb324270,Unknown,none,False,False,False,2.854351666684522,xp_002460859.1 elongation factor 1-alpha [sorghum bicolor] this protein promotes the gtp-dependent binding of aminoacyl-trna to the a-site of ribosomes during protein biosynthesis
+Zm00001eb164790,Unknown,none,False,False,False,2.315942755895786,xp_052136874.1 importin beta-like sad2 homolog isoform x1 [oryza glaberrima] arm repeat superfamily protein
+Zm00001eb309590,Unknown,none,False,False,False,1.483412957501383,xp_002462169.1 pathogenesis-related genes transcriptional activator pti6 [sorghum bicolor] dna-binding domain in plant proteins such as apetala2 and erebps
+Zm00001eb033050,Unknown,kinase,True,False,True,3.3385292973275944,xp_002443660.1 lrr receptor-like serine/threonine-protein kinase fei 1 [sorghum bicolor] belongs to the protein kinase superfamily. ser thr protein kinase family
+Zm00001eb109520,Unknown,none,False,False,False,3.0542274549644044,xp_002459826.1 delta(14)-sterol reductase [sorghum bicolor] ergosterol biosynthesis erg4/erg24 family
+Zm00001eb122200,Unknown,none,False,False,False,1.8618692704715207,xp_021312991.1 mar-binding filament-like protein 1 [sorghum bicolor] filament-like protein
+Zm00001eb367290,Unknown,kinase,True,False,True,1.846391553585101,xp_004970615.1 leucine-rich repeat extensin-like protein 3 [setaria italica] protein kinase c conserved region 2 (calb)
+Zm00001eb418570,Unknown,none,False,False,False,2.469356047250821,xp_004951431.4 ervatamin-b [setaria italica] belongs to the peptidase c1 family
+Zm00001eb264550,Unknown,none,False,False,False,2.565167807096685,"xp_021321956.1 protein clt2, chloroplastic-like [sorghum bicolor] crt-like, chloroquine-resistance transporter-like"
+Zm00001eb200440,Unknown,none,False,False,False,3.5257089141939946,xp_021317268.1 formin-like protein 14 [sorghum bicolor] xs domain
+Zm00001eb024120,Unknown,none,False,False,False,2.302558477026654,xp_002464905.1 trithorax group protein osa [sorghum bicolor] nan
+Zm00001eb109880,Unknown,kinase,True,False,True,2.6829275490183595,"xp_002463265.1 xylulose kinase [sorghum bicolor] fggy family of carbohydrate kinases, n-terminal domain"
+Zm00001eb199940,Unknown,none,False,False,False,4.098814330310352,xp_021320432.1 at-hook motif nuclear-localized protein 10 [sorghum bicolor] domain of unknown function (duf296)
+Zm00001eb400160,Unknown,none,False,False,False,2.6464567801316603,xp_021306468.1 gdp-mannose transporter gonst3 isoform x2 [sorghum bicolor] triose-phosphate transporter family
+Zm00001eb323490,Unknown,none,False,False,False,2.505228500913015,"xp_002460824.1 probable histone h2a.2 [sorghum bicolor] core component of nucleosome. nucleosomes wrap and compact dna into chromatin, limiting dna accessibility to the cellular machineries which requ"
+Zm00001eb060730,Unknown,none,False,False,False,3.766490117317838,xp_002463741.1 60s ribosomal protein l4-1 [sorghum bicolor] 60s ribosomal protein
+Zm00001eb259070,Unknown,protease,True,False,True,1.9507576650897027,xp_021315590.1 otu domain-containing protein ddb_g0284757 isoform x3 [sorghum bicolor] otu-like cysteine protease
+Zm00001eb217870,Unknown,none,False,False,False,3.923326174257188,
+Zm00001eb425980,Unknown,none,False,False,False,1.682304387969365,xp_004976131.2 gamma-tubulin complex component 2 [setaria italica] gamma-tubulin complex is necessary for microtubule nucleation at the centrosome
+Zm00001eb374580,Unknown,none,False,False,False,1.8971760421948416,xp_021305064.1 abc transporter c family member 13 [sorghum bicolor] abc transporter transmembrane region
+Zm00001eb233730,Unknown,none,False,False,False,3.4568081099510115,
+Zm00001eb405630,Unknown,none,False,False,False,2.168942650916777,xp_002441761.2 zinc finger ccch domain-containing protein 23 isoform x2 [sorghum bicolor] zinc finger ccch domain-containing protein
+Zm00001eb430160,Unknown,none,False,False,False,5.700150619890914,xp_021318676.1 uncharacterized protein loc8063909 isoform x3 [sorghum bicolor] nan
+Zm00001eb280970,Unknown,none,False,False,False,3.748817075985064,xp_021305853.1 u-box domain-containing protein 35 isoform x1 [sorghum bicolor] u-box domain-containing protein
+Zm00001eb061860,Unknown,kinase,True,False,True,1.9645315002438188,xp_002466239.1 calcium-dependent protein kinase 8 [sorghum bicolor] calcium-dependent protein kinase
+Zm00001eb019800,Unknown,ubiquitin|ligase,True,False,True,2.0850946858589463,xp_021304947.1 e3 ubiquitin-protein ligase bre1-like 2 isoform x1 [sorghum bicolor] e3 ubiquitin-protein ligase bre1-like
+Zm00001eb386670,Unknown,ubiquitin|ligase,True,False,True,3.54469480317845,xp_021306063.1 e3 ubiquitin-protein ligase rglg2-like [sorghum bicolor] copine
+Zm00001eb215680,Unknown,none,False,False,False,3.256816592667565,xp_021318180.1 csc1-like protein rxw8 [sorghum bicolor] cytosolic domain of 10tm putative phosphate transporter
+Zm00001eb329550,Unknown,none,False,False,False,1.8798292276384685,"xp_002461144.2 low quality protein: uncharacterized protein loc8073127 [sorghum bicolor] uncharacterized protein family, upf0114"
+Zm00001eb222310,Unknown,none,False,False,False,2.874238956905657,
+Zm00001eb163800,Unknown,none,False,False,False,2.9349588111317213,xp_002442753.1 obtusifoliol 14-alpha demethylase [sorghum bicolor] belongs to the cytochrome p450 family
+Zm00001eb187670,Unknown,none,False,False,False,2.378608311491472,xp_003570129.1 serine/arginine repetitive matrix protein 1 [brachypodium distachyon] nan
+Zm00001eb212610,Unknown,phosphatase,True,False,True,2.5476844419306603,xp_021321104.1 lipid phosphate phosphatase delta [sorghum bicolor] acid phosphatase homologues
+Zm00001eb371180,Unknown,none,False,False,False,2.4216835827902803,xp_021311380.1 uncharacterized protein loc8075555 [sorghum bicolor] nan
+Zm00001eb238000,Unknown,none,False,False,False,2.1498615631079714,xp_004951275.1 hornerin [setaria italica] nan
+Zm00001eb045370,Unknown,none,False,False,False,2.976264698232123,xp_002464463.2 uncharacterized protein loc8067394 [sorghum bicolor] nan
+Zm00001eb312020,Unknown,synthase,True,False,True,2.776015685879615,"xp_021308880.1 alpha,alpha-trehalose-phosphate synthase [udp-forming] 6 [sorghum bicolor] glycosyltransferase family 20"
+Zm00001eb206750,Unknown,none,False,False,False,2.952833078683929,xp_004951669.1 uncharacterized protein loc101784481 [setaria italica] nan
+Zm00001eb025400,Unknown,none,False,False,False,2.50297585963056,xp_002467419.1 protein nrt1/ ptr family 8.3 isoform x1 [sorghum bicolor] pot family
+Zm00001eb163710,Unknown,none,False,False,False,2.4384996737793427,xp_002441755.1 v-type proton atpase subunit c [sorghum bicolor] subunit of the peripheral v1 complex of vacuolar atpase. subunit c is necessary for the assembly of the catalytic sector of the enzyme a
+Zm00001eb200140,Unknown,none,False,False,False,2.354079152205055,xp_022685208.1 sialyltransferase-like protein 5 isoform x5 [setaria italica] glycosyltransferase family 29 (sialyltransferase)
+Zm00001eb369690,Unknown,none,False,False,False,1.8560892252708696,xp_002458621.1 rna-binding protein pno1 [sorghum bicolor] k homology rna-binding domain
+Zm00001eb431330,Unknown,none,False,False,False,3.4188105289396575,xp_021319423.1 uncharacterized protein loc110436532 [sorghum bicolor] dna binding domain with preference for a/t rich regions
+Zm00001eb253690,Unknown,none,False,False,False,2.9414167343446964,xp_002452602.1 adp-ribosylation factor-like protein 8c [sorghum bicolor] belongs to the small gtpase superfamily. arf family
+Zm00001eb144840,Unknown,none,False,False,False,1.6177074130778542,"xp_002456776.1 probable membrane-associated 30 kda protein, chloroplastic [sorghum bicolor] pspa/im30 family"
+Zm00001eb173500,Unknown,none,False,False,False,1.6807045361079327,
+Zm00001eb212940,Unknown,none,False,False,False,4.0980270622678345,nan dna-binding transcription factor activity
+Zm00001eb152080,Unknown,none,False,False,False,2.7188418479420946,xp_021313408.1 protein crowded nuclei 4-like isoform x2 [sorghum bicolor] nuclear matrix constituent protein 1-like
+Zm00001eb428570,Unknown,protease,True,False,True,2.8507596118688783,xp_004976550.1 subtilisin-like protease sbt1.3 [setaria italica] peptidase inhibitor i9
+Zm00001eb040100,Unknown,none,False,False,False,1.7076390765853546,xp_002445738.1 thaumatin-like protein 1 [sorghum bicolor] thaumatin family
+Zm00001eb357340,Unknown,none,False,False,False,2.3397966562317483,xp_003568596.1 histone h2b.1 [brachypodium distachyon] histone h2b
+Zm00001eb244930,Unknown,none,False,False,False,4.753694942534736,xp_004952871.1 sucrose transport protein sut5 [setaria italica] mfs/sugar transport protein
+Zm00001eb282960,Unknown,none,False,False,False,1.343075589730851,xp_004969597.1 60s ribosomal protein l13-2 [setaria italica] belongs to the eukaryotic ribosomal protein el13 family
+Zm00001eb192630,Unknown,none,False,False,False,2.0988799051206235,xp_002452962.1 t-complex protein 1 subunit alpha [sorghum bicolor] assists the folding of proteins upon atp hydrolysis
+Zm00001eb378280,Unknown,none,False,False,False,2.2972309314081407,xp_002437755.2 histone h1 [sorghum bicolor] domain in histone families 1 and 5
+Zm00001eb335640,Unknown,none,False,False,False,2.086773530985622,xp_004968156.1 protein suppressor of k(+) transport growth defect 1 [setaria italica] microtubule interacting and trafficking molecule domain
+Zm00001eb390560,Unknown,none,False,False,False,2.6247022196235013,xp_022678549.1 low quality protein: nac domain-containing protein 71-like [setaria italica] no apical meristem (nam) protein
+Zm00001eb209380,Unknown,none,False,False,False,1.8078821906883915,xp_002451390.1 signal peptide peptidase 1 [sorghum bicolor] signal peptide peptidase
+Zm00001eb002200,Unknown,none,False,False,False,1.831745903607489,
+Zm00001eb357600,Unknown,none,False,False,False,2.6331342190462195,xp_002455881.1 gdsl esterase/lipase at5g37690 isoform x1 [sorghum bicolor] gdsl-like lipase/acylhydrolase
+Zm00001eb056030,Unknown,synthase,True,False,True,2.1339360185778684,xp_002463941.1 prostamide/prostaglandin f synthase [sorghum bicolor] ahpc/tsa antioxidant enzyme
+Zm00001eb288150,Unknown,none,False,False,False,3.3074906339787136,xp_004962080.1 beta-hexosaminidase 3 [setaria italica] beta-acetyl hexosaminidase like
+Zm00001eb113950,Unknown,none,False,False,False,2.4276087436468217,xp_021317578.1 growth-regulating factor 8-like isoform x1 [sorghum bicolor] qlq
+Zm00001eb033190,Unknown,none,False,False,False,3.307093446829383,xp_002442626.1 protein yippee-like at3g55890 [sorghum bicolor] belongs to the yippee family
+Zm00001eb415700,Unknown,none,False,False,False,1.910872253891431,xp_002445096.1 nucleolar gtp-binding protein 1 [sorghum bicolor] nucleolar gtp-binding protein 1 (nog1)
+Zm00001eb061940,Unknown,none,False,False,False,2.011460116416276,xp_002466235.1 tlc domain-containing protein at5g14285 [sorghum bicolor] tlc domain
+Zm00001eb401810,Unknown,none,False,False,False,2.298832895090343,xp_004985494.1 uncharacterized protein loc101782692 [setaria italica] protein of unknown function (duf1677)
+Zm00001eb044960,Unknown,none,False,False,False,1.4648802799572245,xp_002467027.1 uncharacterized protein loc8065827 [sorghum bicolor] peptidase of plants and bacteria
+Zm00001eb071360,Unknown,kinase,True,False,True,2.2096785542951864,xp_002448493.1 galacturonokinase [sorghum bicolor] galactokinase galactose-binding signature
+Zm00001eb174710,Unknown,none,False,False,False,1.9109180498632172,xp_021320522.1 oxysterol-binding protein-related protein 4c isoform x2 [sorghum bicolor] belongs to the osbp family
+Zm00001eb349530,Unknown,none,False,False,False,6.414710185889344,xp_002439791.1 uncharacterized protein loc8085128 [sorghum bicolor] nan
+Zm00001eb408750,Unknown,none,False,False,False,2.862384599000813,xp_002443182.1 uncharacterized protein loc8064065 [sorghum bicolor] nan
+Zm00001eb392580,Unknown,kinase,True,False,True,1.269886683524992,xp_002465184.1 serine/threonine-protein kinase sapk1 [sorghum bicolor] belongs to the protein kinase superfamily
+Zm00001eb274240,Unknown,oxidase,True,False,True,2.18760956779572,xp_021306236.1 molybdenum cofactor sulfurase isoform x1 [sorghum bicolor] sulfurates the molybdenum cofactor. sulfation of molybdenum is essential for xanthine dehydrogenase (xdh) and aldehyde oxidase
+Zm00001eb337140,Unknown,none,False,False,False,2.5272997434692557,xp_002457231.1 dexh-box atp-dependent rna helicase dexh10 [sorghum bicolor] rrna-processing arch domain
+Zm00001eb113870,Unknown,none,False,False,False,2.662415610472837,xp_002450931.1 maf-like protein ddb_g0281937 isoform x4 [sorghum bicolor] maf-like protein
+Zm00001eb335790,Unknown,none,False,False,False,5.730815164538821,"xp_002455213.2 uncharacterized protein at2g39795, mitochondrial, partial [sorghum bicolor] mitochondrial glycoprotein"
+Zm00001eb107400,Unknown,kinase,True,False,True,1.7135357031632072,xp_002460895.1 probable serine/threonine-protein kinase wnk1 [sorghum bicolor] protein kinase domain
+Zm00001eb186820,Unknown,oxidase,True,False,True,3.173569977080558,xp_004953380.1 probable phospholipid hydroperoxide glutathione peroxidase [setaria italica] belongs to the glutathione peroxidase family
+Zm00001eb384580,Unknown,kinase,True,False,True,2.0187491728805615,xp_002437153.1 receptor-like protein kinase 5 [sorghum bicolor] belongs to the protein kinase superfamily. ser thr protein kinase family
+Zm00001eb378830,Unknown,none,False,False,False,1.5108370808028817,xp_002437719.2 endoplasmic reticulum metallopeptidase 1 [sorghum bicolor] endoplasmic reticulum metallopeptidase
+Zm00001eb211620,Unknown,none,False,False,False,2.0878067972527448,xp_016468695.1 uncharacterized protein [nicotiana tabacum] nucleotide exchange factor fes1
+Zm00001eb247540,Unknown,kinase,True,False,True,2.689918027031855,xp_002454196.2 wall-associated receptor kinase 5 [sorghum bicolor] calcium-binding egf-like domain
+Zm00001eb266620,Unknown,none,False,False,False,2.9601877835961656,xp_002439153.2 act domain-containing protein acr9 [sorghum bicolor] act domain-containing protein
+Zm00001eb038640,Unknown,none,False,False,False,1.6017144404374195,xp_002444541.1 histone-lysine n-methyltransferase family member suvh9 [sorghum bicolor] pre-set motif
+Zm00001eb177830,Unknown,kinase,True,False,True,2.4362561512401566,xp_004962492.1 wall-associated receptor kinase-like 20 [setaria italica] protein kinase domain
+Zm00001eb302270,Unknown,none,False,False,False,2.552939442944594,xp_002461576.1 f-box protein at2g26160 [sorghum bicolor] nan
+Zm00001eb202020,Unknown,kinase,True,False,True,3.776223951223463,xp_021316639.1 probable receptor-like protein kinase at2g42960 [sorghum bicolor] belongs to the protein kinase superfamily
+Zm00001eb212520,Unknown,none,False,False,False,1.0581936876932885,"xp_021306676.1 photosystem i reaction center subunit ii, chloroplastic-like [sorghum bicolor] photosystem i reaction center subunit ii"
+Zm00001eb145100,Unknown,none,False,False,False,1.5930707008182463,xp_010232677.1 2-alkenal reductase (nadp(+)-dependent) isoform x2 [brachypodium distachyon] n-terminal domain of oxidoreductase
+Zm00001eb149750,Unknown,none,False,False,False,3.470762782045816,"xp_002458679.1 transmembrane protein 56-b [sorghum bicolor] tram, lag1 and cln8 homology domains."
+Zm00001eb023350,Unknown,none,False,False,False,2.1033119242741045,xp_014660002.1 transcription factor une10 isoform x2 [setaria italica] transcription factor
+Zm00001eb227330,Unknown,none,False,False,False,1.6322288517979,xp_002437555.1 glycosyltransferase family 64 protein c4 [sorghum bicolor] glycosyl transferase family 64 domain
+Zm00001eb430350,Unknown,none,False,False,False,1.9941093863543613,xp_002448462.1 uncharacterized protein loc8063925 [sorghum bicolor] bacterial extracellular solute-binding protein
+Zm00001eb196600,Unknown,none,False,False,False,2.8674926792782833,xp_004978652.1 r3h domain-containing protein 4 [setaria italica] r3h-associated n-terminal domain
+Zm00001eb241920,Unknown,none,False,False,False,1.2653464595362245,"xp_002452163.1 glycerophosphodiester phosphodiesterase gdpd1, chloroplastic [sorghum bicolor] glycerophosphoryl diester phosphodiesterase family"
+Zm00001eb019370,Unknown,none,False,False,False,2.5685487774525666,
+Zm00001eb362270,Unknown,none,False,False,False,2.791335446100365,"xp_002459173.1 pentatricopeptide repeat-containing protein at3g48250, chloroplastic [sorghum bicolor] ppr repeat"
+Zm00001eb250370,Unknown,none,False,False,False,1.8339465166225088,xp_002454491.1 transcription factor bhlh157 [sorghum bicolor] bhlh-myc and r2r3-myb transcription factors n-terminal
+Zm00001eb048390,Unknown,kinase,True,False,True,5.293251429718321,"xp_002464639.1 atp-dependent 6-phosphofructokinase 5, chloroplastic [sorghum bicolor] catalyzes the phosphorylation of d-fructose 6-phosphate to fructose 1,6-bisphosphate by atp, the first committing "
+Zm00001eb219210,Unknown,none,False,False,False,2.188119226814984,xp_002464245.2 zinc finger protein 4 [sorghum bicolor] zinc finger
+Zm00001eb010600,Unknown,none,False,False,False,3.4479645166968327,nan nan
+Zm00001eb276160,Unknown,none,False,False,False,2.0697966596880257,xp_021305237.1 uncharacterized protein loc8065089 isoform x1 [sorghum bicolor] alpha beta-hydrolases superfamily protein
+Zm00001eb270660,Unknown,none,False,False,False,2.357363701868566,xp_002436481.1 nucleosome assembly protein 1;1 [sorghum bicolor] belongs to the nucleosome assembly protein (nap) family
+Zm00001eb334810,Unknown,none,False,False,False,1.9462046699975093,xp_002455288.2 uncharacterized protein loc8070432 [sorghum bicolor] nan
+Zm00001eb351780,Unknown,none,False,False,False,2.2373508295204845,"xp_021303508.1 utp--glucose-1-phosphate uridylyltransferase 3, chloroplastic isoform x1 [sorghum bicolor] utp-monosaccharide-1-phosphate uridylyltransferase activity"
+Zm00001eb427480,Unknown,kinase,True,False,True,1.7246015035091242,xp_002446858.1 serine/threonine-protein kinase grik1 [sorghum bicolor] belongs to the protein kinase superfamily
+Zm00001eb124070,Unknown,none,False,False,False,3.3949988028314917,xp_015696190.1 histone h2b.2 [oryza brachyantha] histone h2b
+Zm00001eb039620,Unknown,none,False,False,False,2.8626669109014293,"xp_021320422.1 cytochrome c1-2, heme protein, mitochondrial [sorghum bicolor] cytochrome c1 family"
+Zm00001eb299970,Unknown,none,False,False,False,2.493335649869251,xp_021310456.1 187-kda microtubule-associated protein air9 [sorghum bicolor] 187-kda microtubule-associated protein
+Zm00001eb300490,Unknown,oxygenase,True,False,True,2.4773540200623496,xp_002461489.2 flavonoid 3'-monooxygenase [sorghum bicolor] belongs to the cytochrome p450 family
+Zm00001eb073610,Unknown,none,False,False,False,6.02706750847857,xp_024318238.1 f-box protein pp2-a13 isoform x2 [brachypodium distachyon] phloem protein 2
+Zm00001eb207970,Unknown,none,False,False,False,1.0557784988231242,
+Zm00001eb258890,Unknown,none,False,False,False,1.9603346592901425,xp_021314736.1 myosin-6 [sorghum bicolor] belongs to the trafac class myosin-kinesin atpase superfamily. myosin family
+Zm00001eb400800,Unknown,none,False,False,False,1.652323651479111,xp_002468324.1 uncharacterized protein loc8054238 [sorghum bicolor] belongs to the glycosyl hydrolase 43 family
+Zm00001eb020660,Unknown,none,False,False,False,2.326271549412075,xp_002465088.1 probable esterase d14l [sorghum bicolor] arbuscular mycorrhizal association
+Zm00001eb140420,Unknown,none,False,False,False,3.089985574795782,xp_002459140.1 uncharacterized protein loc8074099 [sorghum bicolor] gida associated domain 3
+Zm00001eb156710,Unknown,none,False,False,False,4.168348144184937,xp_002456149.1 transcription initiation factor tfiid subunit 11 [sorghum bicolor] htafii28-like protein conserved region
+Zm00001eb208430,Unknown,none,False,False,False,1.9865494578769367,"xp_002453220.1 eukaryotic translation initiation factor 3 subunit j-a [sorghum bicolor] component of the eukaryotic translation initiation factor 3 (eif-3) complex, which is involved in protein synthe"
+Zm00001eb191640,Unknown,none,False,False,False,1.9085448636469893,nan nan
+Zm00001eb203840,Unknown,none,False,False,False,2.021757317443369,xp_004951269.1 btb/poz domain-containing protein pob1 isoform x2 [setaria italica] domain-containing protein
+Zm00001eb227820,Unknown,none,False,False,False,2.282344077627493,xp_021305660.1 uncharacterized protein loc8065616 isoform x2 [sorghum bicolor] nan
+Zm00001eb032230,Unknown,none,False,False,False,1.7113240355174346,"xp_021302372.1 cationic amino acid transporter 2, vacuolar-like isoform x2 [sorghum bicolor] c-terminus of aa_permease"
+Zm00001eb352310,Unknown,none,False,False,False,5.150081652451887,"xp_004961670.1 histone-lysine n-methyltransferase, h3 lysine-9 specific suvh1 [setaria italica] histone-lysine n-methyltransferase, h3 lysine-9 specific"
+Zm00001eb178280,Unknown,none,False,False,False,2.5964933611315097,"xp_002444096.1 plasma membrane atpase [sorghum bicolor] cation transporter/atpase, n-terminus"
+Zm00001eb320800,Unknown,none,False,False,False,2.376782648274342,xp_004957585.1 utp--glucose-1-phosphate uridylyltransferase [setaria italica] utp--glucose-1-phosphate uridylyltransferase
+Zm00001eb284120,Unknown,none,False,False,False,2.8262855781437546,"xp_002440767.1 thioredoxin-like 2, chloroplastic [sorghum bicolor] thioredoxin"
+Zm00001eb397980,Unknown,none,False,False,False,5.358473805625028,xp_021306399.1 serine/arginine-rich splicing factor sr45a isoform x1 [sorghum bicolor] rna recognition motif
+Zm00001eb301490,Unknown,none,False,False,False,1.9410855150564548,xp_040385477.1 xylanase inhibitor protein 1-like [oryza brachyantha] xylanase inhibitor protein 1
+Zm00001eb051580,Unknown,none,False,False,False,1.7412248383409954,xp_002464238.1 btb/poz domain-containing protein npy4 [sorghum bicolor] belongs to the nph3 family
+Zm00001eb138110,Unknown,none,False,False,False,1.263909830112649,"xp_020570912.1 low quality protein: glycine-rich rna-binding protein 3, mitochondrial-like [phalaenopsis equestris] rna recognition motif"
+Zm00001eb240750,Unknown,none,False,False,False,2.0331125781654853,xp_004952436.1 wrky transcription factor wrky51 [setaria italica] plant zinc cluster domain
+Zm00001eb370370,Unknown,none,False,False,False,2.658557680019747,xp_002456391.2 glycerophosphodiester phosphodiesterase gdpd6 [sorghum bicolor] glycerophosphoryl diester phosphodiesterase family
+Zm00001eb430820,Unknown,none,False,False,False,3.1401620304783036,"xp_021317900.1 peroxisomal 2,4-dienoyl-coa reductase isoform x2 [sorghum bicolor] enoyl-(acyl carrier protein) reductase"
+Zm00001eb065000,Unknown,none,False,False,False,3.849499542569564,"xp_002466062.1 probable carbohydrate esterase at4g34215 [sorghum bicolor] carbohydrate esterase, sialic acid-specific acetylesterase"
+Zm00001eb327030,Unknown,mutase,False,True,True,2.6794854885435906,xp_002460988.1 udp-arabinopyranose mutase 3 [sorghum bicolor] reversibly glycosylated polypeptide
+Zm00001eb014600,Unknown,none,False,False,False,1.7351969075308251,"xp_002467982.1 calvin cycle protein cp12-1, chloroplastic [sorghum bicolor] cp12"
+Zm00001eb023130,Unknown,none,False,False,False,2.1932050567132197,xp_002464960.2 uncharacterized protein loc8058747 [sorghum bicolor] zinc finger protein
+Zm00001eb307400,Unknown,none,False,False,False,2.282258721460169,xp_002462029.1 transcription factor myb44 [sorghum bicolor] myb-like dna-binding domain
+Zm00001eb051780,Unknown,none,False,False,False,2.6326472771472624,xp_002466829.1 uncharacterized protein loc8062521 [sorghum bicolor] protein of unknown function (duf760)
+Zm00001eb384110,Unknown,none,False,False,False,2.728481723734669,xp_002438585.1 beta-glucosidase 31 [sorghum bicolor] belongs to the glycosyl hydrolase 1 family
+Zm00001eb228090,Unknown,none,False,False,False,2.5466650592937663,xp_002437596.1 uncharacterized protein loc8069195 isoform x2 [sorghum bicolor] protein of unknown function (duf668)
+Zm00001eb049730,Unknown,none,False,False,False,2.7451497712416173,xp_021314310.1 factor of dna methylation 1 [sorghum bicolor] xh domain
+Zm00001eb143140,Unknown,none,False,False,False,4.868431744459166,xp_004971090.1 ice-structuring glycoprotein-like [setaria italica] nan
+Zm00001eb298140,Unknown,none,False,False,False,2.081148712700112,xp_021310419.1 la-related protein 6c [sorghum bicolor] la domain
+Zm00001eb357290,Unknown,none,False,False,False,1.3467381600489003,nan short calmodulin-binding motif containing conserved ile and gln residues.
+Zm00001eb408960,Unknown,none,False,False,False,2.0220403125060007,xp_002442114.1 abc transporter f family member 1 [sorghum bicolor] abc transporter
+Zm00001eb225790,Unknown,none,False,False,False,4.0288094026258445,xp_004966283.1 eh domain-containing protein 1 [setaria italica] belongs to the trafac class dynamin-like gtpase superfamily. dynamin fzo ydja family
+Zm00001eb287610,Unknown,none,False,False,False,3.203902110132901,xp_021302969.1 bi1-like protein [sorghum bicolor] belongs to the bi1 family
+Zm00001eb398630,Unknown,none,False,False,False,3.167548745015788,xp_002468179.2 uncharacterized protein loc8078851 [sorghum bicolor] nan
+Zm00001eb090730,Unknown,none,False,False,False,2.2002636420852406,"xp_004979204.1 protein krasavietz [setaria italica] domain at the c-termini of gcd6, eif-2b epsilon, eif-4 gamma and eif-5"
+Zm00001eb136350,Unknown,none,False,False,False,2.18591599474495,xp_002442368.1 scarecrow-like protein 34 [sorghum bicolor] belongs to the gras family
+Zm00001eb022040,Unknown,synthetase,True,False,True,2.999940321939209,"xp_004983812.1 protein curvature thylakoid 1b, chloroplastic [setaria italica] caad domains of cyanobacterial aminoacyl-trna synthetase"
+Zm00001eb377470,Unknown,kinase,True,False,True,3.041410938030894,xp_021305067.1 u-box domain-containing protein 35 isoform x1 [sorghum bicolor] protein kinase domain
+Zm00001eb327790,Unknown,none,False,False,False,1.5809303343430303,xp_020554896.1 40s ribosomal protein s6-like [sesamum indicum] 40s ribosomal protein s6
+Zm00001eb169350,Unknown,kinase,True,False,True,3.932742361674885,xp_002450707.1 receptor-like kinase tmk4 isoform x1 [sorghum bicolor] belongs to the protein kinase superfamily. ser thr protein kinase family
+Zm00001eb425660,Unknown,none,False,False,False,2.1890268340701353,xp_002446731.2 protein nlp2 [sorghum bicolor] rwp-rk domain
+Zm00001eb049880,Unknown,none,False,False,False,2.0255071593635225,xp_021314676.1 scarecrow-like protein 34 [sorghum bicolor] belongs to the gras family
+Zm00001eb055010,Unknown,none,False,False,False,2.350013218095232,xp_002466575.1 pentatricopeptide repeat-containing protein at4g01570 [sorghum bicolor] ppr repeat
+Zm00001eb140330,Unknown,none,False,False,False,2.4660033014890264,xp_002459150.1 40s ribosomal protein s10-1 [sorghum bicolor] plectin/s10 domain
+Zm00001eb227310,Unknown,none,False,False,False,3.539510209205446,"xp_021305862.1 delta-aminolevulinic acid dehydratase, chloroplastic [sorghum bicolor] belongs to the alad family"
+Zm00001eb106250,Unknown,none,False,False,False,1.8393724624089127,xp_004957909.1 uncharacterized protein loc101776819 [setaria italica] isoform x1
+Zm00001eb280210,Unknown,none,False,False,False,1.7960201177908428,xp_021305239.1 potassium channel kor1 isoform x1 [sorghum bicolor] potassium channel skor
+Zm00001eb327810,Unknown,none,False,False,False,1.7000016003088825,xp_021309735.1 uncharacterized protein loc8079215 isoform x1 [sorghum bicolor] alpha/beta hydrolase fold
+Zm00001eb216260,Unknown,mutase,False,True,True,1.9821950667001171,"xp_002466576.1 phosphoglucomutase, cytoplasmic 2 [sorghum bicolor] belongs to the phosphohexose mutase family"
+Zm00001eb334370,Unknown,isomerase,False,True,True,2.5248681663994876,"xp_011016464.1 predicted: 1-deoxy-d-xylulose 5-phosphate reductoisomerase, chloroplastic-like [populus euphratica] 1-deoxy-d-xylulose 5-phosphate reductoisomerase"
+Zm00001eb278120,Unknown,none,False,False,False,1.707022122288353,xp_002438439.1 vacuolar amino acid transporter 1 [sorghum bicolor] transmembrane amino acid transporter protein
+Zm00001eb064670,Unknown,ligase,True,False,True,2.9504195754854488,xp_002466086.1 pantoate--beta-alanine ligase [sorghum bicolor] pantoate-beta-alanine ligase
+Zm00001eb223240,Unknown,none,False,False,False,4.424017322842078,"xp_004983151.1 cyclic dof factor 1 [setaria italica] dof domain, zinc finger"
+Zm00001eb354530,Unknown,none,False,False,False,2.7259268863491086,xp_004960431.1 chromatin structure-remodeling complex protein bsh [setaria italica] snf5 / smarcb1 / ini1
+Zm00001eb254940,Unknown,kinase,True,False,True,3.0368323958172567,"xp_004953920.1 shikimate kinase 1, chloroplastic [setaria italica] shikimate kinase"
+Zm00001eb402300,Unknown,none,False,False,False,1.766755663268392,xp_002465787.1 uncharacterized protein loc8082119 isoform x1 [sorghum bicolor] cleavage site for pathogenic type iii effector avirulence factor avr
+Zm00001eb091250,Unknown,none,False,False,False,3.9303940206049,xp_021316715.1 protein accelerated cell death 6 [sorghum bicolor] domain of unknown function
+Zm00001eb074030,Unknown,none,False,False,False,5.03145492976556,xp_004976496.1 lysine histidine transporter-like 8 [setaria italica] transmembrane amino acid transporter protein
+Zm00001eb108390,Unknown,none,False,False,False,3.0303187230202746,xp_021308777.1 formin-like protein 5 isoform x2 [sorghum bicolor] formin homology 2 domain
+Zm00001eb158500,Unknown,none,False,False,False,2.063671916088679,xp_004969308.2 uncharacterized protein loc101755298 [setaria italica] nan
+Zm00001eb389750,Unknown,none,False,False,False,1.570640510225311,xp_002437414.2 vacuolar-sorting receptor 6 [sorghum bicolor] vacuolar-sorting receptor
+Zm00001eb328010,Unknown,none,False,False,False,1.9647970392261265,"xp_040381988.1 15-cis-phytoene desaturase, chloroplastic/chromoplastic [oryza brachyantha] belongs to the myst (sas moz) family"
+Zm00001eb351910,Unknown,none,False,False,False,2.6652840215089357,xp_021303110.1 probable methyltransferase pmt23 [sorghum bicolor] putative s-adenosyl-l-methionine-dependent methyltransferase
+Zm00001eb012950,Unknown,none,False,False,False,2.072267985348476,xp_004984794.1 protein modifier of snc1 11 [setaria italica] protein modifier of snc1
+Zm00001eb410260,Unknown,none,False,False,False,2.5913860907730815,xp_002443328.1 calmodulin-binding protein 60 a [sorghum bicolor] calmodulin binding protein-like
+Zm00001eb284070,Unknown,none,False,False,False,2.017722385261348,xp_004960596.1 uncharacterized protein loc101766326 [setaria italica] cotton fibre expressed protein
+Zm00001eb212810,Unknown,none,False,False,False,4.4476800731906225,xp_002466283.1 protein wvd2-like 1 isoform x1 [sorghum bicolor] targeting protein for xklp2 (tpx2)
+Zm00001eb041750,Unknown,none,False,False,False,3.2547150798762554,xp_021906003.1 uncharacterized protein loc110820733 [carica papaya] agenet domain
+Zm00001eb138290,Unknown,none,False,False,False,2.2529353490446553,xp_004960778.1 serine carboxypeptidase 1 [setaria italica] belongs to the peptidase s10 family
+Zm00001eb370850,Unknown,none,False,False,False,2.325544764162936,xp_002458501.2 transcription factor voz1 [sorghum bicolor] transcription factor
+Zm00001eb404310,Unknown,none,False,False,False,3.950054024266257,xp_004986053.1 myosin-2 heavy chain isoform x1 [setaria italica] nan
+Zm00001eb358380,Unknown,protease,True,False,True,3.606833458385681,"xp_002458167.2 atp-dependent zinc metalloprotease ftsh 9, chloroplastic/mitochondrial [sorghum bicolor] belongs to the aaa atpase family"
+Zm00001eb207920,Unknown,none,False,False,False,2.435194616190339,nan dna-dependent rna polymerase catalyzes the transcription of dna into rna using the four ribonucleoside triphosphates as substrates
+Zm00001eb406760,Unknown,none,False,False,False,1.9719257867445232,xp_002442811.1 act domain-containing protein acr12 [sorghum bicolor] protein ds12 from 2d-page of leaf
+Zm00001eb101980,Unknown,none,False,False,False,2.0274421820994974,
+Zm00001eb121890,Unknown,none,False,False,False,2.2326596187640484,
+Zm00001eb026550,Unknown,kinase,True,False,True,4.060818333122903,xp_021318306.1 leucine-rich repeat receptor-like protein kinase pepr2 [sorghum bicolor] leucine rich repeat
+Zm00001eb363880,Unknown,none,False,False,False,1.9709685441101807,xp_006646634.3 transaldolase [oryza brachyantha] transaldolase/fructose-6-phosphate aldolase
+Zm00001eb381110,Unknown,none,False,False,False,3.0630036140548107,"xp_002438278.1 54s ribosomal protein l17, mitochondrial [sorghum bicolor] 39s ribosomal protein l46"
+Zm00001eb196380,Unknown,none,False,False,False,1.8320463985670763,"xp_002448955.1 probable calcium-transporting atpase 9, plasma membrane-type [sorghum bicolor] this magnesium-dependent enzyme catalyzes the hydrolysis of atp coupled with the transport of calcium"
+Zm00001eb427180,Unknown,none,False,False,False,1.6586527563394895,xp_002461154.1 histone h2b.1 [sorghum bicolor] histone h2b
+Zm00001eb246360,Unknown,none,False,False,False,1.7253885350789702,xp_021313888.1 cytosolic fe-s cluster assembly factor nbp35 [sorghum bicolor] component of the cytosolic iron-sulfur (fe-s) protein assembly (cia) machinery. required for maturation of extramitochondr
+Zm00001eb219710,Unknown,synthase|oxidase,True,False,True,1.848124679262618,xp_004975212.1 achilleol b synthase isoform x1 [setaria italica] prenyltransferase and squalene oxidase repeat
+Zm00001eb041880,Unknown,none,False,False,False,4.27083902359084,xp_002444371.1 dna repair protein rad4 [sorghum bicolor] rad4 beta-hairpin domain 3
+Zm00001eb365760,Unknown,none,False,False,False,4.111746613288651,"xp_002456776.1 probable membrane-associated 30 kda protein, chloroplastic [sorghum bicolor] pspa/im30 family"
+Zm00001eb369360,Unknown,none,False,False,False,2.519296049239762,xp_021313672.1 probable sugar phosphate/phosphate translocator at2g25520 [sorghum bicolor] triose-phosphate transporter family
+Zm00001eb103260,Unknown,isomerase,False,True,True,2.321060806569264,"xp_002460555.1 probable 6-phosphogluconolactonase 4, chloroplastic [sorghum bicolor] glucosamine-6-phosphate isomerases/6-phosphogluconolactonase"
+Zm00001eb387030,Unknown,phosphatase,True,False,True,1.5148667115096182,xp_021304409.1 phosphoenolpyruvate phosphatase [sorghum bicolor] purple acid phosphatase
+Zm00001eb284520,Unknown,none,False,False,False,1.9900310270162969,xp_021302905.1 low quality protein: serine carboxypeptidase 2 [sorghum bicolor] belongs to the peptidase s10 family
+Zm00001eb327110,Unknown,none,False,False,False,2.1224344819281495,xp_002463161.1 cytosolic sulfotransferase 5 [sorghum bicolor] belongs to the sulfotransferase 1 family
+Zm00001eb325750,Unknown,none,False,False,False,1.9537764372555293,xp_002460928.1 chitin-inducible gibberellin-responsive protein 2 [sorghum bicolor] belongs to the gras family
+Zm00001eb414970,Unknown,none,False,False,False,5.292211561347937,xp_002443930.1 haloacid dehalogenase-like hydrolase domain-containing protein 3 [sorghum bicolor] haloacid dehalogenase-like hydrolase
+Zm00001eb278070,Unknown,ubiquitin,True,False,True,1.5037420375863468,xp_002438462.1 ubiquitin-conjugating enzyme e2 28 [sorghum bicolor] belongs to the ubiquitin-conjugating enzyme family
+Zm00001eb399180,Unknown,none,False,False,False,2.7513403451941287,xp_021312760.1 protein indeterminate-domain 16 [sorghum bicolor] zinc finger
+Zm00001eb010410,Unknown,none,False,False,False,1.0788372516249425,xp_022678890.1 fibrous sheath cabyr-binding protein isoform x2 [setaria italica] acyl coa binding protein
+Zm00001eb378780,Unknown,none,False,False,False,2.103731474270827,"xp_020973013.1 pentatricopeptide repeat-containing protein at2g27800, mitochondrial-like [arachis ipaensis] pentacotripeptide-repeat region of prorp"
+Zm00001eb142940,Unknown,none,False,False,False,1.996247966587519,xp_002456873.1 protein dek [sorghum bicolor] dek c terminal domain
+Zm00001eb219260,Unknown,isomerase,False,True,True,2.4181354041796936,"xp_002464259.1 peptidyl-prolyl cis-trans isomerase e [sorghum bicolor] rna recognition motif. (a.k.a. rrm, rbd, or rnp domain)"
+Zm00001eb093670,Unknown,none,False,False,False,2.0751231582939025,xp_021317511.1 protein scarecrow [sorghum bicolor] belongs to the gras family
+Zm00001eb309560,Unknown,phosphatase,True,False,True,3.520578909038956,xp_021308919.1 lipid phosphate phosphatase 2-like isoform x2 [sorghum bicolor] pap2 superfamily
+Zm00001eb269400,Unknown,none,False,False,False,5.37515032156037,xp_002436385.1 peroxisomal membrane protein 11-5 [sorghum bicolor] peroxisomal biogenesis factor 11 (pex11)
+Zm00001eb121590,Unknown,none,False,False,False,1.744482690570362,xp_021313405.1 protein twin lov 1 isoform x4 [sorghum bicolor] pas domain
+Zm00001eb038600,Unknown,none,False,False,False,2.2044341204611366,"xp_002444539.2 bifunctional th2 protein, mitochondrial [sorghum bicolor] tena/thi-4/pqqc family"
+Zm00001eb397550,Unknown,none,False,False,False,2.246237253881352,xp_002465464.1 adp-ribosylation factor gtpase-activating protein agd7 [sorghum bicolor] adp-ribosylation factor gtpase-activating protein
+Zm00001eb351960,Unknown,none,False,False,False,1.470523439041034,"xp_014754812.1 protein reticulata-related 5, chloroplastic-like [brachypodium distachyon] haem-binding uptake, tiki superfamily, chan"
+Zm00001eb325370,Unknown,none,False,False,False,2.7983655340285414,"xp_002460914.1 glucan endo-1,3-beta-glucosidase 4 [sorghum bicolor] belongs to the glycosyl hydrolase 17 family"
+Zm00001eb061370,Unknown,none,False,False,False,2.515980070847814,xp_052150214.1 protein no vein [oryza glaberrima] nan
+Zm00001eb407550,Unknown,kinase,True,False,True,2.233745774212639,xp_021301689.1 serine/threonine-protein kinase sty8-like isoform x1 [sorghum bicolor] protein tyrosine kinase
+Zm00001eb169970,Unknown,none,False,False,False,5.027131847221161,xp_004979241.1 skp1-like protein 1a [setaria italica] belongs to the skp1 family
+Zm00001eb052940,Unknown,none,False,False,False,1.9002833214490025,xp_021306882.1 rhomboid-like protein 15 isoform x2 [sorghum bicolor] rhomboid family
+Zm00001eb308990,Unknown,none,False,False,False,1.4127807266210728,xp_021308686.1 sodium/hydrogen exchanger 6 [sorghum bicolor] sodium hydrogen exchanger
+Zm00001eb238670,Unknown,carboxylase,True,False,True,2.4797842854311596,xp_002451855.1 phosphoenolpyruvate carboxylase 1 [sorghum bicolor] phosphoenolpyruvate carboxylase
+Zm00001eb386220,Unknown,oxygenase,True,False,True,2.353208614460676,"xp_002438642.1 heme oxygenase 1, chloroplastic [sorghum bicolor] heme oxygenase"
+Zm00001eb110760,Unknown,none,False,False,False,1.8964085092470744,xp_021308965.1 haloacid dehalogenase-like hydrolase domain-containing protein 3 [sorghum bicolor] had-hyrolase-like
+Zm00001eb317810,Unknown,none,False,False,False,2.763468427589063,xp_002462637.1 60s ribosomal protein l7a-1 [sorghum bicolor] 60s ribosomal protein l7a
+Zm00001eb419200,Unknown,ligase,True,False,True,2.0258059361051934,"xp_002463509.1 tyrosine--trna ligase, cytoplasmic [sorghum bicolor] putative trna binding domain"
+Zm00001eb140720,Unknown,none,False,False,False,3.1652220350904807,xp_021312321.1 uncharacterized protein loc110433846 [sorghum bicolor] belongs to the glycosyl hydrolase 2 family
+Zm00001eb322690,Unknown,none,False,False,False,5.814676515804214,xp_021303040.1 protein detoxification 40-like [sorghum bicolor] belongs to the multi antimicrobial extrusion (mate) (tc 2.a.66.1) family
+Zm00001eb217390,Unknown,none,False,False,False,3.960275009599692,xp_004982185.1 uncharacterized protein loc101762011 [setaria italica] nucleic acid binding protein (fragment)
+Zm00001eb215710,Unknown,none,False,False,False,2.539472552732426,"xp_021321458.1 tubulin alpha-1 chain [sorghum bicolor] tubulin is the major constituent of microtubules. it binds two moles of gtp, one at an exchangeable site on the beta chain and one at a non-excha"
+Zm00001eb016330,Unknown,kinase,True,False,True,2.6286276750149615,"xp_021302118.1 putative gtp diphosphokinase rsh1, chloroplastic [sorghum bicolor] tgs domain"
+Zm00001eb139410,Unknown,none,False,False,False,2.698116925762295,xp_002442863.1 protein fam135b isoform x1 [sorghum bicolor] protein fam135
+Zm00001eb322850,Unknown,none,False,False,False,2.258611268748007,xp_004957877.1 protein lhcp translocation defect [setaria italica] protein lhcp translocation
+Zm00001eb158370,Unknown,none,False,False,False,0.7908584744590792,xp_052157283.1 gtp-binding nuclear protein ran-2 [oryza glaberrima] ran (ras-related nuclear proteins) /tc4 subfamily of small gtpases
+Zm00001eb258090,Unknown,none,False,False,False,1.8890916082673856,xp_021314018.1 cyclin-b1-2 [sorghum bicolor] proteasome maturation factor ump1
+Zm00001eb011630,Unknown,none,False,False,False,2.3673147899655183,"xp_002468136.1 uncharacterized tpr repeat-containing protein at1g05150 [sorghum bicolor] zinc-binding domain, present in dystrophin, creb-binding protein."
+Zm00001eb245840,Unknown,none,False,False,False,3.1519521318875774,xp_002452371.1 uncharacterized protein loc8055442 [sorghum bicolor] hypoxia induced protein conserved region
+Zm00001eb011240,Unknown,kinase,True,False,True,1.5296868605696086,xp_021307532.1 l-type lectin-domain containing receptor kinase iv.2 [sorghum bicolor] legume lectin domain
+Zm00001eb163210,Unknown,none,False,False,False,4.823322684804878,"xp_002450093.2 monothiol glutaredoxin-s12, chloroplastic [sorghum bicolor] glutaredoxin"
+Zm00001eb416180,Unknown,none,False,False,False,2.120923721542291,xp_002443867.2 factor of dna methylation 1 [sorghum bicolor] xh domain
+Zm00001eb431580,Unknown,none,False,False,False,2.505721658747991,xp_002447167.1 transcription factor bhlh112 [sorghum bicolor] helix loop helix domain
+Zm00001eb393660,Unknown,ubiquitin,True,False,True,4.155709293425091,xp_004983815.1 sumo-conjugating enzyme sce1 [setaria italica] belongs to the ubiquitin-conjugating enzyme family
+Zm00001eb339310,Unknown,ubiquitin,True,False,True,1.8100285930152655,xp_021313648.1 putative ubiquitin-conjugating enzyme e2 38 [sorghum bicolor] belongs to the ubiquitin-conjugating enzyme family
+Zm00001eb390630,Unknown,none,False,False,False,2.6281076190415016,
+Zm00001eb248290,Unknown,none,False,False,False,3.045578705346374,xp_004953205.1 bifunctional nitrilase/nitrile hydratase nit4 [setaria italica] carbon-nitrogen hydrolase
+Zm00001eb004440,Unknown,kinase,True,False,True,2.237456691760147,xp_002468472.1 probable serine/threonine-protein kinase pbl16 [sorghum bicolor] belongs to the protein kinase superfamily
+Zm00001eb316080,Unknown,cyclase,True,False,True,1.9045320392958296,xp_002460403.1 probable rna 3'-terminal phosphate cyclase-like protein [sorghum bicolor] rna 3-terminal phosphate cyclase-like protein
+Zm00001eb030870,Unknown,none,False,False,False,2.075649400692202,xp_002442448.1 protein da1-related 1 [sorghum bicolor] protein da1
+Zm00001eb109710,Unknown,none,False,False,False,2.3621668479860167,xp_002463207.1 uncharacterized protein loc8061566 [sorghum bicolor] protein of unknown function (duf4057)
+Zm00001eb427640,Unknown,kinase,True,False,True,1.8419230329690903,xp_002446869.1 sphingoid long-chain bases kinase 1 [sorghum bicolor] diacylglycerol kinase catalytic domain (presumed)
+Zm00001eb043310,Unknown,none,False,False,False,9.946821826323156,xp_002466928.1 probable serine incorporator [sorghum bicolor] serine incorporator (serinc)
+Zm00001eb139520,Unknown,none,False,False,False,2.142356257271965,xp_024310535.1 transcription factor lhw isoform x2 [brachypodium distachyon] bhlh-myc and r2r3-myb transcription factors n-terminal
+Zm00001eb172070,Unknown,none,False,False,False,2.462041241439892,"xp_002462363.1 protein chlororespiratory reduction 6, chloroplastic [sorghum bicolor] chlororespiratory reduction 6"
+Zm00001eb282990,Unknown,ubiquitin|ligase,True,False,True,2.655137442273228,xp_002439378.1 e3 ubiquitin-protein ligase at1g63170 [sorghum bicolor] ring-like zinc finger
+Zm00001eb357970,Unknown,none,False,False,False,2.293064242532769,xp_002455934.1 v-type proton atpase subunit c''2 [sorghum bicolor] belongs to the v-atpase proteolipid subunit family
+Zm00001eb259140,Unknown,none,False,False,False,1.6340462164675218,xp_002454796.1 uncharacterized protein loc8055324 [sorghum bicolor] nan
+Zm00001eb217010,Unknown,none,False,False,False,3.167194025229343,"xp_004962155.1 stromal 70 kda heat shock-related protein, chloroplastic [setaria italica] belongs to the heat shock protein 70 family"
+Zm00001eb104260,Unknown,none,False,False,False,3.1423662585172822,"xp_021309543.1 protein nlp1 [sorghum bicolor] transcription, dna-templated"
+Zm00001eb188700,Unknown,none,False,False,False,5.421301104322435,xp_021315070.1 heat shock 70 kda protein 17 [sorghum bicolor] belongs to the heat shock protein 70 family
+Zm00001eb331730,Unknown,none,False,False,False,2.510958997747418,
+Zm00001eb238620,Unknown,none,False,False,False,2.101410767301607,"xp_002453600.1 potassium channel kat1 [sorghum bicolor] kha, dimerisation domain of potassium ion channel"
+Zm00001eb109770,Unknown,none,False,False,False,4.723984419407953,xp_021308467.1 uncharacterized protein loc8063498 isoform x2 [sorghum bicolor] vacuolar sorting 38 and autophagy-related subunit 14
+Zm00001eb329970,Unknown,none,False,False,False,2.173099184046629,xp_002463342.1 uncharacterized protein loc8073147 [sorghum bicolor] tryptophan/tyrosine permease family
+Zm00001eb013300,Unknown,none,False,False,False,1.6498308938673911,xp_004984847.1 protein yipf5 homolog [setaria italica] yip1 domain
+Zm00001eb149700,Unknown,none,False,False,False,2.016873673081728,xp_002458680.2 pentatricopeptide repeat-containing protein at3g14730 [sorghum bicolor] ppr repeat family
+Zm00001eb179750,Unknown,none,False,False,False,3.631219078067788,xp_002445552.1 60s ribosomal protein l34 [sorghum bicolor] ribosomal protein l34e
+Zm00001eb250610,Unknown,epimerase,False,True,True,1.5294181024110318,"xp_002454480.1 bifunctional dtdp-4-dehydrorhamnose 3,5-epimerase/dtdp-4-dehydrorhamnose reductase [sorghum bicolor] rmld substrate binding domain"
+Zm00001eb303620,Unknown,none,False,False,False,2.369923834793785,xp_002459566.1 nac domain-containing protein 67 [sorghum bicolor] no apical meristem (nam) protein
+Zm00001eb122460,Unknown,none,False,False,False,1.6020125619309538,xp_004968408.1 aromatic aminotransferase iss1 [setaria italica] cys/met metabolism plp-dependent enzyme
+Zm00001eb186120,Unknown,none,False,False,False,3.2353168813696147,xp_002452845.1 autophagy-related protein 13a isoform x1 [sorghum bicolor] autophagy-related protein
+Zm00001eb123370,Unknown,none,False,False,False,5.053987026020242,np_001332089.1 histone superfamily protein [arabidopsis thaliana] histone cluster 1
+Zm00001eb288420,Unknown,none,False,False,False,2.9114444910666863,xp_021302870.1 nac domain-containing protein 82-like [sorghum bicolor] no apical meristem (nam) protein
+Zm00001eb049920,Unknown,none,False,False,False,1.4840239648110298,xp_004982471.1 uncharacterized protein loc101773080 isoform x1 [setaria italica] universal stress protein family
+Zm00001eb134200,Unknown,none,False,False,False,4.492995826850416,xp_002443649.1 csc1-like protein rxw8 [sorghum bicolor] cytosolic domain of 10tm putative phosphate transporter
+Zm00001eb124200,Unknown,decarboxylase|carboxylase,True,False,True,3.919858817262583,xp_002457348.1 putative 4-hydroxy-4-methyl-2-oxoglutarate aldolase 2 [sorghum bicolor] catalyzes the aldol cleavage of 4-hydroxy-4-methyl-2- oxoglutarate (hmg) into 2 molecules of pyruvate. also conta
+Zm00001eb184420,Unknown,none,False,False,False,1.9690909751485175,xp_021314923.1 uncharacterized protein loc110434669 [sorghum bicolor] trna (adenine-n6-)-methyltransferase activity
+Zm00001eb087050,Unknown,none,False,False,False,1.7993221358770537,xp_002447595.1 casp-like protein 2a1 [sorghum bicolor] belongs to the casparian strip membrane proteins (casp) family
+Zm00001eb032890,Unknown,none,False,False,False,2.1225593337323754,xp_002442604.2 uncharacterized protein loc8065244 [sorghum bicolor] nan
+Zm00001eb295670,Unknown,kinase,True,False,True,3.049368935343808,xp_021302461.1 protein male discoverer 2-like [sorghum bicolor] protein kinase domain
+Zm00001eb161610,Unknown,none,False,False,False,1.8960871063937228,xp_004969109.1 chaperone protein dnaj 6 [setaria italica] dnaj domain
+Zm00001eb082480,Unknown,none,False,False,False,2.112619935604266,xp_004975664.1 vasodilator-stimulated phosphoprotein-like [setaria italica] nan
+Zm00001eb388040,Unknown,none,False,False,False,2.546970347607554,xp_021304385.1 brefeldin a-inhibited guanine nucleotide-exchange protein 1 [sorghum bicolor] domain of unknown function (duf1981)
+Zm00001eb397350,Unknown,none,False,False,False,2.3099901398415645,xp_002468069.1 ankyrin repeat-containing protein itn1 [sorghum bicolor] ankyrin repeats (many copies)
+Zm00001eb320760,Unknown,none,False,False,False,2.359105314688309,xp_004957587.1 uncharacterized protein loc101752644 [setaria italica] prli-interacting factor
+Zm00001eb055170,Unknown,synthase,True,False,True,3.0545487766710915,"xp_002463993.2 probable phosphoribosylformylglycinamidine synthase, chloroplastic/mitochondrial [sorghum bicolor] cobb/cobq-like glutamine amidotransferase domain"
+Zm00001eb061520,Unknown,none,False,False,False,1.69168016277512,xp_015691198.1 elongation factor p isoform x1 [oryza brachyantha] elongation factor p (ef-p) ob domain
+Zm00001eb143370,Unknown,none,False,False,False,5.44944864441484,"xp_004975224.2 protein root uvb sensitive 1, chloroplastic [setaria italica] vitamin b6 photo-protection and homoeostasis"
+Zm00001eb102770,Unknown,none,False,False,False,3.72460756663395,xp_021310410.1 uncharacterized protein loc110433095 isoform x1 [sorghum bicolor] bacterial trigger factor protein (tf)
+Zm00001eb279790,Unknown,none,False,False,False,9.795547365688725,"xp_021305650.1 glutathione s-transferase dhar3, chloroplastic-like isoform x1 [sorghum bicolor] glutathione s-transferase, n-terminal domain"
+Zm00001eb233850,Unknown,none,False,False,False,1.9864140091878009,xp_021315406.1 ring-h2 finger protein atl56 [sorghum bicolor] ring-like zinc finger

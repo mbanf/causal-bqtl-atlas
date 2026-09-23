@@ -34,6 +34,9 @@ Thumbs.db
 paper/archive/*.aux
 paper/archive/*.out
 
+# Backup from reproduction test
+results_backup/
+
 # Logs
 *.log
 results/logs/
