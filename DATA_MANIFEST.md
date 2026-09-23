@@ -27,11 +27,15 @@ All data derive from Engelhorn et al. (2025), Nature Genetics, s41588-025-02246-
 | `maize_tf_pwm_database.json` | 399 KB | [PlantTFDB 5.0](http://planttfdb.gao-lab.org/) | 259 PWMs, 36 TF families |
 | `nam_founder_genotypes_at_bqtl.tsv` | 12 MB | Script 53b (assembly alignment) | NAM founder genotypes at bQTL |
 
-## Data Hosting
+## Data Download
 
-### OneDrive (recommended for sharing)
+### OneDrive
 
-Upload these to a shared OneDrive folder:
+Download all required data (~3.4 GB) from:
+
+**[OneDrive shared folder](https://1drv.ms/f/c/6346f45e78d9bcf9/IgAsn1H2gq1DRKfj93mRTpiDAVPJG4lIeGd6gWDM9s2NNgY?e=oZLf0c)**
+
+The folder contains:
 
 ```
 causal_bqtl_atlas_data/

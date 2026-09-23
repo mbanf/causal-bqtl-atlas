@@ -72,9 +72,9 @@ bash run_pipeline.sh --paper-only       # Skip exploratory scripts (faster)
 
 All data derive from Engelhorn et al. (2025): SRA accession PRJNA1101486, GEO GSE294039.
 
-See [DATA_MANIFEST.md](DATA_MANIFEST.md) for the complete list of required files, sizes, download URLs, and hosting instructions.
+**Download data (~3.4 GB):** [OneDrive shared folder](https://1drv.ms/f/c/6346f45e78d9bcf9/IgAsn1H2gq1DRKfj93mRTpiDAVPJG4lIeGd6gWDM9s2NNgY?e=oZLf0c)
 
-**Total data size: ~3.4 GB** (2.1 GB genome + 923 MB peaks + 300 MB processed files)
+See [DATA_MANIFEST.md](DATA_MANIFEST.md) for the complete list of required files, sizes, and sources.
 
 ## Verification
 
