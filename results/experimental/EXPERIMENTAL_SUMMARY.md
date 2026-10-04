@@ -1,4 +1,4 @@
-# Experimental Analyses — Thomas's Comments
+# Experimental Analyses — Comments
 
 Analyses addressing reviewer/collaborator comments on the causal bQTL atlas manuscript.
 Branch: `experimental`
