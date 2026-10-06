@@ -22,9 +22,7 @@ RESULTS = f'{BASE}/results'
 causal = pd.read_csv(f'{RESULTS}/causal_bqtl_728.csv')
 geno = pd.read_csv(f'{BASE}/data/processed/nam_founder_genotypes_at_bqtl.tsv', sep='\t')
 
-hybrids = ['B97','CML247','CML277','CML322','CML333','CML69','HP301',
-           'Il14H','Ki11','Ki3','Ky21','M162W','Mo18W','Ms71','NC358',
-           'Oh43','Oh7B','P39','Tx303']
+hybrids = [c for c in geno.columns if c not in ['chr', 'pos', 'ref']]
 
 merged = causal.merge(geno, on=['chr', 'pos'], how='left')
 

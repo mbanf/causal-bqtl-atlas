@@ -37,6 +37,13 @@ paper/archive/*.out
 # Backup from reproduction test
 results_backup/
 
+# Nextflow
+.nextflow/
+.nextflow.log*
+work/
+results/logs/pipeline_*.html
+results/logs/pipeline_*.tsv
+
 # Logs
 *.log
 results/logs/

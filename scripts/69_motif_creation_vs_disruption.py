@@ -28,9 +28,7 @@ geno = pd.read_csv(f'{BASE}/data/processed/nam_founder_genotypes_at_bqtl.tsv', s
 print(f"Loaded {len(causal)} causal bQTL")
 
 # Merge to get ref/alt alleles
-hybrids = ['B97','CML247','CML277','CML322','CML333','CML69','HP301',
-           'Il14H','Ki11','Ki3','Ky21','M162W','Mo18W','Ms71','NC358',
-           'Oh43','Oh7B','P39','Tx303']
+hybrids = [c for c in geno.columns if c not in ['chr', 'pos', 'ref']]
 
 merged = causal.merge(geno, on=['chr', 'pos'], how='left')
 
@@ -224,7 +222,7 @@ print(f"\nAnalyzed: {len(res_df)} bQTL")
 
 # ── Summary ──
 print(f"\n{'='*70}")
-print(f"RESULTS: Motif disruption vs creation at 728 causal bQTL")
+print(f"RESULTS: Motif disruption vs creation at {len(res_df)} causal bQTL")
 print(f"{'='*70}")
 
 has_any = res_df[(res_df['n_disrupted'] > 0) | (res_df['n_created'] > 0)]

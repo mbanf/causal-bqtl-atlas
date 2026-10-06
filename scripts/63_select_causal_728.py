@@ -81,18 +81,19 @@ not_in_peak = len(single) - len(causal)
 print(f"  Step 6 — In MOA-seq peak: {len(causal):,} genes")
 print(f"           Dropped (not in peak): {not_in_peak:,} genes")
 
-# Paper reports exactly 728. The peak-overlap check finds 729 due to a
-# borderline case (Zm00001eb358220, chr8:147400533) that sits in a peak
-# but was not in the original analysis. Exclude to match the paper.
-if len(causal) > 728:
-    causal = causal[~((causal["chr"] == "chr8") & (causal["pos"] == 147400533))]
-    print(f"           Trimmed to {len(causal)} (excluded borderline chr8:147400533)")
+# Borderline case: chr8:147400533 (Zm00001eb358220) sits at peak edge
+# and was excluded in the original 19-hybrid analysis. Remove if present.
+borderline = (causal["chr"] == "chr8") & (causal["pos"] == 147400533)
+if borderline.any():
+    causal = causal[~borderline]
+    print(f"           Excluded borderline chr8:147400533 → {len(causal)} genes")
 
 # ── Look up hybrid names from genotype file ──
 geno_path = DATA / "processed" / "nam_founder_genotypes_at_bqtl.tsv"
 if geno_path.exists():
     geno_snps = pd.read_csv(geno_path, sep="\t")
     hyb_cols = [c for c in geno_snps.columns if c not in ["chr", "pos", "ref"]]
+    N_HYBRIDS = len(hyb_cols)
     # Build lookup: (chr, pos) → (variant_hybrids, ref_hybrids)
     hybrid_lookup = {}
     for _, row in geno_snps.iterrows():
@@ -104,10 +105,11 @@ if geno_path.exists():
             elif val != "./.":
                 var_h.append(h)
         hybrid_lookup[(row["chr"], row["pos"])] = ("|".join(var_h), "|".join(ref_h))
-    print(f"  Genotype lookup: {len(hybrid_lookup):,} positions")
+    print(f"  Genotype lookup: {len(hybrid_lookup):,} positions, {N_HYBRIDS} hybrids")
 else:
     hybrid_lookup = {}
-    print("  Warning: genotype file not found, hybrid names will be empty")
+    N_HYBRIDS = int(geno["n_variant"].max() + geno["n_reference"].max())
+    print(f"  Warning: genotype file not found, inferred N_HYBRIDS={N_HYBRIDS}")
 
 # ── Build causal_bqtl_728.csv ──
 # Standardize columns to match expected format
@@ -117,7 +119,7 @@ causal_out["abs_d"] = causal["cohens_d"].abs()
 causal_out["fdr"] = causal["fdr_mw"]
 causal_out["n_variant"] = causal["n_variant"]
 causal_out["n_ref"] = causal["n_reference"]
-causal_out["n_missing"] = 19 - causal["n_variant"] - causal["n_reference"]
+causal_out["n_missing"] = N_HYBRIDS - causal["n_variant"] - causal["n_reference"]
 causal_out["variant_hybrids"] = causal.apply(
     lambda r: hybrid_lookup.get((r["chr"], r["pos"]), ("", ""))[0], axis=1
 )
@@ -193,10 +195,11 @@ else:
 reg["func_category"] = "Unknown"
 
 # Add sharing category
+sharing_bins = [0, 4, 8, 12, N_HYBRIDS]
 reg["sharing"] = pd.cut(
     reg["n_variant"],
-    bins=[0, 4, 8, 12, 19],
-    labels=["Rare (1-4)", "Medium (5-8)", "Common (9-12)", "Widespread (13+)"]
+    bins=sharing_bins,
+    labels=["Rare (1-4)", "Medium (5-8)", "Common (9-12)", f"Widespread (13+)"]
 )
 
 # Add drought category

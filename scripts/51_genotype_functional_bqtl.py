@@ -38,10 +38,9 @@ GFF3 = DATA / "raw" / "Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3"
 
 VALID_CHROMS = {f'chr{i}' for i in range(1, 11)}
 PROMOTER_BP = 2000
-HYBRIDS = ['A188', 'A619', 'B97', 'CML103', 'CML247', 'CML277', 'CML322',
-           'CML333', 'CML69', 'HP301', 'IL14H', 'Ki11', 'Ki3', 'Ky21',
-           'M162W', 'Mo17', 'Mo18W', 'Ms71', 'NC358', 'Oh43', 'Oh7b',
-           'P39', 'Tx303', 'W22']
+# Read hybrid names from ASE data
+_ase_df = pd.read_csv(str(ASE_HYBRID), usecols=['hybrid'], dtype=str)
+HYBRIDS = sorted(_ase_df['hybrid'].unique())
 
 # Cache for Ensembl API results
 ENSEMBL_CACHE = OUTDIR / "ensembl_variant_cache.json"

@@ -105,7 +105,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>728 Causal bQTL — Interactive Gene Atlas</title>
+<title>{len(genes)} Causal bQTL — Interactive Gene Atlas</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
 * {{ margin:0; padding:0; box-sizing:border-box; }}
@@ -245,11 +245,11 @@ svg {{ width:100%; height:100%; }}
 <div id="app">
     <div id="header">
         <div style="display:flex;align-items:baseline">
-            <h1>728 Causal bQTL Target Genes</h1>
+            <h1>{len(genes)} Causal bQTL Target Genes</h1>
             <span class="sub">Interactive Regulatory Atlas</span>
         </div>
         <div id="stats">
-            Showing <span id="n-vis">728</span>/728 &nbsp;|&nbsp;
+            Showing <span id="n-vis">{len(genes)}</span>/{len(genes)} &nbsp;|&nbsp;
             <span id="n-layers">13</span> layers &nbsp;|&nbsp;
             <span id="n-tf">36</span> TF families
         </div>
@@ -310,8 +310,7 @@ svg {{ width:100%; height:100%; }}
 const GENES = {genes_json};
 const LAYER_ORDER = {json.dumps(layer_order)};
 const LAYER_COLORS = {json.dumps(layer_colors)};
-const ALL_HYBRIDS = ['B97','CML247','CML277','CML322','CML333','CML69','HP301',
-    'IL14H','Ki11','Ki3','Ky21','M162W','M37W','Mo18W','Ms71','NC358','Oh43','Oh7b','P39','Tx303'];
+const ALL_HYBRIDS = {json.dumps(sorted(set(h for g in genes for h in g['varHybrids'] + g['refHybrids'] if h)))};
 
 const allTF = [...new Set(GENES.flatMap(g => g.tfFamilies))].sort();
 
@@ -604,9 +603,9 @@ function updateSummary(visibleSet) {{
     const panel = document.getElementById('panel-summary');
     const vis = nodeData.filter(d => visibleSet.has(d.id));
 
-    if (vis.length === 728 && !selectedGene) {{
+    if (vis.length === GENES.length && !selectedGene) {{
         panel.innerHTML = `
-            <div class="sum-card"><h4 style="color:#fff;font-size:14px">728 Causal bQTL Target Genes</h4>
+            <div class="sum-card"><h4 style="color:#fff;font-size:14px">${{GENES.length}} Causal bQTL Target Genes</h4>
                 <div style="color:#999;margin-top:6px;font-size:11px;line-height:1.6">
                     Each gene has a <b>single</b> bQTL variant in its promoter that causally shifts allele-specific expression across NAM hybrids (FDR&lt;0.05).
                     <br><br>Use the filters on the left to explore by signaling layer, TF family, drought response, or hybrid.
@@ -616,7 +615,7 @@ function updateSummary(visibleSet) {{
             <div class="sum-card"><h4>Quick Stats</h4>
                 <div style="font-size:11px;color:#aaa;line-height:2">
                     Median effect size: <b style="color:#4fc3f7">|d| = ${{median(GENES.map(g=>g.absD)).toFixed(2)}}</b><br>
-                    Median variant hybrids: <b style="color:#4fc3f7">${{median(GENES.map(g=>g.nVar))}}</b> / 19<br>
+                    Median variant hybrids: <b style="color:#4fc3f7">${{median(GENES.map(g=>g.nVar))}}</b> / ${{ALL_HYBRIDS.length}}<br>
                     Drought UP (|log2FC|>1): <b style="color:#EF5350">${{GENES.filter(g=>g.log2fcDrought>1).length}}</b><br>
                     Drought DOWN (|log2FC|<-1): <b style="color:#42A5F5">${{GENES.filter(g=>g.log2fcDrought<-1).length}}</b><br>
                     TF genes as targets: <b style="color:#4fc3f7">${{GENES.filter(g=>g.func==='Transcription factor').length}}</b>
@@ -731,7 +730,7 @@ Top 30 genes by effect size:
 ${{sample.map(g => `${{g.id}} | ${{g.desc.substring(0,60)}} | ${{g.layer}} | |d|=${{g.absD}} | TF:${{g.tfFamilies.join(',')}} | drought=${{g.log2fcDrought}}`).join('\\n')}}`;
     }}
 
-    const systemPrompt = `You are a plant molecular biologist analyzing maize bQTL target genes. These 728 genes each have a single nucleotide variant in their promoter that disrupts a TF binding motif and causally shifts allele-specific expression across NAM F1 hybrids (B73 × diverse founders).
+    const systemPrompt = `You are a plant molecular biologist analyzing maize bQTL target genes. These ${{GENES.length}} genes each have a single nucleotide variant in their promoter that disrupts a TF binding motif and causally shifts allele-specific expression across NAM F1 hybrids (B73 × diverse founders).
 
 Your task: Provide a concise but insightful biological interpretation. Focus on:
 1. What the gene/protein does (molecular function, known roles)

@@ -76,20 +76,15 @@ def load_peaks(hybrid):
             peaks.append((chrom, start, end))
     return peaks
 
-# Load peaks for all hybrids
+# Load peaks for all hybrids (discover from peak directory)
 print("\nLoading peaks...")
-hybrids = ['B97','CML247','CML277','CML322','CML333','CML69','HP301',
-           'IL14H','Ki11','Ki3','Ky21','M162W','M37W','Mo18W','Ms71',
-           'NC358','Oh43','Oh7b','P39','Tx303']
-
 all_peaks = {}
-for hyb in hybrids:
-    peaks = load_peaks(hyb)
-    all_peaks[hyb] = peaks
-    # Also add non-genotyped hybrids
-for hyb in ['A188','A619','CML103','Mo17','W22']:
-    peaks = load_peaks(hyb)
-    all_peaks[hyb] = peaks
+if os.path.isdir(PEAK_DIR):
+    for fname in os.listdir(PEAK_DIR):
+        if fname.endswith('.narrowPeak'):
+            hyb = fname.split('.')[0]
+            peaks = load_peaks(hyb)
+            all_peaks[hyb] = peaks
 
 total_peaks = sum(len(v) for v in all_peaks.values())
 print(f"Loaded {total_peaks} peaks across {len(all_peaks)} hybrids")
@@ -159,7 +154,7 @@ def scan_sequence(seq, pwm_mat, threshold=6.0):
 
 # ── Main analysis ──
 print("\n" + "="*70)
-print("SCANNING 728 bQTL WITHIN ACTUAL MOA-SEQ PEAKS")
+print(f"SCANNING {len(causal)} bQTL WITHIN ACTUAL MOA-SEQ PEAKS")
 print("="*70)
 
 results = []
@@ -259,7 +254,7 @@ for idx, row in causal.iterrows():
     })
 
     if (idx + 1) % 100 == 0:
-        print(f"  Processed {idx+1}/728...")
+        print(f"  Processed {idx+1}/{len(causal)}...")
 
 res_df = pd.DataFrame(results)
 print(f"\nDone. Results: {len(res_df)} bQTL")

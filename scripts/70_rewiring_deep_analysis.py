@@ -70,11 +70,11 @@ def load_peaks(hybrid):
     return peaks
 
 all_peaks = {}
-for hyb in ['B97','CML247','CML277','CML322','CML333','CML69','HP301',
-            'IL14H','Ki11','Ki3','Ky21','M162W','M37W','Mo18W','Ms71',
-            'NC358','Oh43','Oh7b','P39','Tx303',
-            'A188','A619','CML103','Mo17','W22']:
-    all_peaks[hyb] = load_peaks(hyb)
+if os.path.isdir(PEAK_DIR):
+    for fname in os.listdir(PEAK_DIR):
+        if fname.endswith('.narrowPeak'):
+            hyb = fname.split('.')[0]
+            all_peaks[hyb] = load_peaks(hyb)
 
 # ── Load genome ──
 print("Loading genome...")
@@ -119,9 +119,7 @@ def scan_sequence(seq, pwm_mat, threshold=6.0):
     return hits
 
 # ── Get ref/alt alleles ──
-hybrids_geno = ['B97','CML247','CML277','CML322','CML333','CML69','HP301',
-                'Il14H','Ki11','Ki3','Ky21','M162W','Mo18W','Ms71','NC358',
-                'Oh43','Oh7B','P39','Tx303']
+hybrids_geno = [c for c in geno.columns if c not in ['chr', 'pos', 'ref']]
 
 merged = causal.merge(geno, on=['chr', 'pos'], how='left')
 

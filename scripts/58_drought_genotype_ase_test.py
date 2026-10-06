@@ -51,19 +51,22 @@ MOTIF_DATA = OUTDIR / "bound_region_motifs.csv"
 VALID_CHROMS = {f'chr{i}' for i in range(1, 11)}
 PROMOTER_BP = 2000
 
-FOUNDER_TO_HYBRID = {
-    'B97': 'B97', 'CML247': 'CML247', 'CML277': 'CML277',
-    'CML322': 'CML322', 'CML333': 'CML333', 'CML69': 'CML69',
-    'HP301': 'HP301', 'Il14H': 'IL14H', 'Ki11': 'Ki11', 'Ki3': 'Ki3',
-    'Ky21': 'Ky21', 'M162W': 'M162W', 'Mo18W': 'Mo18W', 'Ms71': 'Ms71',
-    'NC358': 'NC358', 'Oh43': 'Oh43', 'Oh7B': 'Oh7b', 'P39': 'P39',
-    'Tx303': 'Tx303',
-}
+# Build founder→hybrid name mapping dynamically
+_geno_cols = pd.read_csv(str(GENOTYPE_FILE), sep='\t', nrows=0).columns
+_founder_names = [c for c in _geno_cols if c not in ['chr', 'pos', 'ref']]
 
-HYBRIDS = ['A188', 'A619', 'B97', 'CML103', 'CML247', 'CML277', 'CML322',
-           'CML333', 'CML69', 'HP301', 'IL14H', 'Ki11', 'Ki3', 'Ky21',
-           'M162W', 'Mo17', 'Mo18W', 'Ms71', 'NC358', 'Oh43', 'Oh7b',
-           'P39', 'Tx303', 'W22']
+# ASE hybrids come from the WW results (already processed)
+_ww = pd.read_csv(str(WW_RESULTS), nrows=0)
+HYBRIDS = sorted(set(
+    c for c in pd.read_csv(str(DATA / "processed" / "engelhorn_ase_ww.csv"), usecols=['hybrid'], dtype=str)['hybrid'].unique()
+)) if (DATA / "processed" / "engelhorn_ase_ww.csv").exists() else _founder_names
+
+_hyb_upper = {h.upper(): h for h in HYBRIDS}
+FOUNDER_TO_HYBRID = {}
+for f in _founder_names:
+    match = _hyb_upper.get(f.upper())
+    if match:
+        FOUNDER_TO_HYBRID[f] = match
 
 
 def parse_ase_table(xlsx_path, sheet_name):

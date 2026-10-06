@@ -34,11 +34,9 @@ OUTDIR = BASE / "results"
 PROMOTER_BP = 2000
 VALID_CHROMS = {f'chr{i}' for i in range(1, 11)}
 
-# Hybrids with both peaks and ASE
-HYBRIDS = ['A188', 'A619', 'B97', 'CML103', 'CML247', 'CML277', 'CML322',
-           'CML333', 'CML69', 'HP301', 'IL14H', 'Ki11', 'Ki3', 'Ky21',
-           'M162W', 'Mo17', 'Mo18W', 'Ms71', 'NC358', 'Oh43', 'Oh7b',
-           'P39', 'Tx303', 'W22']
+# Hybrids with both peaks and ASE — read from ASE data
+HYBRIDS = sorted(pd.read_csv(str(DATA / "processed" / "engelhorn_ase_ww.csv"),
+                              usecols=['hybrid'], dtype=str)['hybrid'].unique())
 
 
 def parse_gff3():

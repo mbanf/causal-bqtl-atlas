@@ -33,7 +33,8 @@ os.makedirs(FIGS, exist_ok=True)
 # ── Load 728 causal bQTL ──
 reg = pd.read_csv(f'{RESULTS}/regulatory_map_728.csv')
 causal = pd.read_csv(f'{RESULTS}/causal_bqtl_728.csv')
-print(f"Loaded {len(reg)} regulatory map entries, {len(causal)} causal bQTL")
+N_CAUSAL = len(causal)
+print(f"Loaded {len(reg)} regulatory map entries, {N_CAUSAL} causal bQTL")
 
 # ── Load EntAP annotations (KEGG pathways, GO terms) ──
 entap = pd.read_csv(
@@ -47,10 +48,20 @@ entap_genes = entap.drop_duplicates(subset='gene_id', keep='first')
 entap_genes = entap_genes.set_index('gene_id')
 print(f"EntAP: {len(entap_genes)} genes with annotations")
 
-# ── 19 hybrids with genotype data ──
-HYBRIDS_19 = ['B97','CML247','CML277','CML322','CML333','CML69','HP301',
-              'IL14H','Ki11','Ki3','Ky21','M162W','M37W','Mo18W','Ms71',
-              'NC358','Oh43','Oh7b','P39','Tx303']
+# ── Read hybrid names from genotype file ──
+geno_path = f'{BASE}/data/processed/nam_founder_genotypes_at_bqtl.tsv'
+if os.path.exists(geno_path):
+    _geno_cols = pd.read_csv(geno_path, sep='\t', nrows=0).columns
+    HYBRIDS = [c for c in _geno_cols if c not in ['chr', 'pos', 'ref']]
+else:
+    # Fallback: use hybrid names from causal_bqtl_728.csv variant_hybrids column
+    _all_h = set()
+    for h_str in causal['variant_hybrids'].dropna():
+        _all_h.update(str(h_str).split('|'))
+    for h_str in causal['ref_hybrids'].dropna():
+        _all_h.update(str(h_str).split('|'))
+    HYBRIDS = sorted(h for h in _all_h if h)
+print(f"Using {len(HYBRIDS)} hybrids: {', '.join(HYBRIDS[:5])}...")
 
 # ═══════════════════════════════════════════════════════════════
 # PART 1: NAM Phenotype Connection
@@ -309,10 +320,10 @@ enz_df = pd.DataFrame(enzyme_class)
 n_committed = enz_df['is_committed'].sum()
 n_reversible = enz_df['is_reversible'].sum()
 n_enzyme = enz_df['is_enzyme'].sum()
-print(f"\n── Enzyme classification of 728 genes ──")
-print(f"  Committed/irreversible enzymes: {n_committed} ({100*n_committed/728:.1f}%)")
-print(f"  Reversible enzymes only: {n_reversible} ({100*n_reversible/728:.1f}%)")
-print(f"  Non-enzymatic: {728 - n_enzyme} ({100*(728-n_enzyme)/728:.1f}%)")
+print(f"\n── Enzyme classification of {N_CAUSAL} genes ──")
+print(f"  Committed/irreversible enzymes: {n_committed} ({100*n_committed/N_CAUSAL:.1f}%)")
+print(f"  Reversible enzymes only: {n_reversible} ({100*n_reversible/N_CAUSAL:.1f}%)")
+print(f"  Non-enzymatic: {N_CAUSAL - n_enzyme} ({100*(N_CAUSAL-n_enzyme)/N_CAUSAL:.1f}%)")
 
 # Compare to genome background
 all_genes = set(entap_genes.index)
@@ -329,19 +340,19 @@ for gene_id in all_genes:
             break
 
 print(f"\n── Enrichment vs genome background ──")
-print(f"  728 genes: {n_committed}/{728} committed enzymes ({100*n_committed/728:.1f}%)")
+print(f"  {N_CAUSAL} genes: {n_committed}/{N_CAUSAL} committed enzymes ({100*n_committed/N_CAUSAL:.1f}%)")
 print(f"  Background: {bg_committed}/{bg_total} ({100*bg_committed/bg_total:.1f}%)")
 
 # Fisher's exact test
-a = n_committed  # 728 committed
-b = 728 - n_committed  # 728 non-committed
-c = bg_committed - n_committed  # bg committed (minus 728)
-d = (bg_total - 728) - c  # bg non-committed
+a = n_committed
+b = N_CAUSAL - n_committed
+c = bg_committed - n_committed
+d = (bg_total - N_CAUSAL) - c
 OR, fisher_p = stats.fisher_exact([[a, b], [c, d]])
 print(f"  Odds ratio: {OR:.2f}, Fisher p = {fisher_p:.2e}")
 
 # Committed enzyme types breakdown
-print(f"\n── Committed enzyme types in 728 genes ──")
+print(f"\n── Committed enzyme types in {N_CAUSAL} genes ──")
 type_counts = Counter()
 for types in enz_df.loc[enz_df['is_committed'], 'enzyme_types']:
     for t in types.split('|'):
@@ -361,7 +372,7 @@ if len(committed_d) > 5:
     print(f"  Mann-Whitney p = {p:.3f}")
 
 # Specific pathway analysis: which KEGG pathways have >1 gene in the 728?
-print(f"\n── Multi-gene pathways (>=2 genes in 728 set) ──")
+print(f"\n── Multi-gene pathways (>=2 genes in {N_CAUSAL} set) ──")
 pathway_genes = defaultdict(list)
 for gene_id, pathways in gene_pathways.items():
     abs_d = causal.loc[causal['gene_id'] == gene_id, 'abs_d'].values
@@ -424,13 +435,13 @@ ax3.legend(fontsize=8)
 
 # Panel D: Enzyme class pie chart
 ax4 = fig.add_subplot(gs[1, 0])
-sizes = [n_committed, n_reversible, 728 - n_enzyme]
+sizes = [n_committed, n_reversible, N_CAUSAL - n_enzyme]
 labels_pie = [f'Committed\n({n_committed})', f'Reversible\n({n_reversible})',
-              f'Non-enzyme\n({728-n_enzyme})']
+              f'Non-enzyme\n({N_CAUSAL-n_enzyme})']
 colors_pie = ['#E53935', '#FFC107', '#BDBDBD']
 ax4.pie(sizes, labels=labels_pie, colors=colors_pie, autopct='%1.1f%%', startangle=90,
         textprops={'fontsize': 9})
-ax4.set_title('D. Enzyme classification (728 genes)', fontsize=10)
+ax4.set_title(f'D. Enzyme classification ({N_CAUSAL} genes)', fontsize=10)
 
 # Panel E: Committed enzyme types bar chart
 ax5 = fig.add_subplot(gs[1, 1])
@@ -438,7 +449,7 @@ if type_counts:
     types_sorted = type_counts.most_common()
     bars = ax5.barh([t[0] for t in types_sorted], [t[1] for t in types_sorted],
                     color='#E53935', alpha=0.8)
-    ax5.set_xlabel('Count in 728 genes')
+    ax5.set_xlabel(f'Count in {N_CAUSAL} genes')
     ax5.set_title('E. Committed enzyme types', fontsize=10)
     ax5.invert_yaxis()
 
@@ -471,11 +482,11 @@ if top_paths:
         ax7.text(sz + 0.1, i, f'mean |d|={eff:.1f}', va='center', fontsize=8)
     ax7.set_yticks(range(len(top_paths)))
     ax7.set_yticklabels(path_names, fontsize=8)
-    ax7.set_xlabel('Number of genes in 728 set')
+    ax7.set_xlabel(f'Number of genes in {N_CAUSAL} set')
     ax7.set_title('G. Top KEGG pathways with multiple causal bQTL targets', fontsize=10)
     ax7.invert_yaxis()
 
-plt.suptitle('Phenotype Connection & Rate-Limiting Steps — 728 Causal bQTL',
+plt.suptitle(f'Phenotype Connection & Rate-Limiting Steps — {N_CAUSAL} Causal bQTL',
              fontsize=13, fontweight='bold', y=0.98)
 plt.savefig(f'{FIGS}/fig_phenotype_ratelimit.pdf', bbox_inches='tight', dpi=300)
 plt.savefig(f'{FIGS}/fig_phenotype_ratelimit.png', bbox_inches='tight', dpi=150)
