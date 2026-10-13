@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Causal bQTL Atlas — Nextflow Pipeline",
+    "quality_profile": "showcase",
+    "viewBox": [1200, 740],
+    "legend": {
+      "entries": {
+        "frontend": { "label": "Data Preparation" },
+        "backend": { "label": "Core Causal" },
+        "cloud": { "label": "Characterization" },
+        "messagebus": { "label": "TF Network" },
+        "security": { "label": "Drought & Validation" },
+        "external": { "label": "Extended Analyses" }
+      }
+    },
+    "views": [
+      { "id": "core", "label": "Core causal pipeline", "focus": ["s01", "s02", "s04", "s05", "s06"], "note": "4-step filter from 147K bQTL to 1,126 causal variants." },
+      { "id": "drought", "label": "Drought comparison", "focus": ["s20", "s21", "s22", "s28", "s29", "s30"], "note": "Parallel drought pipeline and cross-condition validation." },
+      { "id": "network", "label": "TF regulatory network", "focus": ["s18b", "s19", "s26", "s27"], "note": "Per-hybrid motif linkage through TF cascade." }
+    ]
+  },
+  "components": [
+    { "id": "s01", "type": "frontend", "label": "01 Bound Region Motifs", "sublabel": "405 DAP-seq PWMs", "pos": [40, 40], "size": [210, 52] },
+    { "id": "s02", "type": "frontend", "label": "02 Pan-Cistrome Peaks", "sublabel": "merge 25 hybrids", "pos": [290, 40], "size": [210, 52] },
+    { "id": "s03", "type": "frontend", "label": "03 Convert Genotypes", "sublabel": "optional", "pos": [540, 40], "size": [190, 52] },
+
+    { "id": "s04", "type": "backend", "label": "04 Functional bQTL", "sublabel": "map to promoters", "pos": [170, 150], "size": [200, 52] },
+    { "id": "s05", "type": "backend", "label": "05 Genotype-ASE Test", "sublabel": "Mann-Whitney U", "pos": [430, 150], "size": [200, 52] },
+    { "id": "s06", "type": "backend", "label": "06 Select Causal", "sublabel": "1,126 bQTL", "pos": [690, 150], "size": [200, 52], "tag": "hub" },
+
+    { "id": "s07", "type": "cloud", "label": "07 Gene Atlas", "pos": [40, 270], "size": [155, 44] },
+    { "id": "s09", "type": "cloud", "label": "09 Create / Disrupt", "pos": [220, 270], "size": [165, 44] },
+    { "id": "s10", "type": "cloud", "label": "10 Phenotype", "pos": [410, 270], "size": [148, 44] },
+    { "id": "s11", "type": "cloud", "label": "11 Threshold", "pos": [583, 270], "size": [148, 44] },
+    { "id": "s12", "type": "cloud", "label": "12 Rewiring", "pos": [220, 338], "size": [165, 44] },
+    { "id": "s13", "type": "cloud", "label": "13 Interactive", "pos": [40, 338], "size": [155, 44] },
+
+    { "id": "s18b", "type": "messagebus", "label": "18b Hybrid Linkage", "pos": [40, 440], "size": [170, 48] },
+    { "id": "s19", "type": "messagebus", "label": "19 TF Network", "sublabel": "6,787 edges", "pos": [250, 440], "size": [165, 48] },
+    { "id": "s26", "type": "messagebus", "label": "26 Pop. Occupancy", "pos": [455, 440], "size": [175, 48] },
+    { "id": "s27", "type": "messagebus", "label": "27 TF Cascade", "pos": [670, 440], "size": [165, 48] },
+
+    { "id": "s20", "type": "security", "label": "20 Drought bQTL", "sublabel": "1,267 variants", "pos": [40, 560], "size": [180, 52] },
+    { "id": "s21", "type": "security", "label": "21 Drought Expr", "pos": [260, 560], "size": [165, 52] },
+    { "id": "s22", "type": "security", "label": "22 Funct. Charact.", "pos": [465, 560], "size": [175, 52] },
+    { "id": "s28", "type": "security", "label": "28 Cross-Layer", "pos": [680, 560], "size": [165, 52] },
+    { "id": "s29", "type": "security", "label": "29 ASE-Motif", "pos": [885, 560], "size": [155, 52] },
+    { "id": "s30", "type": "security", "label": "30 Cooperativity", "pos": [885, 440], "size": [155, 52] },
+
+    { "id": "ext", "type": "external", "label": "Phase 6: Extended Analyses (steps 31b-39)", "sublabel": "pop. genetics, GWAS, scATAC, topology, epistasis, TE, chromatin, binding-expr", "pos": [40, 644], "size": [580, 34] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Phase 1 — Data Preparation", "wraps": ["s01", "s02", "s03"], "pad": 16 },
+    { "kind": "region", "label": "Phase 2 — Core Causal Pipeline", "wraps": ["s04", "s05", "s06"], "pad": 16 },
+    { "kind": "region", "label": "Phase 3 — Characterization", "wraps": ["s07", "s09", "s10", "s11", "s12", "s13"], "pad": 16 },
+    { "kind": "region", "label": "Phase 4 — TF Network & Linkage", "wraps": ["s18b", "s19", "s26", "s27"], "pad": 16 },
+    { "kind": "region", "label": "Phase 5 — Drought & Cross-Layer Validation", "wraps": ["s20", "s21", "s22", "s28", "s29", "s30"], "pad": 16 }
+  ],
+  "connections": [
+    { "from": "s01", "to": "s04", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "from": "s02", "to": "s04", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "from": "s04", "to": "s05", "variant": "emphasis" },
+    { "from": "s05", "to": "s06", "variant": "emphasis" },
+
+    { "from": "s06", "to": "s09", "fromSide": "bottom", "toSide": "top" },
+    { "from": "s06", "to": "s11", "fromSide": "bottom", "toSide": "top" },
+    { "from": "s09", "to": "s12", "fromSide": "bottom", "toSide": "top" },
+    { "from": "s07", "to": "s13", "fromSide": "bottom", "toSide": "top" },
+
+    { "from": "s18b", "to": "s19" },
+    { "from": "s26", "to": "s27" },
+
+    { "from": "s20", "to": "s21" },
+    { "from": "s22", "to": "s28" },
+    { "from": "s27", "to": "s28", "fromSide": "bottom", "toSide": "top" },
+    { "from": "s28", "to": "s29" },
+    { "from": "s29", "to": "s30", "fromSide": "top", "toSide": "bottom" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Core Pipeline", "items": ["147,942 bQTL filtered to 1,126 causal variants", "4-step: promoter + ASE + Mann-Whitney + uniqueness"] },
+    { "dot": "violet", "title": "Drought Comparison", "items": ["1,267 drought-stress causal bQTL (12% overlap)", "81% of genes are condition-specific"] },
+    { "dot": "cyan", "title": "Step 06 is the hub", "items": ["Phases 3-6 all depend on the causal set", "6,787-edge TF regulatory network", "412 binding-expression causal chains"] }
+  ]
+}

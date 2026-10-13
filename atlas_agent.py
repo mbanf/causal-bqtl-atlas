@@ -215,14 +215,6 @@ PIPELINE_STEPS = [
         outputs=["results/comparative_enrichment_categories.csv"],
     ),
     PipelineStep(
-        id="17", script="17_causality_prediction.py",
-        name="Causality Prediction",
-        description="Train classifiers to predict which bQTL are causal from motif features. "
-                    "Achieves AUC=0.895 — validates that causal atlas is learnable.",
-        depends_on=["06"],
-        outputs=["results/causality_prediction_results.json"],
-    ),
-    PipelineStep(
         id="26", script="26_population_motif_occupancy.py",
         name="Population Motif Occupancy (Layer 1)",
         description="Layer 1 of the three-layer motif analysis. For each gene, scans MOA-seq peaks "
@@ -590,7 +582,7 @@ class PipelineRunner:
         "13": "INTERACTIVE_ATLAS", "18b": "HYBRID_MOTIF_LINKAGE",
         "19": "TF_FEEDBACK_NETWORK", "20": "DROUGHT_CAUSAL_BQTL",
         "21": "DROUGHT_EXPRESSION", "22": "FUNCTIONAL_CHARACTERIZATION",
-        "23": "COMPARATIVE_ENRICHMENT", "17": "CAUSALITY_PREDICTION",
+        "23": "COMPARATIVE_ENRICHMENT",
         "26": "POPULATION_MOTIF_OCCUPANCY", "27": "TF_CASCADE_TRACING",
         "28": "CROSS_LAYER_VALIDATION", "29": "ASE_MOTIF_VALIDATION",
         "30": "TF_COOPERATIVITY", "31": "FLOW_MATCHING_DESIGN",
@@ -892,9 +884,6 @@ PAPER_SECTIONS = [
     {"title": "Drought unmasks different causal variants", "line": 658, "steps": ["20", "22", "23"],
      "summary": "1,267 DS bQTL, 12% overlap, 81% condition-specific genes",
      "key_stats": ["1,267 DS", "129 overlap", "871 WW-only", "821 DS-only"]},
-    {"title": "Causality predictable from motif architecture", "line": 742, "steps": ["17"],
-     "summary": "RF AUC=0.895 — motif features alone predict causality",
-     "key_stats": ["AUC=0.895±0.005"]},
     {"title": "Discussion", "line": 776, "steps": [],
      "summary": "Implications for breeding, cis-regulatory evolution, cross-species potential"},
     {"title": "Methods", "line": 891, "steps": [],

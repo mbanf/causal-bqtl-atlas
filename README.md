@@ -46,7 +46,6 @@ Phase 4 — Per-Hybrid Linkage & TF Network
 ┌───────────────┴──────────────────┐
 │ 18b Per-hybrid motif linkage     │
 │ 19  TF feedback network          │
-│ 17  Causality prediction (ML)    │
 │ 26  Population motif occupancy   │
 │ 27  TF cascade tracing           │
 └───────────────┬──────────────────┘
@@ -112,25 +111,22 @@ nextflow run main.nf -resume
 The Atlas Agent is an AI-powered CLI that can run, validate, explain, and dynamically extend the pipeline.
 
 ```bash
-# Install agent dependencies
-pip install pydantic-ai rich
-
 # Quick validation — check which steps have completed
-python atlas_agent.py --validate
+uv run atlas_agent.py --validate
 
 # Print a results summary
-python atlas_agent.py --explain
+uv run atlas_agent.py --explain
 
 # Run specific steps
-python atlas_agent.py --run 37 38 39
+uv run atlas_agent.py --run 37 38 39
 
 # Interactive chat mode (requires API key)
 export OPENAI_API_KEY=sk-...
-python atlas_agent.py
+uv run atlas_agent.py
 
 # Or with Anthropic
 export ANTHROPIC_API_KEY=sk-ant-...
-python atlas_agent.py --model anthropic:claude-sonnet-4-20250514
+uv run atlas_agent.py --model anthropic:claude-sonnet-4-20250514
 ```
 
 ### Option C: Run on HPC
@@ -274,7 +270,6 @@ you> Regenerate the rewiring figure
 | 11 | `11_threshold_sensitivity.py` | PWM threshold sweep (4.0–8.0) |
 | 12 | `12_rewiring_analysis.py` | TF motif rewiring deep analysis |
 | 13 | `13_build_interactive.py` | Interactive D3.js HTML atlas |
-| 17 | `17_causality_prediction.py` | ML prediction of causality (AUC = 0.895) |
 | 18b | `18b_hybrid_motif_linkage.py` | Per-hybrid haplotype-aware motif scanning |
 | 19 | `19_tf_feedback_network.py` | TF feedback loops & regulatory network |
 | 20 | `20_drought_causal_bqtl.py` | Drought-stress causal bQTL (1,267 variants) |

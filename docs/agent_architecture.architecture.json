@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Atlas Agent Architecture",
+    "quality_profile": "showcase",
+    "viewBox": [1100, 700],
+    "legend": {
+      "entries": {
+        "external": { "label": "User / LLM" },
+        "frontend": { "label": "CLI Interface" },
+        "backend": { "label": "Agent Core" },
+        "cloud": { "label": "Pipeline" },
+        "database": { "label": "Data" }
+      }
+    },
+    "views": [
+      { "id": "run", "label": "Run a step", "focus": ["cli", "agent", "level1", "scripts", "results"], "note": "User runs a single step via CLI or chat." },
+      { "id": "batch", "label": "Batch with deps", "focus": ["agent", "level2", "registry", "scripts"], "note": "Agent resolves dependencies and runs in topological order." },
+      { "id": "extend", "label": "Dynamic Nextflow", "focus": ["agent", "level3", "nextflow", "scripts"], "note": "Agent generates and injects Nextflow process blocks." }
+    ]
+  },
+  "components": [
+    { "id": "user", "type": "external", "label": "User", "sublabel": "researcher", "pos": [40, 40], "size": [120, 56] },
+    { "id": "openai", "type": "external", "label": "OpenAI", "sublabel": "GPT-4o", "pos": [480, 40], "size": [130, 56] },
+    { "id": "anthropic", "type": "external", "label": "Anthropic", "sublabel": "Claude", "pos": [650, 40], "size": [130, 56] },
+
+    { "id": "cli", "type": "frontend", "label": "CLI Interface", "sublabel": "--validate --explain --run", "pos": [200, 40], "size": [240, 56], "tag": "interactive chat" },
+
+    { "id": "agent", "type": "backend", "label": "Atlas Agent", "sublabel": "Pydantic AI", "pos": [200, 150], "size": [240, 56], "tag": "orchestrator" },
+
+    { "id": "level1", "type": "backend", "label": "Level 1: Run Single Step", "sublabel": "python scripts/<step>.py", "pos": [40, 270], "size": [240, 52] },
+    { "id": "level2", "type": "backend", "label": "Level 2: Batch Run", "sublabel": "topological sort + skip completed", "pos": [320, 270], "size": [250, 52] },
+    { "id": "level3", "type": "backend", "label": "Level 3: Dynamic Nextflow", "sublabel": "generate + inject process blocks", "pos": [610, 270], "size": [260, 52] },
+
+    { "id": "registry", "type": "database", "label": "Step Registry", "sublabel": "35 PipelineSteps", "pos": [320, 380], "size": [200, 52] },
+
+    { "id": "scripts", "type": "cloud", "label": "Python Scripts", "sublabel": "scripts/01-39", "pos": [40, 460], "size": [200, 52] },
+    { "id": "nextflow", "type": "cloud", "label": "Nextflow Pipeline", "sublabel": "main.nf (36 processes)", "pos": [610, 380], "size": [220, 52] },
+
+    { "id": "results", "type": "database", "label": "Results", "sublabel": "results/ (70+ files)", "pos": [40, 560], "size": [200, 52] },
+    { "id": "config", "type": "database", "label": "pipeline_config.py", "sublabel": "paths + parameters", "pos": [300, 460], "size": [210, 52] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Pipeline Orchestration", "wraps": ["level1", "level2", "level3"], "pad": 18 },
+    { "kind": "region", "label": "Pipeline Execution", "wraps": ["scripts", "nextflow", "results", "config", "registry"], "pad": 18 }
+  ],
+  "connections": [
+    { "from": "user", "to": "cli", "variant": "emphasis" },
+    { "from": "cli", "to": "agent", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "from": "agent", "to": "openai", "label": "LLM tools", "variant": "dashed" },
+    { "from": "agent", "to": "anthropic", "label": "LLM tools", "variant": "dashed" },
+
+    { "from": "agent", "to": "level1", "fromSide": "bottom", "toSide": "top" },
+    { "from": "agent", "to": "level2", "fromSide": "bottom", "toSide": "top" },
+    { "from": "agent", "to": "level3", "fromSide": "bottom", "toSide": "top" },
+
+    { "from": "level1", "to": "scripts", "fromSide": "bottom", "toSide": "top" },
+    { "from": "level2", "to": "registry", "fromSide": "bottom", "toSide": "top" },
+    { "from": "level3", "to": "nextflow", "label": "inject", "fromSide": "bottom", "toSide": "top" },
+
+    { "from": "scripts", "to": "results", "fromSide": "bottom", "toSide": "top" },
+    { "from": "scripts", "to": "config", "label": "read" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Three Levels of Control", "items": ["L1: Run any step directly with dependency check", "L2: Batch run with topological sort", "L3: Generate Nextflow processes dynamically"] },
+    { "dot": "cyan", "title": "Agent Capabilities", "items": ["Validate pipeline completeness", "Explain results in natural language", "Interactive chat with LLM reasoning"] }
+  ]
+}

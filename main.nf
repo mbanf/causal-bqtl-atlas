@@ -335,26 +335,6 @@ process TF_FEEDBACK_NETWORK {
         "python3 ${projectDir}/scripts/19_tf_feedback_network.py"
 }
 
-process CAUSALITY_PREDICTION {
-    /*
-     * Step 17: Train classifiers to predict which bQTL are causal
-     * from motif features. Validates that causality is learnable (AUC=0.895).
-     */
-
-    input:
-    val ready  // waits for SELECT_CAUSAL
-
-    output:
-    val true, emit: done
-
-    script:
-    if ("17" in skipSet)
-        "echo 'SKIP: Step 17 — using existing causality_prediction results'"
-    else
-        "python3 ${projectDir}/scripts/17_causality_prediction.py"
-}
-
-
 process POPULATION_MOTIF_OCCUPANCY {
     /*
      * Step 26: Layer 1 — Population-level TF motif occupancy.
@@ -807,7 +787,6 @@ workflow {
     // ── Phase 4: Per-hybrid linkage, population occupancy & TF network ──
     HYBRID_MOTIF_LINKAGE(SELECT_CAUSAL.out.done)
     TF_FEEDBACK_NETWORK(HYBRID_MOTIF_LINKAGE.out.done)
-    CAUSALITY_PREDICTION(SELECT_CAUSAL.out.done)
     POPULATION_MOTIF_OCCUPANCY(SELECT_CAUSAL.out.done)
     TF_CASCADE_TRACING(
         HYBRID_MOTIF_LINKAGE.out.done,
@@ -854,7 +833,6 @@ workflow {
             .mix(THRESHOLD_SENSITIVITY.out.done)
             .mix(PHENOTYPE_RATELIMIT.out.done)
             .mix(TF_FEEDBACK_NETWORK.out.done)
-            .mix(CAUSALITY_PREDICTION.out.done)
             .mix(TF_CASCADE_TRACING.out.done)
             .mix(COMPARATIVE_ENRICHMENT.out.done)
             .mix(DROUGHT_EXPRESSION.out.done)
