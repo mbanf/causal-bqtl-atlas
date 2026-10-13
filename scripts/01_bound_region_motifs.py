@@ -2,10 +2,23 @@
 """
 MOA-seq bound region motif analysis.
 
-Instead of scanning entire 2kb promoters, this analyzes motif content within
-experimentally-defined binding regions:
-  1. ±250bp around each bQTL (proxy for MOA-seq peak, median cluster width = 254bp)
-  2. Marand 2021 scATAC-seq ACR peaks (leaf tissue, cell-type resolved)
+Analyzes motif content within experimentally-defined binding regions using
+real WW MOA-seq peak boundaries from 25 hybrid peak files. Uses q255 peaks
+(unique-mapping, MAPQ=255) by default — the same peak set used for bQTL
+identification in Engelhorn et al. 2025. For each bQTL, finds the tightest
+(narrowest) B73-coordinate peak containing it across all hybrids and scans
+that interval. For the ~10% of bQTL in NAM-coordinate-only peaks, uses
+Julia Engelhorn's coordinate liftover (NAM_coordinates_2FP/) to find the
+NAM peak and projects its boundaries back to B73 coordinates for scanning.
+This achieves ~100% bQTL coverage.
+
+Also cross-references with Marand 2021 scATAC-seq ACR peaks (leaf tissue).
+
+Terminology note:
+  "Disrupted" = motif present in B73 reference allele, absent in NAM variant.
+  "Created"   = motif absent in B73 reference, present in NAM variant.
+  These terms describe directionality relative to the B73 reference genome,
+  NOT evolutionary polarity — the ancestral allele is unknown at most bQTL.
 
 Key questions:
   - What is the motif composition within MOA-seq bound regions?
@@ -24,23 +37,24 @@ from multiprocessing import Pool
 import warnings
 warnings.filterwarnings('ignore')
 
-BASE = Path(__file__).resolve().parent.parent
-DATA = BASE / "data"
-GFF3 = DATA / "raw" / "Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3"
-GENOME = DATA / "raw" / "B73_NAM5.fa"
-PWM_DB = DATA / "processed" / "maize_tf_pwm_database.json"
-BQTL = DATA / "processed" / "bqtl_snp_ww.csv"
-ASE = DATA / "processed" / "engelhorn_ase_ww_gene_summary.csv"
-EXPR = DATA / "processed" / "engelhorn_ww_vs_ds_expression.tsv"
-ENTAP = DATA / "processed" / "entap_annotations.tsv"
-SAVADEL = DATA / "raw" / "savadel2021_mf_bc7_nam5.bed"
-MARAND = DATA / "external" / "marand2021_cell_type_peaks.bed"
-OUTDIR = BASE / "results"
+from pipeline_config import config
+
+GFF3 = config.gff3
+GENOME = config.genome
+PWM_DB = config.pwm_db
+BQTL = config.bqtl
+ASE = config.ase_summary
+EXPR = config.expression
+ENTAP = config.entap
+SAVADEL = config.moa_peaks
+PEAKS_DIR = config.peaks_dir
+MARAND = config.data_dir / "external" / "marand2021_cell_type_peaks.bed"
+NAM_LIFTOVER_DIR = config.data_dir / "raw" / "NAM_coordinates_2FP"
+OUTDIR = config.results_dir
 
 # Parameters
-BOUND_REGION_BP = 250     # ±250bp around bQTL as MOA peak proxy
 VARIANT_WINDOW = 28       # ±28bp for variant-overlap (disrupted motif)
-PWM_THRESHOLD = 6.0
+PWM_THRESHOLD = config.motif_threshold
 BASE_MAP = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
 BG = np.array([0.2642, 0.2358, 0.2358, 0.2642])
 
@@ -57,13 +71,15 @@ def compile_pwm(pwm_list):
         mat = np.clip(mat, 1e-4, None)
         lo = np.log2(mat / BG[np.newaxis, :])
         rc = lo[::-1, ::-1].copy()
-        by_width[len(mat)].append((lo, rc, entry.get('family', '?')))
+        by_width[len(mat)].append((lo, rc, entry.get('family', '?'),
+                                   entry.get('tf_name', '')))
     compiled = {}
-    for w, triples in by_width.items():
-        fwd_stack = np.array([t[0] for t in triples])
-        rc_stack = np.array([t[1] for t in triples])
-        families = [t[2] for t in triples]
-        compiled[w] = (fwd_stack, rc_stack, families)
+    for w, tuples in by_width.items():
+        fwd_stack = np.array([t[0] for t in tuples])
+        rc_stack = np.array([t[1] for t in tuples])
+        families = [t[2] for t in tuples]
+        tf_names = [t[3] for t in tuples]
+        compiled[w] = (fwd_stack, rc_stack, families, tf_names)
     return compiled
 
 
@@ -75,7 +91,7 @@ def scan_region_detailed(seq_idx, compiled, threshold=6.0):
     L = len(seq_idx)
     hits = []
 
-    for w, (fwd_stack, rc_stack, families) in compiled.items():
+    for w, (fwd_stack, rc_stack, families, tf_names) in compiled.items():
         if L < w:
             continue
         n_pwms = fwd_stack.shape[0]
@@ -124,6 +140,7 @@ def scan_region_detailed(seq_idx, compiled, threshold=6.0):
                         'pos_in_seq': int(valid_idx[v_i]),
                         'width': w,
                         'family': families[p],
+                        'tf_name': tf_names[p],
                         'score': float(best_score),
                         'strand': strand,
                     })
@@ -143,6 +160,179 @@ def load_genome():
     """Load genome as dict of chr -> sequence."""
     from pyfaidx import Fasta
     return Fasta(str(GENOME))
+
+
+def load_ww_peaks_by_chrom():
+    """Load all WW peak files and index by chromosome.
+
+    Supports both q255 BED (.bed.gz) and q3 narrowPeak formats.
+    Returns dict: chr -> sorted list of (start, end) tuples.
+    Only B73-coordinate peaks are kept (prefix 'B73-chr').
+    """
+    import gzip
+
+    # Try q255 first (preferred — matches bQTL calling), fall back to q3
+    peak_files = sorted(PEAKS_DIR.glob('*.WW.q255.peaks.names.sorted.bed.gz'))
+    if peak_files:
+        fmt = 'q255'
+    else:
+        peak_files = sorted(PEAKS_DIR.glob('*.w2_4.q3_peaks.narrowPeak'))
+        fmt = 'q3'
+    print(f"Loading WW peaks ({fmt}) from {len(peak_files)} hybrid files...")
+
+    by_chrom = defaultdict(list)
+    for pf in peak_files:
+        opener = gzip.open if pf.suffix == '.gz' else open
+        with opener(pf, 'rt') as f:
+            for line in f:
+                parts = line.strip().split('\t')
+                chrom_raw = parts[0]
+                if not chrom_raw.startswith('B73-chr'):
+                    continue
+                chrom = chrom_raw.replace('B73-', '')
+                start = int(parts[1])
+                end = int(parts[2])
+                by_chrom[chrom].append((start, end))
+
+    # Deduplicate and sort
+    peak_index = {}
+    total = 0
+    for chrom in sorted(by_chrom):
+        intervals = sorted(set(by_chrom[chrom]))
+        peak_index[chrom] = intervals
+        total += len(intervals)
+    print(f"  Total B73 WW peak intervals: {total:,} across {len(peak_index)} chromosomes")
+    return peak_index
+
+
+def load_nam_peaks():
+    """Load NAM-coordinate peaks from q255 WW files.
+
+    Returns dict: (founder, nam_chr) -> sorted list of (start, end) tuples.
+    Only non-B73 peaks are loaded (NAM scaffold names).
+    """
+    import gzip
+
+    peak_files = sorted(PEAKS_DIR.glob('*.WW.q255.peaks.names.sorted.bed.gz'))
+    if not peak_files:
+        return {}
+
+    print(f"Loading NAM-coordinate peaks from {len(peak_files)} hybrid files...")
+    by_key = defaultdict(list)
+    for pf in peak_files:
+        founder = pf.name.split('.')[0]
+        with gzip.open(pf, 'rt') as f:
+            for line in f:
+                parts = line.strip().split('\t')
+                if parts[0].startswith('B73-'):
+                    continue  # Skip B73 peaks
+                nam_chr = parts[0]
+                by_key[(founder, nam_chr)].append((int(parts[1]), int(parts[2])))
+
+    nam_peaks = {}
+    total = 0
+    for key in by_key:
+        intervals = sorted(set(by_key[key]))
+        nam_peaks[key] = intervals
+        total += len(intervals)
+    print(f"  Total NAM peak intervals: {total:,} across {len(nam_peaks)} (founder, chr) entries")
+    return nam_peaks
+
+
+def load_nam_liftover(bqtl_positions_set):
+    """Load NAM coordinate liftover for bQTL positions.
+
+    Only loads coordinates for positions in bqtl_positions_set to save memory.
+    Source: Julia Engelhorn's liftover files (NAM_coordinates_2FP/).
+
+    Returns dict: (b73_chr, b73_pos) -> {founder: (nam_chr, nam_pos)}
+    """
+    import gzip
+
+    if not NAM_LIFTOVER_DIR.exists():
+        print("  NAM liftover directory not found — skipping NAM recovery")
+        return {}
+
+    liftover_files = sorted(NAM_LIFTOVER_DIR.glob('B73.*.WW.*.csv.gz'))
+    if not liftover_files:
+        return {}
+
+    print(f"Loading NAM liftover from {len(liftover_files)} files...")
+    liftover = defaultdict(dict)
+    for pf in liftover_files:
+        founder = pf.name.split('.')[1]
+        with gzip.open(pf, 'rt') as f:
+            for line in f:
+                parts = line.strip().split('\t')
+                b73_chr = parts[0].replace('B73-', '')
+                b73_pos = int(parts[1])
+                if (b73_chr, b73_pos) not in bqtl_positions_set:
+                    continue
+                nam_coord = parts[2]
+                if ':' not in nam_coord:
+                    continue
+                nam_chr, nam_pos_str = nam_coord.rsplit(':', 1)
+                try:
+                    liftover[(b73_chr, b73_pos)][founder] = (nam_chr, int(nam_pos_str))
+                except ValueError:
+                    continue
+
+    print(f"  Liftover entries: {len(liftover):,} bQTL with NAM coordinates")
+    return dict(liftover)
+
+
+def find_nam_peak_as_b73_region(b73_pos, liftover_entry, nam_peaks):
+    """For a bQTL missing from B73 peaks, find its NAM peak and project to B73.
+
+    Tries each founder's NAM coordinates. Returns (region_start, region_end)
+    in B73 coordinates, or None if no NAM peak found.
+    """
+    best = None
+    best_width = float('inf')
+
+    for founder, (nam_chr, nam_pos) in liftover_entry.items():
+        key = (founder, nam_chr)
+        if key not in nam_peaks:
+            continue
+        peak = find_tightest_peak(nam_pos, nam_peaks[key])
+        if peak is None:
+            continue
+        width = peak[1] - peak[0]
+        if width < best_width:
+            # Project NAM peak boundaries back to B73 using offset
+            offset_left = nam_pos - peak[0]
+            offset_right = peak[1] - nam_pos
+            best = (b73_pos - offset_left, b73_pos + offset_right)
+            best_width = width
+
+    return best
+
+
+def find_tightest_peak(pos, intervals):
+    """Find the tightest (narrowest) peak containing pos.
+
+    intervals: sorted list of (start, end) tuples for one chromosome.
+    Returns (start, end) or None if no peak contains pos.
+    """
+    import bisect
+    # Binary search for candidate peaks: find intervals where start <= pos
+    idx = bisect.bisect_right(intervals, (pos, float('inf'))) - 1
+    # Check backwards from idx (peaks are sorted by start)
+    best = None
+    best_width = float('inf')
+    # Check a window of candidates (peaks can overlap)
+    lo = max(0, idx - 50)
+    hi = min(len(intervals), idx + 50)
+    for i in range(lo, hi):
+        s, e = intervals[i]
+        if s > pos:
+            break
+        if s <= pos <= e:
+            w = e - s
+            if w < best_width:
+                best = (s, e)
+                best_width = w
+    return best
 
 
 def parse_gff3():
@@ -195,7 +385,7 @@ def load_pwm_db(pwm_path):
 
 def process_chromosome(args):
     """Process all bQTL on one chromosome."""
-    chrom, bqtl_positions, genome_path, pwm_data, gene_coords, ase_dict = args
+    chrom, bqtl_positions, genome_path, pwm_data, gene_coords, ase_dict, peak_intervals, nam_peaks, nam_liftover = args
 
     from pyfaidx import Fasta
     genome = Fasta(str(genome_path))
@@ -207,7 +397,8 @@ def process_chromosome(args):
     all_pwms = []
     for family, pwms in by_family.items():
         for p in pwms:
-            all_pwms.append(dict(p, family=family))
+            all_pwms.append(dict(p, family=family,
+                                 tf_name=p.get('tf_name', '')))
     global_compiled = compile_pwm(all_pwms)
 
     chrom_seq = str(genome[chrom])
@@ -238,9 +429,21 @@ def process_chromosome(args):
         if pos in promoter_map:
             gene_id, dist_to_tss = promoter_map[pos]
 
-        # Extract bound region: ±250bp around bQTL
-        region_start = max(0, pos - BOUND_REGION_BP)
-        region_end = min(chrom_len, pos + BOUND_REGION_BP + 1)
+        # Find real WW peak boundary
+        # Try B73-coordinate peak first; if missing, try NAM-coordinate peak
+        peak = find_tightest_peak(pos, peak_intervals)
+        peak_source = 'B73'
+        if peak is None and nam_liftover:
+            liftover_entry = nam_liftover.get((chrom, pos))
+            if liftover_entry:
+                nam_region = find_nam_peak_as_b73_region(pos, liftover_entry, nam_peaks)
+                if nam_region:
+                    peak = nam_region
+                    peak_source = 'NAM'
+        if peak is None:
+            continue  # No peak in B73 or NAM coordinates
+        region_start = max(0, peak[0])
+        region_end = min(chrom_len, peak[1])
         region_seq = chrom_seq[region_start:region_end].upper()
         region_idx = seq_to_idx(region_seq)
 
@@ -267,6 +470,7 @@ def process_chromosome(args):
                 variant_motifs.append(hit)
 
         variant_families = set(h['family'] for h in variant_motifs)
+        variant_tf_names = set(h.get('tf_name', '') for h in variant_motifs if h.get('tf_name'))
 
         # For each family that overlaps variant: count redundancy
         # (other motifs of SAME family in bound region, NOT overlapping variant)
@@ -292,12 +496,18 @@ def process_chromosome(args):
         for fd in family_details:
             if fd['overlaps_variant']:
                 ase_val = ase_dict.get(gene_id, np.nan) if gene_id else np.nan
+                # Collect tf_names for this family at the variant
+                fam_variant_names = sorted(set(
+                    h.get('tf_name', '') for h in variant_motifs
+                    if h['family'] == fd['family'] and h.get('tf_name')
+                ))
                 results.append({
                     'chr': chrom,
                     'pos': pos,
                     'gene_id': gene_id or '',
                     'dist_to_tss': dist_to_tss if dist_to_tss is not None else -1,
                     'tf_family': fd['family'],
+                    'tf_name': ','.join(fam_variant_names) if fam_variant_names else '',
                     'motifs_at_variant': sum(1 for h in variant_motifs if h['family'] == fd['family']),
                     'redundant_in_region': fd['redundant_copies'],
                     'total_family_in_region': fd['total_in_region'],
@@ -305,9 +515,11 @@ def process_chromosome(args):
                     'n_families_in_region': n_families,
                     'families_in_region': ','.join(sorted(family_hits.keys())),
                     'variant_families': ','.join(sorted(variant_families)),
+                    'variant_tf_names': ','.join(sorted(variant_tf_names)),
                     'n_variant_families': len(variant_families),
                     'abs_log2_ase': ase_val,
                     'region_width': region_end - region_start,
+                    'peak_source': peak_source,
                 })
 
         # Also store a region-level summary (one row per bQTL position)
@@ -320,6 +532,7 @@ def process_chromosome(args):
                 'gene_id': gene_id or '',
                 'dist_to_tss': dist_to_tss if dist_to_tss is not None else -1,
                 'tf_family': 'NONE',
+                'tf_name': '',
                 'motifs_at_variant': 0,
                 'redundant_in_region': 0,
                 'total_family_in_region': 0,
@@ -327,9 +540,11 @@ def process_chromosome(args):
                 'n_families_in_region': n_families,
                 'families_in_region': ','.join(sorted(family_hits.keys())),
                 'variant_families': '',
+                'variant_tf_names': '',
                 'n_variant_families': 0,
                 'abs_log2_ase': ase_val,
                 'region_width': region_end - region_start,
+                'peak_source': peak_source,
             })
 
     return results
@@ -343,8 +558,18 @@ def analyze_results(df):
 
     # 1. Overall motif density in bound regions
     region_summary = df.drop_duplicates(['chr', 'pos'])
-    print(f"\n--- 1. Motif density in ±{BOUND_REGION_BP}bp bound regions ---")
-    print(f"Total bQTL positions: {len(region_summary)}")
+    print(f"\n--- 1. Scan regions ---")
+    print(f"bQTL analyzed: {len(region_summary)}")
+    if 'peak_source' in region_summary.columns:
+        src = region_summary['peak_source'].value_counts()
+        for s in ['B73', 'NAM']:
+            if s in src.index:
+                print(f"  {s} peaks: {src[s]:,} ({100*src[s]/len(region_summary):.1f}%)")
+    widths = region_summary['region_width']
+    print(f"  Region width: mean={widths.mean():.0f}bp, median={widths.median():.0f}bp, "
+          f"min={widths.min()}bp, max={widths.max()}bp")
+
+    print(f"\n--- 2. Motif density in bound regions ---")
     print(f"Total motifs per region: mean={region_summary['total_motifs_in_region'].mean():.1f}, "
           f"median={region_summary['total_motifs_in_region'].median():.0f}")
     print(f"TF families per region: mean={region_summary['n_families_in_region'].mean():.1f}, "
@@ -355,8 +580,8 @@ def analyze_results(df):
         pct = 100 * (region_summary['total_motifs_in_region'] > thresh).sum() / len(region_summary)
         print(f"  >{thresh} motifs: {pct:.1f}%")
 
-    # 2. Which families are most common in bound regions?
-    print(f"\n--- 2. Family prevalence in bound regions ---")
+    # 3. Which families are most common in bound regions?
+    print(f"\n--- 3. Family prevalence in bound regions ---")
     family_presence = defaultdict(int)
     for families_str in region_summary['families_in_region']:
         if families_str:
@@ -367,10 +592,10 @@ def analyze_results(df):
     for fam, count in sorted(family_presence.items(), key=lambda x: -x[1]):
         print(f"  {fam:15s} | {count:6d} | {100*count/total_regions:.1f}%")
 
-    # 3. Variant-overlapping motifs
+    # 4. Variant-overlapping motifs
     variant_rows = df[df['tf_family'] != 'NONE']
     no_variant = df[df['tf_family'] == 'NONE']
-    print(f"\n--- 3. Motifs at variant position ---")
+    print(f"\n--- 4. Motifs at variant position ---")
     print(f"bQTL with motif at variant: {variant_rows['pos'].nunique()} "
           f"({100*variant_rows['pos'].nunique()/len(region_summary):.1f}%)")
     print(f"bQTL with NO motif at variant: {len(no_variant)} "
@@ -382,8 +607,8 @@ def analyze_results(df):
         for fam, count in var_fam_counts.items():
             print(f"  {fam:15s} | {count:5d} bQTL")
 
-    # 4. Redundancy within bound regions
-    print(f"\n--- 4. Redundancy within bound regions ---")
+    # 5. Redundancy within bound regions
+    print(f"\n--- 5. Redundancy within bound regions ---")
     if len(variant_rows) > 0:
         print(f"For families whose motif overlaps the variant:")
         print(f"  Additional same-family motifs in region: "
@@ -396,7 +621,7 @@ def analyze_results(df):
             print(f"  ≥{thresh} redundant: {pct:.1f}%")
 
         # Per-family redundancy
-        print(f"\n  Per-family redundancy (within ±{BOUND_REGION_BP}bp bound region):")
+        print(f"\n  Per-family redundancy (within WW peak bound region):")
         for fam in sorted(variant_rows['tf_family'].unique()):
             fam_data = variant_rows[variant_rows['tf_family'] == fam]
             if len(fam_data) < 10:
@@ -406,8 +631,8 @@ def analyze_results(df):
             print(f"    {fam:15s} | n={len(fam_data):5d} | "
                   f"mean_redundancy={mean_red:.1f} | sole={sole_pct:.0f}%")
 
-    # 5. Redundancy vs ASE (the key question)
-    print(f"\n--- 5. Redundancy vs allelic expression ---")
+    # 6. Redundancy vs ASE (the key question)
+    print(f"\n--- 6. Redundancy vs allelic expression ---")
     if len(variant_rows) > 0:
         has_ase = variant_rows[variant_rows['abs_log2_ase'].notna()]
         if len(has_ase) > 0:
@@ -444,8 +669,8 @@ def analyze_results(df):
                 print(f"    Redundant: n={len(redundant_ase)}, mean={redundant_ase.mean():.4f}")
                 print(f"    U={u_stat:.0f}, p={u_p:.2e}, Cohen's d={d:.3f}")
 
-    # 6. Compare to motif density in RANDOM promoter regions
-    print(f"\n--- 6. Motif density: bound regions vs random ---")
+    # 7. Compare to motif density in RANDOM promoter regions
+    print(f"\n--- 7. Motif density: bound regions vs random ---")
     print(f"  (See control analysis below)")
 
     return variant_rows
@@ -515,10 +740,19 @@ def analyze_marand_overlap(df, bqtl):
         print(f"  {ct:20s}: {count:5d} bQTL")
 
 
-def run_control_analysis(genome, gene_coords, pwm_data, n_controls=5000):
-    """Compare motif density in bQTL-centered regions vs random promoter regions."""
+def run_control_analysis(genome, gene_coords, pwm_data, median_peak_width,
+                         n_controls=5000):
+    """Compare motif density in bQTL bound regions vs random promoter regions.
+
+    Uses the actual median peak width from the real bQTL analysis as the
+    control window size, so the null expectation matches the real data.
+    """
     import random
     random.seed(42)
+
+    half_w = int(median_peak_width // 2)
+    print(f"  Control window: ±{half_w}bp ({2 * half_w}bp total, "
+          f"matching median WW peak width {median_peak_width:.0f}bp)")
 
     by_family = load_pwm_db(pwm_data)
     all_pwms = []
@@ -551,14 +785,14 @@ def run_control_analysis(genome, gene_coords, pwm_data, n_controls=5000):
             prom_start = info['tss']
             prom_end = min(chrom_len, info['tss'] + 2000)
 
-        # Random position within promoter
-        if prom_end - prom_start < 2 * BOUND_REGION_BP:
+        # Random position within promoter, with enough room for the window
+        if prom_end - prom_start < 2 * half_w:
             continue
-        rand_pos = random.randint(prom_start + BOUND_REGION_BP,
-                                  prom_end - BOUND_REGION_BP)
+        rand_pos = random.randint(prom_start + half_w,
+                                  prom_end - half_w)
 
-        region_start = rand_pos - BOUND_REGION_BP
-        region_end = rand_pos + BOUND_REGION_BP + 1
+        region_start = rand_pos - half_w
+        region_end = rand_pos + half_w + 1
         region_seq = chrom_seq[region_start:region_end].upper()
         region_idx = seq_to_idx(region_seq)
 
@@ -595,7 +829,7 @@ def generate_figures(df, control_motifs, control_families):
     bqtl_counts = region_summary['total_motifs_in_region'].values
     ax1.hist(bqtl_counts, bins=50, alpha=0.6, density=True, label='bQTL regions', color='#2196F3')
     ax1.hist(control_motifs, bins=50, alpha=0.6, density=True, label='Random promoter', color='#9E9E9E')
-    ax1.set_xlabel('Total motifs in ±250bp region')
+    ax1.set_xlabel('Total motifs in bound region')
     ax1.set_ylabel('Density')
     ax1.set_title('A. Motif density: bound vs random')
     ax1.legend(fontsize=8)
@@ -610,7 +844,7 @@ def generate_figures(df, control_motifs, control_families):
     bqtl_fam = region_summary['n_families_in_region'].values
     ax2.hist(bqtl_fam, bins=range(0, 20), alpha=0.6, density=True, label='bQTL regions', color='#2196F3')
     ax2.hist(control_families, bins=range(0, 20), alpha=0.6, density=True, label='Random promoter', color='#9E9E9E')
-    ax2.set_xlabel('TF families in ±250bp region')
+    ax2.set_xlabel('TF families in bound region')
     ax2.set_ylabel('Density')
     ax2.set_title('B. Family diversity: bound vs random')
     ax2.legend(fontsize=8)
@@ -703,7 +937,7 @@ def generate_figures(df, control_motifs, control_families):
 def main():
     print("=" * 70)
     print("MOA-SEQ BOUND REGION MOTIF ANALYSIS")
-    print(f"Region: ±{BOUND_REGION_BP}bp around each bQTL")
+    print("Using real WW MOA-seq peak boundaries (q255 + NAM liftover)")
     print("=" * 70)
 
     # Load data
@@ -711,6 +945,12 @@ def main():
     ase_df = pd.read_csv(ASE)
     ase_dict = dict(zip(ase_df['gene_id'], ase_df['mean_abs_log2']))
     gene_coords = parse_gff3()
+    peak_index = load_ww_peaks_by_chrom()
+
+    # Load NAM-coordinate peaks and liftover for bQTL missing from B73 peaks
+    nam_peaks = load_nam_peaks()
+    bqtl_pos_set = set(zip(bqtl['chr'], bqtl['pos']))
+    nam_liftover = load_nam_liftover(bqtl_pos_set) if nam_peaks else {}
 
     print(f"bQTL: {len(bqtl)} positions")
     print(f"ASE: {len(ase_dict)} genes")
@@ -721,8 +961,10 @@ def main():
     args_list = []
     for chrom in chromosomes:
         chr_bqtl = sorted(bqtl[bqtl['chr'] == chrom]['pos'].values)
+        chr_peaks = peak_index.get(chrom, [])
         args_list.append((
-            chrom, chr_bqtl, str(GENOME), str(PWM_DB), gene_coords, ase_dict
+            chrom, chr_bqtl, str(GENOME), str(PWM_DB), gene_coords, ase_dict,
+            chr_peaks, nam_peaks, nam_liftover
         ))
 
     print(f"\nProcessing {len(chromosomes)} chromosomes with multiprocessing...")
@@ -750,12 +992,15 @@ def main():
     # Marand ACR overlap
     analyze_marand_overlap(df, bqtl)
 
-    # Control analysis
+    # Control analysis — use actual median peak width as control window
+    region_summary_for_control = df.drop_duplicates(['chr', 'pos'])
+    median_peak_w = region_summary_for_control['region_width'].median()
     print(f"\n{'='*70}")
     print("CONTROL ANALYSIS: random promoter regions")
     print(f"{'='*70}")
     control_motifs, control_families = run_control_analysis(
-        GENOME, gene_coords, str(PWM_DB), n_controls=5000
+        GENOME, gene_coords, str(PWM_DB), median_peak_width=median_peak_w,
+        n_controls=5000
     )
     print(f"Random promoter regions (n={len(control_motifs)}):")
     print(f"  Motifs: mean={control_motifs.mean():.1f}, median={np.median(control_motifs):.0f}")

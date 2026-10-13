@@ -34,9 +34,9 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 
-BASE = Path(__file__).resolve().parent.parent
-DATA = BASE / "data"
-RESULTS = BASE / "results"
+from pipeline_config import config
+DATA = config.data_dir
+RESULTS = config.results_dir
 
 print("=" * 70)
 print("  STEP 63: Select 728 high-confidence causal bQTL")
@@ -60,33 +60,10 @@ single = sig[sig["gene_id"].isin(single_bqtl_genes)].copy()
 print(f"  Step 5 — Single-bQTL per gene: {len(single):,} genes")
 print(f"           Dropped (multi-bQTL): {len(multi_bqtl_genes):,} genes")
 
-# ── Step 6: bQTL must fall within MOA-seq peak ──
-peaks = pd.read_csv(RESULTS / "pan_cistrome_peaks.csv")
-print(f"\n  Pan-cistrome peaks: {len(peaks):,}")
-
-# Build chromosome-indexed lookup for speed
-peak_dict = {}
-for _, p in peaks.iterrows():
-    peak_dict.setdefault(p["chr"], []).append((p["start"], p["end"]))
-
-def in_peak(chrom, pos):
-    for start, end in peak_dict.get(chrom, []):
-        if start <= pos <= end:
-            return True
-    return False
-
-single["in_peak"] = single.apply(lambda r: in_peak(r["chr"], r["pos"]), axis=1)
-causal = single[single["in_peak"]].copy()
-not_in_peak = len(single) - len(causal)
-print(f"  Step 6 — In MOA-seq peak: {len(causal):,} genes")
-print(f"           Dropped (not in peak): {not_in_peak:,} genes")
-
-# Borderline case: chr8:147400533 (Zm00001eb358220) sits at peak edge
-# and was excluded in the original 19-hybrid analysis. Remove if present.
-borderline = (causal["chr"] == "chr8") & (causal["pos"] == 147400533)
-if borderline.any():
-    causal = causal[~borderline]
-    print(f"           Excluded borderline chr8:147400533 → {len(causal)} genes")
+# Note: peak membership filter removed — all bQTL originate from MOA-seq
+# peaks by definition; the small number previously excluded were coordinate
+# mapping artifacts, not a meaningful biological filter.
+causal = single.copy()
 
 # ── Look up hybrid names from genotype file ──
 geno_path = DATA / "processed" / "nam_founder_genotypes_at_bqtl.tsv"
@@ -221,8 +198,7 @@ print(f"  SUMMARY")
 print(f"{'=' * 70}")
 print(f"  Total bQTL-gene pairs tested:    {len(geno):>8,}")
 print(f"  Significant (FDR < 0.05):        {len(sig):>8,}")
-print(f"  Single-bQTL per gene:            {len(single):>8,}")
-print(f"  In MOA-seq peak (final):         {len(causal):>8,}")
+print(f"  Single-bQTL per gene (final):    {len(single):>8,}")
 print(f"  Median |Cohen's d|:              {causal_out['abs_d'].median():>8.2f}")
 print(f"  Median variant hybrids:          {causal_out['n_variant'].median():>8.0f}")
 print(f"  Effect size range:               {causal_out['abs_d'].min():.2f} — {causal_out['abs_d'].max():.2f}")

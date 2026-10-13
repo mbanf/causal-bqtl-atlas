@@ -27,9 +27,9 @@ from matplotlib.colors import ListedColormap
 import warnings
 warnings.filterwarnings('ignore')
 
-BASE = str(Path(__file__).resolve().parent.parent)
-RESULTS = f'{BASE}/results'
-FIGS = f'{BASE}/figures/paper_figures'
+from pipeline_config import config
+RESULTS = str(config.results_dir)
+FIGS = str(config.figures_dir)
 os.makedirs(FIGS, exist_ok=True)
 
 PY = str(Path(__file__).resolve().parent.parent.parent / 'bqtl_predict' / '.venv' / 'bin' / 'python')
@@ -38,11 +38,11 @@ PY = str(Path(__file__).resolve().parent.parent.parent / 'bqtl_predict' / '.venv
 reg = pd.read_csv(f'{RESULTS}/regulatory_map_728.csv')
 causal = pd.read_csv(f'{RESULTS}/causal_bqtl_728.csv')
 brm = pd.read_csv(f'{RESULTS}/bound_region_motifs.csv')
-expr = pd.read_csv(f'{BASE}/data/processed/engelhorn_ww_vs_ds_expression.tsv', sep='\t')
+expr = pd.read_csv(str(config.expression), sep='\t')
 
 # EntAP annotations
 entap = pd.read_csv(
-    f'{BASE}/data/raw/Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1_entap_results.tsv.gz',
+    str(config.entap_gz),
     sep='\t', compression='gzip', low_memory=False
 )
 entap['gene_id'] = entap['Query Sequence'].str.replace(r'_T\d+$', '', regex=True)
@@ -482,7 +482,7 @@ func_colors = {
     'Unknown': '#E0E0E0'
 }
 
-plt.suptitle('Gene × TF Family Heatmap — 728 Causal bQTL Targets\n'
+plt.suptitle(f'Gene × TF Family Heatmap — {mat_filt2.shape[0]} Causal bQTL Targets\n'
              '(blue = TF family motif disrupted at bQTL position)',
              fontsize=13, fontweight='bold', y=0.995)
 
@@ -577,7 +577,7 @@ if drought_data:
     ax.set_title('D. Drought response by layer', fontsize=11)
     ax.legend(fontsize=8)
 
-plt.suptitle('Signaling Architecture of 728 Causal bQTL Target Genes',
+plt.suptitle(f'Signaling Architecture of {len(atlas)} Causal bQTL Target Genes',
              fontsize=13, fontweight='bold')
 plt.tight_layout(rect=[0, 0, 1, 0.96])
 plt.savefig(f'{FIGS}/fig_signaling_layers.pdf', bbox_inches='tight', dpi=300)
@@ -626,7 +626,7 @@ ax.set_yticklabels(top_fams_all, fontsize=8)
 ax.set_title('B. Jaccard overlap between TF family targets\n(do same genes have multiple motifs disrupted?)', fontsize=11)
 plt.colorbar(im, ax=ax, label='Jaccard index', shrink=0.7)
 
-plt.suptitle('Co-regulation Patterns — 728 Causal bQTL',
+plt.suptitle(f'Co-regulation Patterns — {len(atlas)} Causal bQTL',
              fontsize=13, fontweight='bold')
 plt.tight_layout(rect=[0, 0, 1, 0.95])
 plt.savefig(f'{FIGS}/fig_coregulation_network.pdf', bbox_inches='tight', dpi=300)

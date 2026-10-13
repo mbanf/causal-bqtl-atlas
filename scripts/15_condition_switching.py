@@ -34,10 +34,10 @@ import numpy as np
 from scipy import stats
 from pathlib import Path
 
-BASE = Path(__file__).resolve().parent.parent
-DATA = BASE / 'data' / 'processed'
-RESULTS = BASE / 'results'
-FIG_DIR = BASE / 'figures' / 'paper_figures'
+from pipeline_config import config
+DATA = config.data_dir / 'processed'
+RESULTS = config.results_dir
+FIG_DIR = config.figures_dir
 
 print("=" * 70)
 print("CONDITION-DEPENDENT bQTL SWITCHING: DEEP DIVE")

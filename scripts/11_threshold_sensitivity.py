@@ -15,12 +15,12 @@ import json
 from collections import defaultdict, Counter
 import pyfaidx
 
-BASE = str(Path(__file__).resolve().parent.parent)
-RESULTS = f'{BASE}/results'
+from pipeline_config import config
+RESULTS = str(config.results_dir)
 
 # ── Load data ──
 causal = pd.read_csv(f'{RESULTS}/causal_bqtl_728.csv')
-geno = pd.read_csv(f'{BASE}/data/processed/nam_founder_genotypes_at_bqtl.tsv', sep='\t')
+geno = pd.read_csv(str(config.genotypes), sep='\t')
 
 hybrids = [c for c in geno.columns if c not in ['chr', 'pos', 'ref']]
 
@@ -37,7 +37,7 @@ def get_alt_allele(row):
 merged['alt'] = merged.apply(get_alt_allele, axis=1)
 
 # ── Load PWMs ──
-with open(f'{BASE}/data/processed/maize_tf_pwm_database.json') as f:
+with open(str(config.pwm_db)) as f:
     pwm_db = json.load(f)
 
 pwm_matrices = []
@@ -53,7 +53,7 @@ for m in pwm_db['motifs']:
         pass
 
 # ── Load genome ──
-genome = pyfaidx.Fasta(f'{BASE}/data/raw/B73_NAM5.fa')
+genome = pyfaidx.Fasta(str(config.genome))
 chr_name_map = {}
 for key in genome.keys():
     simple = key.replace('B73-', '').lower()

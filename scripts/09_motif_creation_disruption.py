@@ -5,9 +5,12 @@
 Bidirectional motif analysis: for each of 728 causal bQTL, compare motif hits
 in the B73 reference sequence vs the NAM variant sequence.
 
-- Disrupted: motif present in ref, absent in alt
-- Created: motif absent in ref, present in alt
+- Disrupted: motif present in B73 ref, absent in NAM alt
+- Created: motif absent in B73 ref, present in NAM alt
 - Unchanged: motif present in both (variant outside core positions)
+
+Note: "disrupted" and "created" are relative to the B73 reference genome,
+not evolutionary direction — the ancestral allele is unknown at most positions.
 
 Uses ±14bp window around variant (max PWM width = 28bp).
 """
@@ -18,13 +21,13 @@ import numpy as np
 import json
 from collections import defaultdict, Counter
 
-BASE = str(Path(__file__).resolve().parent.parent)
-RESULTS = f'{BASE}/results'
-GENOME = f'{BASE}/data/raw/B73_NAM5.fa'
+from pipeline_config import config
+RESULTS = str(config.results_dir)
+GENOME = str(config.genome)
 
 # ── Load data ──
 causal = pd.read_csv(f'{RESULTS}/causal_bqtl_728.csv')
-geno = pd.read_csv(f'{BASE}/data/processed/nam_founder_genotypes_at_bqtl.tsv', sep='\t')
+geno = pd.read_csv(str(config.genotypes), sep='\t')
 print(f"Loaded {len(causal)} causal bQTL")
 
 # Merge to get ref/alt alleles
@@ -57,7 +60,7 @@ multi = merged.apply(lambda r: len(set(
 print(f"Multi-allelic sites: {(multi > 1).sum()}")
 
 # ── Load PWM database ──
-with open(f'{BASE}/data/processed/maize_tf_pwm_database.json') as f:
+with open(str(config.pwm_db)) as f:
     pwm_db = json.load(f)
 motifs = pwm_db['motifs']
 

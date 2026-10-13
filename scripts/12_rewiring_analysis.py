@@ -22,17 +22,17 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 from scipy import stats
 
-BASE = str(Path(__file__).resolve().parent.parent)
-RESULTS = f'{BASE}/results'
-PEAK_DIR = f'{BASE}/data/raw/engelhorn_peaks'
-GENOME = f'{BASE}/data/raw/B73_NAM5.fa'
-FIG_DIR = f'{BASE}/figures/paper_figures'
+from pipeline_config import config
+RESULTS = str(config.results_dir)
+PEAK_DIR = str(config.peaks_dir)
+GENOME = str(config.genome)
+FIG_DIR = str(config.figures_dir)
 
 # ── Load all data ──
 causal = pd.read_csv(f'{RESULTS}/causal_bqtl_728.csv')
 creation = pd.read_csv(f'{RESULTS}/motif_creation_vs_disruption_728.csv')
 sole = pd.read_csv(f'{RESULTS}/sole_motif_verification_728.csv')
-geno = pd.read_csv(f'{BASE}/data/processed/nam_founder_genotypes_at_bqtl.tsv', sep='\t')
+geno = pd.read_csv(str(config.genotypes), sep='\t')
 
 # Gene atlas for descriptions and layers
 atlas = pd.read_csv(f'{RESULTS}/gene_atlas_728.csv')
@@ -40,7 +40,7 @@ atlas = pd.read_csv(f'{RESULTS}/gene_atlas_728.csv')
 print(f"Loaded: {len(causal)} causal, {len(creation)} creation/disruption, {len(sole)} sole motif")
 
 # ── Load PWM database ──
-with open(f'{BASE}/data/processed/maize_tf_pwm_database.json') as f:
+with open(str(config.pwm_db)) as f:
     pwm_db = json.load(f)
 motifs = pwm_db['motifs']
 
@@ -58,11 +58,19 @@ for m in motifs:
 
 # ── Load peaks ──
 def load_peaks(hybrid):
-    path = f'{PEAK_DIR}/{hybrid}.w2_4.q3_peaks.narrowPeak'
-    if not os.path.exists(path):
+    """Load peak file. Supports q255 BED (.bed.gz) and q3 narrowPeak."""
+    import gzip
+    path_q255 = f'{PEAK_DIR}/{hybrid}.WW.q255.peaks.names.sorted.bed.gz'
+    path_q3 = f'{PEAK_DIR}/{hybrid}.w2_4.q3_peaks.narrowPeak'
+    if os.path.exists(path_q255):
+        path = path_q255
+    elif os.path.exists(path_q3):
+        path = path_q3
+    else:
         return []
     peaks = []
-    with open(path) as f:
+    opener = gzip.open if path.endswith('.gz') else open
+    with opener(path, 'rt') as f:
         for line in f:
             parts = line.strip().split('\t')
             chrom = parts[0].replace('B73-', '')
@@ -72,9 +80,10 @@ def load_peaks(hybrid):
 all_peaks = {}
 if os.path.isdir(PEAK_DIR):
     for fname in os.listdir(PEAK_DIR):
-        if fname.endswith('.narrowPeak'):
+        if fname.endswith('.narrowPeak') or fname.endswith('.bed.gz'):
             hyb = fname.split('.')[0]
-            all_peaks[hyb] = load_peaks(hyb)
+            if hyb not in all_peaks:
+                all_peaks[hyb] = load_peaks(hyb)
 
 # ── Load genome ──
 print("Loading genome...")

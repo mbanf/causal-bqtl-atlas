@@ -13,7 +13,8 @@ import numpy as np
 import json
 import os
 
-RESULTS = str(Path(__file__).resolve().parent.parent / 'results')
+from pipeline_config import config
+RESULTS = str(config.results_dir)
 
 # Load and merge data
 atlas = pd.read_csv(f'{RESULTS}/gene_atlas_728.csv')

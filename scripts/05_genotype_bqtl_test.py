@@ -43,31 +43,31 @@ from statsmodels.stats.multitest import multipletests
 import warnings
 warnings.filterwarnings('ignore')
 
-BASE = Path(__file__).resolve().parent.parent
-DATA = BASE / "data"
-OUTDIR = BASE / "results"
-FIG_DIR = BASE / "figures" / "paper_figures"
-FIG_DIR.mkdir(exist_ok=True)
-
-BQTL = DATA / "processed" / "bqtl_snp_ww.csv"
-ASE_FILE = DATA / "processed" / "engelhorn_ase_ww.csv"
-GENOTYPE_FILE = DATA / "processed" / "nam_founder_genotypes_at_bqtl.tsv"
-GFF3 = DATA / "raw" / "Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3"
+from pipeline_config import config
+OUTDIR = config.results_dir
+FIG_DIR = config.figures_dir
+BQTL = config.bqtl
+ASE_FILE = config.ase
+GENOTYPE_FILE = config.genotypes
+GFF3 = config.gff3
 
 VALID_CHROMS = {f'chr{i}' for i in range(1, 11)}
-PROMOTER_BP = 2000
+PROMOTER_BP = config.promoter_size
 
-# Read hybrid names from ASE data and genotype file
-_ase_df = pd.read_csv(str(ASE_FILE).replace('genotype_bqtl_results', 'engelhorn_ase_ww') if 'genotype' in str(ASE_FILE) else str(DATA / "processed" / "engelhorn_ase_ww.csv"), usecols=['hybrid'], dtype=str)
+# Read hybrid names from ASE data
+_ase_df = pd.read_csv(str(ASE_FILE), usecols=['hybrid'], dtype=str)
 HYBRIDS = sorted(_ase_df['hybrid'].unique())
 
-# Build founder→hybrid name mapping (case-insensitive match)
+# Build founder→hybrid name mapping
+# Genotype file columns are bare founder names (A188, B97, ...)
+# ASE file hybrids have B73x prefix (B73xA188, B73xB97, ...)
 _geno_cols = pd.read_csv(str(GENOTYPE_FILE), sep='\t', nrows=0).columns
 _founder_names = [c for c in _geno_cols if c not in ['chr', 'pos', 'ref']]
-_hyb_upper = {h.upper(): h for h in HYBRIDS}
+# Map founder name → hybrid name by stripping B73x prefix for comparison
+_hyb_founder = {h.replace('B73x', '').upper(): h for h in HYBRIDS}
 FOUNDER_TO_HYBRID = {}
 for f in _founder_names:
-    match = _hyb_upper.get(f.upper())
+    match = _hyb_founder.get(f.upper())
     if match:
         FOUNDER_TO_HYBRID[f] = match
 
@@ -160,21 +160,35 @@ def load_genotype_matrix(genotype_file):
 
 def map_bqtl_to_genes(bqtl_df, genes):
     """Map bQTL to nearby genes (within promoter region)."""
+    import bisect
+    from collections import defaultdict
+
+    # Build sorted promoter index per chromosome
+    promoters_by_chr = defaultdict(list)  # chr -> [(prom_start, prom_end, gene_id, strand)]
+    for gene_id, ginfo in genes.items():
+        chrom = ginfo['chr']
+        tss = ginfo['tss']
+        if ginfo['strand'] == '+':
+            ps = max(0, tss - PROMOTER_BP)
+            pe = tss
+        else:
+            ps = tss
+            pe = tss + PROMOTER_BP
+        promoters_by_chr[chrom].append((ps, pe, gene_id, ginfo['strand'], tss))
+    for chrom in promoters_by_chr:
+        promoters_by_chr[chrom].sort()
+
     mappings = []
     for _, bqtl in bqtl_df.iterrows():
         chrom = bqtl['chr']
         pos = bqtl['pos']
-        for gene_id, ginfo in genes.items():
-            if ginfo['chr'] != chrom:
-                continue
-            tss = ginfo['tss']
-            dist = abs(pos - tss)
-            if dist <= PROMOTER_BP:
+        for ps, pe, gene_id, strand, tss in promoters_by_chr.get(chrom, []):
+            if ps <= pos <= pe:
                 mappings.append({
                     'chr': chrom, 'pos': pos, 'gene_id': gene_id,
-                    'dist_to_tss': dist, 'strand': ginfo['strand'],
-                    'bqtl_type': bqtl.get('type', ''),
-                    'bqtl_fdr': bqtl.get('fdr', np.nan),
+                    'dist_to_tss': abs(pos - tss), 'strand': strand,
+                    'bqtl_type': bqtl.get('Type', ''),
+                    'bqtl_fdr': bqtl.get('FDRp', np.nan),
                 })
     return pd.DataFrame(mappings)
 
@@ -200,7 +214,7 @@ def run_genotype_test(genotype_matrix, bqtl_gene_df, ase_lookup):
             g = geno.get(hybrid)
             if g is None:
                 continue
-            ase_val = ase_lookup.get((gene_id, f'B73x{hybrid}'))
+            ase_val = ase_lookup.get((gene_id, hybrid))
             if ase_val is None or np.isnan(ase_val):
                 continue
 

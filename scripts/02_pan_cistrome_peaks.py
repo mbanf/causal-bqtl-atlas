@@ -17,16 +17,15 @@ from collections import defaultdict
 import warnings
 warnings.filterwarnings('ignore')
 
-BASE = Path(__file__).resolve().parent.parent
-DATA = BASE / "data"
-GFF3 = DATA / "raw" / "Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3"
-PEAKS_DIR = DATA / "raw" / "engelhorn_peaks"
-BQTL = DATA / "processed" / "bqtl_snp_ww.csv"
-ASE = DATA / "processed" / "engelhorn_ase_ww_gene_summary.csv"
-ASE_HYBRID = DATA / "processed" / "engelhorn_ase_ww.csv"
-EXPR = DATA / "processed" / "engelhorn_ww_vs_ds_expression.tsv"
-ENTAP = DATA / "processed" / "entap_annotations.tsv"
-OUTDIR = BASE / "results"
+from pipeline_config import config
+GFF3 = config.gff3
+PEAKS_DIR = config.peaks_dir
+BQTL = config.bqtl
+ASE = config.ase_summary
+ASE_HYBRID = config.ase
+EXPR = config.expression
+ENTAP = config.entap
+OUTDIR = config.results_dir
 
 PROMOTER_BP = 2000  # upstream of TSS
 
@@ -66,14 +65,26 @@ def parse_gff3():
 
 
 def load_b73_peaks_ww():
-    """Load all B73 peaks from well-watered narrowPeak files across all hybrids."""
-    peak_files = sorted(PEAKS_DIR.glob('*.w2_4.q3_peaks.narrowPeak'))
-    print(f"Loading B73 peaks from {len(peak_files)} WW hybrid files...")
+    """Load all B73 peaks from well-watered peak files across all hybrids.
+
+    Supports both q255 BED (.bed.gz) and q3 narrowPeak formats.
+    """
+    import gzip
+
+    # Try q255 first (preferred — matches bQTL calling), fall back to q3
+    peak_files = sorted(PEAKS_DIR.glob('*.WW.q255.peaks.names.sorted.bed.gz'))
+    if peak_files:
+        fmt = 'q255'
+    else:
+        peak_files = sorted(PEAKS_DIR.glob('*.w2_4.q3_peaks.narrowPeak'))
+        fmt = 'q3'
+    print(f"Loading B73 peaks ({fmt}) from {len(peak_files)} WW hybrid files...")
 
     all_peaks = []
     for pf in peak_files:
         hybrid = pf.name.split('.')[0]
-        with open(pf) as f:
+        opener = gzip.open if pf.suffix == '.gz' else open
+        with opener(pf, 'rt') as f:
             for line in f:
                 parts = line.strip().split('\t')
                 chrom_raw = parts[0]
@@ -82,16 +93,9 @@ def load_b73_peaks_ww():
                 chrom = chrom_raw.replace('B73-', '')  # B73-chr1 -> chr1
                 start = int(parts[1])
                 end = int(parts[2])
-                score = int(parts[4])
-                signal = float(parts[6])
-                pval = float(parts[7])
-                qval = float(parts[8])
-                summit = int(parts[9])
                 all_peaks.append({
                     'chr': chrom, 'start': start, 'end': end,
-                    'hybrid': hybrid, 'score': score, 'signal': signal,
-                    'pval': pval, 'qval': qval, 'summit_offset': summit,
-                    'summit_pos': start + summit,
+                    'hybrid': hybrid,
                 })
 
     df = pd.DataFrame(all_peaks)

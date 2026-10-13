@@ -1,12 +1,20 @@
 #!/usr/bin/env python3
 """
-Identify functional bQTL: which binding variants actually affect gene expression?
+Step 04: Identify functional bQTL — which binding variants affect gene expression?
 
-Part 1: Complete diagnostics from per-bQTL test (bqtl_functional_test.csv)
-Part 2: Alternative approaches — signed ASE, distance stratification,
-        high-variance genes, LoRA scoring
+Maps bQTL to gene promoters (2kb upstream of TSS) and tests whether
+peak presence at each bQTL position is associated with allele-specific
+expression (ASE) across NAM hybrids.
+
+Generates:
+  results/bqtl_functional_test.csv — per-bQTL test (peak presence vs |ASE|)
+  results/bqtl_signed_ase_test.csv — signed ASE direction test
+  results/gene_bqtl_burden.csv — gene-level bQTL burden vs ASE
+  figures/paper_figures/fig8_functional_bqtl_diagnostics.pdf
+  figures/paper_figures/fig9_functional_bqtl_approaches.pdf
 """
 
+import bisect
 import numpy as np
 import pandas as pd
 from pathlib import Path
@@ -15,17 +23,14 @@ from collections import defaultdict
 import warnings
 warnings.filterwarnings('ignore')
 
-BASE = Path(__file__).resolve().parent.parent
-DATA = BASE / "data"
-OUTDIR = BASE / "results"
-FIG_DIR = BASE / "figures" / "paper_figures"
-FIG_DIR.mkdir(exist_ok=True)
-
-BQTL = DATA / "processed" / "bqtl_snp_ww.csv"
-ASE_HYBRID = DATA / "processed" / "engelhorn_ase_ww.csv"
-ASE_GENE = DATA / "processed" / "engelhorn_ase_ww_gene_summary.csv"
-GFF3 = DATA / "raw" / "Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3"
-PEAKS_DIR = DATA / "raw" / "engelhorn_peaks"
+from pipeline_config import config
+OUTDIR = config.results_dir
+FIG_DIR = config.figures_dir
+BQTL = config.bqtl
+ASE_HYBRID = config.ase
+ASE_GENE = config.ase_summary
+GFF3 = config.gff3
+PEAKS_DIR = config.peaks_dir
 PAN_CISTROME = OUTDIR / "pan_cistrome_peaks.csv"
 FUNCTIONAL_CSV = OUTDIR / "bqtl_functional_test.csv"
 
@@ -64,6 +69,209 @@ def parse_gff3():
                 genes[gene_id] = {'chr': chrom, 'start': start, 'end': end,
                                   'strand': strand, 'tss': tss}
     return genes
+
+
+# ============================================================
+# Shared helpers: promoter index, per-hybrid peak lookup
+# ============================================================
+
+def build_promoter_index(gene_coords):
+    """Build sorted promoter intervals per chromosome for fast lookup."""
+    promoters_by_chr = defaultdict(list)
+    for gene_id, info in gene_coords.items():
+        chrom = info['chr']
+        if info['strand'] == '+':
+            ps = max(0, info['tss'] - PROMOTER_BP)
+            pe = info['tss']
+        else:
+            ps = info['tss']
+            pe = info['tss'] + PROMOTER_BP
+        promoters_by_chr[chrom].append((ps, pe, gene_id))
+    for chrom in promoters_by_chr:
+        promoters_by_chr[chrom].sort()
+    return promoters_by_chr
+
+
+def load_pan_cistrome_index():
+    """Load pan-cistrome peaks as sorted arrays per chromosome."""
+    pan_df = pd.read_csv(PAN_CISTROME)
+    pan_by_chr = {}
+    for chrom in VALID_CHROMS:
+        sub = pan_df[pan_df['chr'] == chrom].sort_values('start')
+        pan_by_chr[chrom] = sub[['start', 'end']].values
+    return pan_by_chr
+
+
+def pos_in_peaks(peaks_arr, pos):
+    """Check if position falls in a sorted peak array."""
+    if peaks_arr is None or len(peaks_arr) == 0:
+        return False
+    idx = bisect.bisect_right(peaks_arr[:, 0], pos) - 1
+    return idx >= 0 and peaks_arr[idx, 0] <= pos <= peaks_arr[idx, 1]
+
+
+def load_hybrid_peaks():
+    """Load per-hybrid B73-aligned peak positions for peak presence lookup."""
+    hybrid_peak_positions = {}
+    for hybrid in HYBRIDS:
+        # Peak files use founder name (A188), not hybrid name (B73xA188)
+        founder = hybrid.replace('B73x', '')
+        # Try q255 first (preferred — matches bQTL calling), fall back to q3
+        peak_file = PEAKS_DIR / f"{founder}.WW.q255.peaks.names.sorted.bed.gz"
+        if not peak_file.exists():
+            peak_file = PEAKS_DIR / f"{founder}.w2_4.q3_peaks.narrowPeak"
+        if not peak_file.exists():
+            continue
+        positions_by_chr = defaultdict(list)
+        import gzip
+        opener = gzip.open if peak_file.suffix == '.gz' else open
+        with opener(peak_file, 'rt') as f:
+            for line in f:
+                parts = line.strip().split('\t')
+                chrom_raw = parts[0]
+                if not chrom_raw.startswith('B73-chr'):
+                    continue
+                chrom = chrom_raw.replace('B73-', '')
+                if chrom not in VALID_CHROMS:
+                    continue
+                positions_by_chr[chrom].append((int(parts[1]), int(parts[2])))
+        for chrom in positions_by_chr:
+            positions_by_chr[chrom].sort()
+        hybrid_peak_positions[hybrid] = positions_by_chr
+    return hybrid_peak_positions
+
+
+def hybrid_has_peak(hybrid_peaks, hybrid, chrom, pos):
+    """Check if position has a peak in this hybrid."""
+    peaks = hybrid_peaks.get(hybrid, {}).get(chrom, [])
+    if not peaks:
+        return False
+    starts = [p[0] for p in peaks]
+    idx = bisect.bisect_right(starts, pos) - 1
+    if idx >= 0 and peaks[idx][0] <= pos <= peaks[idx][1]:
+        return True
+    if idx + 1 < len(peaks) and peaks[idx + 1][0] <= pos <= peaks[idx + 1][1]:
+        return True
+    return False
+
+
+# ============================================================
+# PART 0: Generate bqtl_functional_test.csv (peak presence vs |ASE|)
+# ============================================================
+
+def generate_functional_test():
+    """Map bQTL to gene promoters and test peak presence vs absolute ASE.
+
+    For each bQTL in a pan-cistrome peak within a gene promoter:
+      Split hybrids into WITH-peak vs WITHOUT-peak at the bQTL position.
+      Compare |ASE| between groups using Mann-Whitney U and point-biserial corr.
+    """
+    if FUNCTIONAL_CSV.exists():
+        print(f"  {FUNCTIONAL_CSV.name} already exists, skipping generation")
+        return pd.read_csv(FUNCTIONAL_CSV)
+
+    print("=" * 70)
+    print("GENERATING: bqtl_functional_test.csv")
+    print("=" * 70)
+
+    from statsmodels.stats.multitest import multipletests
+
+    bqtl_df = pd.read_csv(BQTL)
+    ase_df = pd.read_csv(ASE_HYBRID)
+    gene_coords = parse_gff3()
+    promoters_by_chr = build_promoter_index(gene_coords)
+    pan_by_chr = load_pan_cistrome_index()
+    hybrid_peaks = load_hybrid_peaks()
+
+    # Build absolute ASE lookup: (gene_id, hybrid_short) -> |log2_ratio|
+    ase_abs = {}
+    for _, row in ase_df.iterrows():
+        parent = row['hybrid'].replace('B73x', '')
+        ase_abs[(row['gene_id'], parent)] = abs(row['log2_ratio'])
+
+    # Map bQTL to gene promoters
+    print("Mapping bQTL to gene promoters...")
+    bqtl_genes = []
+    for _, row in bqtl_df.iterrows():
+        chrom, pos = row['chr'], row['pos']
+        for ps, pe, gene_id in promoters_by_chr.get(chrom, []):
+            if ps <= pos <= pe:
+                bqtl_genes.append({
+                    'pos': pos, 'chr': chrom, 'gene_id': gene_id,
+                    'bqtl_type': row['Type'], 'bqtl_fdr': row['FDRp'],
+                    'dist_to_tss': abs(pos - gene_coords[gene_id]['tss'])
+                })
+    bqtl_gene_df = pd.DataFrame(bqtl_genes)
+    print(f"  {len(bqtl_gene_df):,} bQTL-gene pairs")
+
+    # Test each unique bQTL-gene pair in pan-cistrome
+    print("Testing peak presence vs |ASE|...")
+    results = []
+    unique_pairs = bqtl_gene_df.drop_duplicates(['pos', 'chr', 'gene_id'])
+
+    for _, brow in unique_pairs.iterrows():
+        chrom, pos, gene_id = brow['chr'], brow['pos'], brow['gene_id']
+        if not pos_in_peaks(pan_by_chr.get(chrom), pos):
+            continue
+
+        ase_with, ase_without = [], []
+        peak_binary = []  # 1=has peak, 0=no peak
+        ase_vals = []
+
+        for hybrid in HYBRIDS:
+            parent = hybrid.replace('B73x', '')
+            abs_ase = ase_abs.get((gene_id, parent))
+            if abs_ase is None or np.isnan(abs_ase):
+                continue
+            has_pk = hybrid_has_peak(hybrid_peaks, hybrid, chrom, pos)
+            if has_pk:
+                ase_with.append(abs_ase)
+            else:
+                ase_without.append(abs_ase)
+            peak_binary.append(1 if has_pk else 0)
+            ase_vals.append(abs_ase)
+
+        if len(ase_with) >= 3 and len(ase_without) >= 3:
+            mw_stat, mw_p = stats.mannwhitneyu(
+                ase_with, ase_without, alternative='two-sided')
+            # Cohen's d
+            pooled_std = np.sqrt(
+                ((len(ase_with) - 1) * np.std(ase_with, ddof=1) ** 2 +
+                 (len(ase_without) - 1) * np.std(ase_without, ddof=1) ** 2) /
+                (len(ase_with) + len(ase_without) - 2))
+            cohens_d = ((np.mean(ase_with) - np.mean(ase_without)) /
+                        pooled_std) if pooled_std > 0 else 0
+            # Point-biserial correlation
+            pb_rho, pb_p = stats.pointbiserialr(peak_binary, ase_vals)
+
+            results.append({
+                'pos': pos, 'chr': chrom, 'gene_id': gene_id,
+                'bqtl_type': brow['bqtl_type'], 'bqtl_fdr': brow['bqtl_fdr'],
+                'n_hybrids_tested': len(ase_with) + len(ase_without),
+                'n_with_peak': len(ase_with), 'n_without_peak': len(ase_without),
+                'mean_ase_with_peak': np.mean(ase_with),
+                'mean_ase_without_peak': np.mean(ase_without),
+                'ase_diff': np.mean(ase_with) - np.mean(ase_without),
+                'cohens_d': cohens_d,
+                'mw_p': mw_p, 'pb_rho': pb_rho, 'pb_p': pb_p,
+                'dist_to_tss': brow['dist_to_tss'],
+            })
+
+    rdf = pd.DataFrame(results)
+    print(f"  Tested {len(rdf):,} bQTL-gene pairs")
+
+    # FDR correction
+    _, rdf['fdr'], _, _ = multipletests(rdf['mw_p'], method='fdr_bh')
+    rdf['functional'] = rdf['fdr'] < 0.05
+
+    n_sig = rdf['functional'].sum()
+    n_nom = (rdf['mw_p'] < 0.05).sum()
+    print(f"  Nominally significant (p<0.05): {n_nom} ({100 * n_nom / len(rdf):.1f}%)")
+    print(f"  FDR<0.05: {n_sig}")
+
+    rdf.to_csv(FUNCTIONAL_CSV, index=False)
+    print(f"  Saved: {FUNCTIONAL_CSV.name}")
+    return rdf
 
 
 # ============================================================
@@ -241,41 +449,23 @@ def part2_signed_ase():
     print("PART 2: SIGNED ASE DIRECTION ANALYSIS")
     print(f"{'='*70}")
 
-    import bisect
-
-    # Load data
     bqtl_df = pd.read_csv(BQTL)
     ase_df = pd.read_csv(ASE_HYBRID)
     gene_coords = parse_gff3()
-
-    # Build bQTL-to-gene mapping via promoters
-    # Index: per chromosome, sorted promoter intervals
-    promoters_by_chr = defaultdict(list)
-    for gene_id, info in gene_coords.items():
-        chrom = info['chr']
-        if info['strand'] == '+':
-            ps = max(0, info['tss'] - PROMOTER_BP)
-            pe = info['tss']
-        else:
-            ps = info['tss']
-            pe = info['tss'] + PROMOTER_BP
-        promoters_by_chr[chrom].append((ps, pe, gene_id))
-    for chrom in promoters_by_chr:
-        promoters_by_chr[chrom].sort()
+    promoters_by_chr = build_promoter_index(gene_coords)
+    pan_by_chr = load_pan_cistrome_index()
+    hybrid_peaks = load_hybrid_peaks()
 
     # Map each bQTL to genes
     print("Mapping bQTL to gene promoters...")
     bqtl_genes = []
     for _, row in bqtl_df.iterrows():
-        chrom = row['chr']
-        pos = row['pos']
+        chrom, pos = row['chr'], row['pos']
         for ps, pe, gene_id in promoters_by_chr.get(chrom, []):
             if ps <= pos <= pe:
                 bqtl_genes.append({
-                    'pos': pos, 'chr': chrom,
-                    'gene_id': gene_id,
-                    'bqtl_type': row['Type'],
-                    'bqtl_fdr': row['FDRp'],
+                    'pos': pos, 'chr': chrom, 'gene_id': gene_id,
+                    'bqtl_type': row['Type'], 'bqtl_fdr': row['FDRp'],
                     'dist_to_tss': abs(pos - gene_coords[gene_id]['tss'])
                 })
     bqtl_gene_df = pd.DataFrame(bqtl_genes)
@@ -285,87 +475,24 @@ def part2_signed_ase():
     # Build signed ASE lookup: (gene_id, hybrid) -> log2(B73/NAM)
     ase_signed = {}
     for _, row in ase_df.iterrows():
-        parent = row['hybrid'].replace('B73x', '')
-        # log2_ratio = log2(B73/NAM) — positive means B73 higher
-        ase_signed[(row['gene_id'], parent)] = row['log2_ratio']
+        ase_signed[(row['gene_id'], row['hybrid'])] = row['log2_ratio']
 
-    # Load pan-cistrome and per-hybrid peaks
-    pan_df = pd.read_csv(PAN_CISTROME)
-    pan_by_chr = {}
-    for chrom in VALID_CHROMS:
-        sub = pan_df[pan_df['chr'] == chrom].sort_values('start')
-        pan_by_chr[chrom] = sub[['start', 'end']].values
-
-    def pos_in_pan_peak(chrom, pos):
-        """Check if position falls in a pan-cistrome peak."""
-        peaks = pan_by_chr.get(chrom)
-        if peaks is None or len(peaks) == 0:
-            return False
-        idx = bisect.bisect_right(peaks[:, 0], pos) - 1
-        if idx >= 0 and peaks[idx, 0] <= pos <= peaks[idx, 1]:
-            return True
-        return False
-
-    # For each bQTL in a promoter, test signed ASE consistency across hybrids
+    # Test signed ASE with vs without peak
     print("Testing signed ASE consistency...")
-
-    # Load per-hybrid peak positions (just presence/absence at bQTL pos)
-    hybrid_peak_positions = {}
-    for hybrid in HYBRIDS:
-        peak_file = PEAKS_DIR / f"{hybrid}.w2_4.q3_peaks.narrowPeak"
-        if not peak_file.exists():
-            continue
-        positions_by_chr = defaultdict(list)
-        with open(peak_file) as f:
-            for line in f:
-                parts = line.strip().split('\t')
-                chrom_raw = parts[0]
-                if not chrom_raw.startswith('B73-chr'):
-                    continue
-                chrom = chrom_raw.replace('B73-', '')
-                if chrom not in VALID_CHROMS:
-                    continue
-                positions_by_chr[chrom].append((int(parts[1]), int(parts[2])))
-        # Sort for bisect
-        for chrom in positions_by_chr:
-            positions_by_chr[chrom].sort()
-        hybrid_peak_positions[hybrid] = positions_by_chr
-
-    def pos_has_peak(hybrid, chrom, pos):
-        """Check if position has a peak in this hybrid."""
-        peaks = hybrid_peak_positions.get(hybrid, {}).get(chrom, [])
-        if not peaks:
-            return False
-        starts = [p[0] for p in peaks]
-        idx = bisect.bisect_right(starts, pos) - 1
-        if idx >= 0 and peaks[idx][0] <= pos <= peaks[idx][1]:
-            return True
-        # Also check next peak
-        if idx + 1 < len(peaks) and peaks[idx+1][0] <= pos <= peaks[idx+1][1]:
-            return True
-        return False
-
-    # Test: for bQTL in pan-cistrome peaks, compare signed ASE between
-    # hybrids WITH vs WITHOUT the peak at that position
     results = []
     unique_bqtl = bqtl_gene_df.drop_duplicates(['pos', 'chr', 'gene_id'])
-    tested = 0
 
     for _, brow in unique_bqtl.iterrows():
         chrom, pos, gene_id = brow['chr'], brow['pos'], brow['gene_id']
-
-        # Must be in pan-cistrome
-        if not pos_in_pan_peak(chrom, pos):
+        if not pos_in_peaks(pan_by_chr.get(chrom), pos):
             continue
 
-        ase_with = []  # signed ASE when peak present
-        ase_without = []  # signed ASE when peak absent
-
+        ase_with, ase_without = [], []
         for hybrid in HYBRIDS:
             signed_ase = ase_signed.get((gene_id, hybrid))
             if signed_ase is None or np.isnan(signed_ase):
                 continue
-            if pos_has_peak(hybrid, chrom, pos):
+            if hybrid_has_peak(hybrid_peaks, hybrid, chrom, pos):
                 ase_with.append(signed_ase)
             else:
                 ase_without.append(signed_ase)
@@ -373,7 +500,6 @@ def part2_signed_ase():
         if len(ase_with) >= 3 and len(ase_without) >= 3:
             mw_stat, mw_p = stats.mannwhitneyu(ase_with, ase_without,
                                                 alternative='two-sided')
-            # Also t-test on signed values
             t_stat, t_p = stats.ttest_ind(ase_with, ase_without)
             results.append({
                 'pos': pos, 'chr': chrom, 'gene_id': gene_id,
@@ -385,7 +511,6 @@ def part2_signed_ase():
                 'signed_diff': np.mean(ase_with) - np.mean(ase_without),
                 'mw_p': mw_p, 't_p': t_p, 't_stat': t_stat,
             })
-            tested += 1
 
     rdf = pd.DataFrame(results)
     print(f"  Tested {len(rdf):,} bQTL (signed ASE)")
@@ -523,47 +648,13 @@ def part4_aggregate_gene_level():
     ase_gene = pd.read_csv(ASE_GENE)
     ase_hybrid = pd.read_csv(ASE_HYBRID)
     gene_coords = parse_gff3()
-
-    # Count bQTL per gene promoter
-    bqtl_per_gene = defaultdict(int)
-    bqtl_types_per_gene = defaultdict(lambda: defaultdict(int))
-    for _, row in bqtl_df.iterrows():
-        chrom, pos = row['chr'], row['pos']
-        for gene_id, info in gene_coords.items():
-            if info['chr'] != chrom:
-                continue
-            if info['strand'] == '+':
-                ps, pe = max(0, info['tss'] - PROMOTER_BP), info['tss']
-            else:
-                ps, pe = info['tss'], info['tss'] + PROMOTER_BP
-            if ps <= pos <= pe:
-                bqtl_per_gene[gene_id] += 1
-                bqtl_types_per_gene[gene_id][row['Type']] += 1
-
-    # Much faster approach: use pre-computed bQTL gene mapping
-    # Actually the above is O(bQTL * genes) which is too slow
-    # Let me do it properly with sorted lookup
+    promoters_by_chr = build_promoter_index(gene_coords)
 
     print("Building bQTL-to-gene index...")
-    promoters_by_chr = defaultdict(list)
-    for gene_id, info in gene_coords.items():
-        chrom = info['chr']
-        if info['strand'] == '+':
-            ps = max(0, info['tss'] - PROMOTER_BP)
-            pe = info['tss']
-        else:
-            ps = info['tss']
-            pe = info['tss'] + PROMOTER_BP
-        promoters_by_chr[chrom].append((ps, pe, gene_id))
-    for chrom in promoters_by_chr:
-        promoters_by_chr[chrom].sort()
-
-    import bisect
     bqtl_per_gene = defaultdict(int)
     for _, row in bqtl_df.iterrows():
         chrom, pos = row['chr'], row['pos']
         promoters = promoters_by_chr.get(chrom, [])
-        # Binary search for candidate promoters
         starts = [p[0] for p in promoters]
         idx = bisect.bisect_right(starts, pos)
         for j in range(max(0, idx - 5), min(len(promoters), idx + 1)):
@@ -715,6 +806,9 @@ def part5_summary_figure(func_df, signed_df, burden_df):
 
 
 def main():
+    # Part 0: Generate functional test data (skips if already exists)
+    generate_functional_test()
+
     # Part 1: Complete diagnostics
     func_df = part1_diagnostics()
 

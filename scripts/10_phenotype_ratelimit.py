@@ -25,9 +25,9 @@ from matplotlib.gridspec import GridSpec
 import warnings
 warnings.filterwarnings('ignore')
 
-BASE = str(Path(__file__).resolve().parent.parent)
-RESULTS = f'{BASE}/results'
-FIGS = f'{BASE}/results/celltype_landscape/quantitative_modulation_paper/figures'
+from pipeline_config import config
+RESULTS = str(config.results_dir)
+FIGS = str(config.figures_dir)
 os.makedirs(FIGS, exist_ok=True)
 
 # ── Load 728 causal bQTL ──
@@ -38,7 +38,7 @@ print(f"Loaded {len(reg)} regulatory map entries, {N_CAUSAL} causal bQTL")
 
 # ── Load EntAP annotations (KEGG pathways, GO terms) ──
 entap = pd.read_csv(
-    f'{BASE}/data/raw/Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1_entap_results.tsv.gz',
+    str(config.entap_gz),
     sep='\t', compression='gzip', low_memory=False
 )
 # Gene ID: strip transcript suffix (e.g., Zm00001eb000010_T001 → Zm00001eb000010)
@@ -49,7 +49,7 @@ entap_genes = entap_genes.set_index('gene_id')
 print(f"EntAP: {len(entap_genes)} genes with annotations")
 
 # ── Read hybrid names from genotype file ──
-geno_path = f'{BASE}/data/processed/nam_founder_genotypes_at_bqtl.tsv'
+geno_path = str(config.genotypes)
 if os.path.exists(geno_path):
     _geno_cols = pd.read_csv(geno_path, sep='\t', nrows=0).columns
     HYBRIDS = [c for c in _geno_cols if c not in ['chr', 'pos', 'ref']]

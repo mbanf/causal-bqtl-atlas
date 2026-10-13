@@ -35,16 +35,14 @@ from statsmodels.stats.multitest import multipletests
 import warnings
 warnings.filterwarnings('ignore')
 
-BASE = Path(__file__).resolve().parent.parent
-DATA = BASE / "data"
-OUTDIR = BASE / "results"
-FIG_DIR = BASE / "figures" / "paper_figures"
-FIG_DIR.mkdir(exist_ok=True)
-
-MOESM5 = DATA / "raw" / "supp_table_MOESM5.xlsx"
-GENOTYPE_FILE = DATA / "processed" / "nam_founder_genotypes_at_bqtl.tsv"
-BQTL = DATA / "processed" / "bqtl_snp_ww.csv"
-GFF3 = DATA / "raw" / "Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3"
+from pipeline_config import config
+DATA = config.data_dir
+OUTDIR = config.results_dir
+FIG_DIR = config.figures_dir
+MOESM5 = config.moesm5
+GENOTYPE_FILE = config.genotypes
+BQTL = config.bqtl
+GFF3 = config.gff3
 WW_RESULTS = OUTDIR / "genotype_bqtl_results.csv"
 MOTIF_DATA = OUTDIR / "bound_region_motifs.csv"
 
@@ -61,10 +59,11 @@ HYBRIDS = sorted(set(
     c for c in pd.read_csv(str(DATA / "processed" / "engelhorn_ase_ww.csv"), usecols=['hybrid'], dtype=str)['hybrid'].unique()
 )) if (DATA / "processed" / "engelhorn_ase_ww.csv").exists() else _founder_names
 
-_hyb_upper = {h.upper(): h for h in HYBRIDS}
+# Hybrids are B73xA188, founders are A188 — strip prefix to match
+_hyb_by_founder = {h.replace('B73x', '').upper(): h for h in HYBRIDS}
 FOUNDER_TO_HYBRID = {}
 for f in _founder_names:
-    match = _hyb_upper.get(f.upper())
+    match = _hyb_by_founder.get(f.upper())
     if match:
         FOUNDER_TO_HYBRID[f] = match
 
@@ -223,7 +222,7 @@ def run_genotype_test(genotype_matrix, bqtl_gene_df, ase_lookup, condition_label
             g = geno.get(hybrid)
             if g is None:
                 continue
-            ase_val = ase_lookup.get((gene_id, f'B73x{hybrid}'))
+            ase_val = ase_lookup.get((gene_id, hybrid))
             if ase_val is None or np.isnan(ase_val):
                 continue
             if g == 1:
@@ -315,6 +314,9 @@ def main():
     print(f"{'='*70}")
 
     for label, rdf in [('Well-watered', rdf_ww), ('Drought', rdf_ds)]:
+        if len(rdf) == 0:
+            print(f"\n  {label}: 0 testable pairs — skipping")
+            continue
         n_sig = (rdf['fdr_mw'] < 0.05).sum()
         n_nom = (rdf['mw_p'] < 0.05).sum()
         pi0 = min(1.0, 2 * (rdf['mw_p'] > 0.5).mean()) if len(rdf) > 100 else 1.0
