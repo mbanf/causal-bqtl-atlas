@@ -1,0 +1,88 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Causal bQTL Atlas Pipeline",
+    "quality_profile": "standard",
+    "output": "results/logs/pipeline_dag_interactive.html",
+    "viewBox": [1200, 860],
+    "views": [
+      {
+        "id": "core-path",
+        "label": "Core causal filtering",
+        "focus": ["pan-peaks", "func-bqtl", "geno-test", "select-causal"],
+        "note": "Six-step filtering: 147,942 bQTL to 728 causal variants."
+      },
+      {
+        "id": "characterization",
+        "label": "Characterization",
+        "focus": ["select-causal", "gene-atlas", "sole-motif", "motif-create", "rewiring", "interactive"],
+        "note": "Parallel characterization of 728 causal bQTL target genes."
+      },
+      {
+        "id": "drought",
+        "label": "Drought analysis",
+        "focus": ["geno-test", "ww-drought", "cond-switch"],
+        "note": "Condition-dependent bQTL behavior under drought stress."
+      }
+    ]
+  },
+  "lanes": [
+    { "id": "motifs", "label": "Motif Analysis" },
+    { "id": "core", "label": "Core Pipeline" },
+    { "id": "branch", "label": "Branch Analyses" }
+  ],
+  "phases": [
+    { "id": "prep", "label": "Data Prep", "fromCol": 0, "toCol": 0 },
+    { "id": "filter", "label": "Causal Filtering", "fromCol": 1, "toCol": 3, "variant": "emphasis" },
+    { "id": "char", "label": "Characterize & Verify", "fromCol": 4, "toCol": 5, "variant": "dashed" }
+  ],
+  "mainPath": ["pan-peaks", "func-bqtl", "geno-test", "select-causal", "gene-atlas", "rewiring"],
+  "nodes": [
+    { "id": "bound-motifs", "lane": "motifs", "col": 0, "type": "backend", "label": "01 Bound Motifs", "sublabel": "PWM scan in peaks", "width": 124 },
+    { "id": "pan-peaks", "lane": "core", "col": 0, "type": "backend", "label": "02 Pan-Cistrome", "sublabel": "Merge hybrid peaks", "width": 124 },
+    { "id": "convert-geno", "lane": "branch", "col": 0, "type": "database", "label": "03 Convert Geno", "width": 124 },
+
+    { "id": "func-bqtl", "lane": "core", "col": 1, "type": "backend", "label": "04 Functional bQTL", "sublabel": "Map to promoters", "width": 132 },
+
+    { "id": "geno-test", "lane": "core", "col": 2, "type": "backend", "label": "05 Genotype Test", "sublabel": "Mann-Whitney FDR", "width": 132 },
+
+    { "id": "select-causal", "lane": "core", "col": 3, "type": "security", "label": "06 Select Causal", "sublabel": "728 causal bQTL", "width": 132 },
+    { "id": "ww-drought", "lane": "branch", "col": 3, "type": "cloud", "label": "14 WW vs Drought", "width": 124 },
+
+    { "id": "sole-motif", "lane": "motifs", "col": 4, "type": "messagebus", "label": "08 Sole Motif", "width": 112 },
+    { "id": "motif-create", "lane": "motifs", "col": 5, "type": "messagebus", "label": "09 Motif Disrupt", "width": 112 },
+    { "id": "gene-atlas", "lane": "core", "col": 4, "type": "backend", "label": "07 Gene Atlas", "sublabel": "Deep characterization", "width": 132 },
+    { "id": "phenotype", "lane": "branch", "col": 4, "type": "frontend", "label": "10 Phenotype", "width": 112 },
+    { "id": "threshold", "lane": "branch", "col": 4, "type": "frontend", "label": "11 Threshold", "width": 112, "yOffset": 62 },
+    { "id": "cond-switch", "lane": "branch", "col": 5, "type": "cloud", "label": "15 Cond Switch", "width": 112 },
+
+    { "id": "rewiring", "lane": "core", "col": 5, "type": "messagebus", "label": "12 Rewiring", "sublabel": "TF motif analysis", "width": 124 },
+    { "id": "interactive", "lane": "core", "col": 5, "type": "frontend", "label": "13 Interactive", "width": 112, "yOffset": 62 },
+    { "id": "verify", "lane": "branch", "col": 5, "type": "external", "label": "Verify Pipeline", "width": 112, "yOffset": 62 }
+  ],
+  "edges": [
+    { "from": "pan-peaks", "to": "func-bqtl", "variant": "emphasis" },
+    { "from": "func-bqtl", "to": "geno-test", "variant": "emphasis" },
+    { "from": "geno-test", "to": "select-causal", "variant": "emphasis" },
+    { "from": "select-causal", "to": "gene-atlas", "variant": "emphasis" },
+    { "from": "gene-atlas", "to": "rewiring", "variant": "emphasis" },
+
+    { "from": "bound-motifs", "to": "select-causal", "label": "motif map", "variant": "default" },
+    { "from": "pan-peaks", "to": "select-causal", "label": "peak set", "variant": "default", "fromSide": "bottom", "toSide": "bottom", "route": "bottom-channel" },
+
+    { "from": "select-causal", "to": "sole-motif", "variant": "dashed", "role": "branch" },
+    { "from": "select-causal", "to": "motif-create", "variant": "dashed", "role": "branch" },
+    { "from": "select-causal", "to": "phenotype", "variant": "dashed", "role": "branch" },
+    { "from": "select-causal", "to": "threshold", "variant": "dashed", "role": "branch" },
+
+    { "from": "sole-motif", "to": "rewiring", "variant": "default" },
+    { "from": "motif-create", "to": "rewiring", "variant": "default" },
+
+    { "from": "gene-atlas", "to": "interactive", "variant": "default" },
+
+    { "from": "geno-test", "to": "ww-drought", "label": "drought", "variant": "dashed", "role": "branch" },
+    { "from": "ww-drought", "to": "cond-switch", "variant": "default" }
+  ],
+  "cards": []
+}

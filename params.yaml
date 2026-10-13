@@ -1,0 +1,114 @@
+# ============================================================================
+# Causal bQTL Atlas Pipeline — Input Parameters
+# ============================================================================
+#
+# This file documents ALL input data required by the pipeline and provides
+# configurable paths. Override any parameter on the command line:
+#
+#   nextflow run main.nf -params-file params.yaml
+#   nextflow run main.nf --data_dir /path/to/custom/data
+#
+# For OneDrive/shared folder setup, ensure ALL files listed under
+# "Required Input Files" are present in the data directory structure.
+# ============================================================================
+
+# ── Directories ──
+data_dir: "${projectDir}/data"
+results_dir: "${projectDir}/results"
+figures_dir: "${projectDir}/figures"
+
+# ── External dependencies (optional) ──
+genotype_dir: null          # Path to Julia's NAM_genotypes_2FP_WW/ folder
+                            # Only needed if re-running script 03 (CONVERT_GENOTYPES)
+                            # If null, uses pre-converted data/processed/nam_founder_genotypes_at_bqtl.tsv
+
+# ── Reference genome ──
+genome_fasta: "${data_dir}/raw/B73_NAM5.fa"
+gff3: "${data_dir}/raw/Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3"
+
+# ── Motif database ──
+pwm_database: "${data_dir}/processed/maize_tf_pwm_database.json"
+
+# ── Analysis parameters ──
+promoter_size: 2000         # bp upstream of TSS for promoter definition
+fdr_threshold: 0.05         # FDR cutoff for significance
+motif_score_threshold: 6.0  # PWM log-odds score threshold
+
+# ── Pipeline options ──
+skip_genotype_download: true
+
+
+# ============================================================================
+# Required Input Files
+# ============================================================================
+#
+# Copy this directory structure to your data folder (e.g., OneDrive share).
+# All paths are relative to data_dir.
+#
+# data/
+# ├── raw/
+# │   ├── B73_NAM5.fa                                          [2.2 GB genome]
+# │   ├── B73_NAM5.fa.fai                                      [index]
+# │   ├── Zm-B73-REFERENCE-NAM-5.0_Zm00001eb.1.gff3            [152 MB annotations]
+# │   ├── Zm-B73-..._entap_results.tsv.gz                      [12 MB functional annot]
+# │   ├── supp_table_MOESM5.xlsx                                [Engelhorn et al. supplement]
+# │   ├── savadel2021_mf_bc7_nam5.bed                           [MOA footprints]
+# │   └── engelhorn_peaks/                                      [25 hybrid peak files]
+# │       ├── A188.w2_4.q3_peaks.narrowPeak
+# │       ├── A619.w2_4.q3_peaks.narrowPeak
+# │       ├── B97.w2_4.q3_peaks.narrowPeak
+# │       ├── CML103.w2_4.q3_peaks.narrowPeak
+# │       ├── CML247.w2_4.q3_peaks.narrowPeak
+# │       ├── CML277.w2_4.q3_peaks.narrowPeak
+# │       ├── CML322.w2_4.q3_peaks.narrowPeak
+# │       ├── CML333.w2_4.q3_peaks.narrowPeak
+# │       ├── CML69.w2_4.q3_peaks.narrowPeak
+# │       ├── HP301.w2_4.q3_peaks.narrowPeak
+# │       ├── IL14H.w2_4.q3_peaks.narrowPeak
+# │       ├── Ki11.w2_4.q3_peaks.narrowPeak
+# │       ├── Ki3.w2_4.q3_peaks.narrowPeak
+# │       ├── Ky21.w2_4.q3_peaks.narrowPeak
+# │       ├── M162W.w2_4.q3_peaks.narrowPeak
+# │       ├── Mo17.w2_4.q3_peaks.narrowPeak
+# │       ├── Mo18W.w2_4.q3_peaks.narrowPeak
+# │       ├── Ms71.w2_4.q3_peaks.narrowPeak
+# │       ├── NC358.w2_4.q3_peaks.narrowPeak
+# │       ├── Oh43.w2_4.q3_peaks.narrowPeak
+# │       ├── Oh7b.w2_4.q3_peaks.narrowPeak
+# │       ├── P39.w2_4.q3_peaks.narrowPeak
+# │       ├── Tx303.w2_4.q3_peaks.narrowPeak
+# │       └── W22.w2_4.q3_peaks.narrowPeak
+# │
+# ├── processed/
+# │   ├── bqtl_snp_ww.csv                                      [147,942 bQTL positions]
+# │   ├── engelhorn_ase_ww.csv                                  [per-hybrid ASE values]
+# │   ├── engelhorn_ase_ww_gene_summary.csv                     [gene-level ASE summary]
+# │   ├── engelhorn_ww_vs_ds_expression.tsv                     [24,796 genes, drought DE]
+# │   ├── nam_founder_genotypes_at_bqtl.tsv                     [genotypes, 147K x 24]
+# │   ├── maize_tf_pwm_database.json                            [259 PWMs, 36 TF families]
+# │   └── entap_annotations.tsv                                 [functional annotations]
+# │
+# └── external/                                                 [optional]
+#     └── marand2021_cell_type_peaks.bed                        [ACR peaks, used by step 01]
+#
+#
+# ============================================================================
+# Which scripts use which files
+# ============================================================================
+#
+# File                              Used by steps
+# ─────────────────────────────────────────────────────────────────────────────
+# B73_NAM5.fa + .fai                01, 08
+# GFF3                              01, 02, 04, 05, 14
+# entap_results.tsv.gz              06, 10
+# supp_table_MOESM5.xlsx            14 (Table_S13a/b: WW + drought ASE)
+# engelhorn_peaks/*.narrowPeak      02, 04, 08
+# savadel2021_mf_bc7_nam5.bed       01
+# bqtl_snp_ww.csv                   01, 02, 04, 05, 14
+# engelhorn_ase_ww.csv              04, 05
+# engelhorn_ase_ww_gene_summary.csv 01, 02, 04
+# engelhorn_ww_vs_ds_expression.tsv 01, 06, 10, 15
+# nam_founder_genotypes_at_bqtl.tsv 05, 06, 10, 14
+# maize_tf_pwm_database.json        01, 08
+# entap_annotations.tsv             01, 02
+# marand2021_cell_type_peaks.bed    01 (optional, checked with .exists())

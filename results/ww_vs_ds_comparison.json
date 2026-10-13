@@ -1,0 +1,11 @@
+{
+  "n_ww_causal": 1075,
+  "n_ds_causal": 1267,
+  "n_overlap": 129,
+  "n_ww_only": 945,
+  "n_ds_only": 1138,
+  "pct_ww_also_ds": 12.011173184357542,
+  "pct_ds_also_ww": 10.181531176006315,
+  "n_ds_bqtl_total": 124504,
+  "n_ds_ase_genes": 23218
+}

@@ -1,0 +1,44 @@
+{
+  "jaccard_by_level": {
+    "Gene": {
+      "mean": 0.28483964230595415,
+      "median": 0.279068593515634,
+      "min": 0.22388059701492538,
+      "max": 0.8448979591836735
+    },
+    "GO Biological Process": {
+      "mean": 0.5843329009952334,
+      "median": 0.5830187933082419,
+      "min": 0.4942316566682049,
+      "max": 0.9196058091286307
+    },
+    "GO Molecular Function": {
+      "mean": 0.5481794098688173,
+      "median": 0.5422526819415439,
+      "min": 0.45182724252491696,
+      "max": 0.9402697495183044
+    },
+    "KEGG Pathway": {
+      "mean": 0.6671704038181651,
+      "median": 0.6637926228746631,
+      "min": 0.49800796812749004,
+      "max": 0.9120370370370371
+    },
+    "Signaling Layer (corr)": {
+      "mean": 0.964867347453233,
+      "median": 0.9692757675471082,
+      "min": 0.8717060913864926,
+      "max": 0.9982502173821435
+    }
+  },
+  "n_genes": 1126,
+  "n_founders": 24,
+  "go_bp_coverage": 467,
+  "kegg_coverage": 374,
+  "functional_redundancy_pct": 100.0,
+  "rare_genes_le5": 287,
+  "common_genes_ge15": 158,
+  "min_hybrids_per_gene": 3,
+  "max_hybrids_per_gene": 21,
+  "median_hybrids_per_gene": 8.0
+}

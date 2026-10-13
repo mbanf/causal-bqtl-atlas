@@ -12,5 +12,17 @@ dependencies:
   - statsmodels>=0.14
   - pyfaidx>=0.7
   - openpyxl>=3.1
+  - umap-learn>=0.5
   - pip:
     - xgboost>=2.0
+    # Optional: for scripts 16-17 (Agro-NT embeddings)
+    - torch>=2.0
+    - transformers>=4.45,<5
+    - safetensors
+    - peft>=0.10
+    # Optional: for script 13 (interactive atlas AI summaries)
+    - openai>=1.0
+    # Optional: for atlas_agent.py (Pydantic AI agentic harness)
+    - pydantic-ai>=2.0
+    - rich>=13.0
+    - textual>=0.40

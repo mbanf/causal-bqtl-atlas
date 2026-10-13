@@ -1,0 +1,39 @@
+{
+  "test1_label_shuffle": {
+    "n_permutations": 500,
+    "observed_go_jaccard": 0.5843329009952334,
+    "null_go_jaccard_mean": 0.5930481912916679,
+    "null_go_jaccard_std": 0.0088430321350316,
+    "p_go_jaccard": 0.846,
+    "observed_redundancy": 1.0,
+    "null_redundancy_mean": 1.0,
+    "null_redundancy_std": 0.0,
+    "p_redundancy": 1.0
+  },
+  "test2_genome_random": {
+    "n_permutations": 500,
+    "genome_go_gene_pool": 12703,
+    "observed_go_jaccard": 0.5843329009952334,
+    "null_go_jaccard_mean": 0.4127958137933996,
+    "null_go_jaccard_std": 0.004053972989779676,
+    "p_go_jaccard": 0.0,
+    "observed_redundancy": 1.0,
+    "null_redundancy_mean": 1.0,
+    "null_redundancy_std": 0.0,
+    "p_redundancy": 1.0
+  },
+  "convergence_ratio": {
+    "observed_ratio": 2.0514451438876096,
+    "null_ratio_mean": 2.0701033009990364,
+    "null_ratio_std": 0.03579427561905353,
+    "p_value": 0.704
+  },
+  "observed_metrics": {
+    "gene_jaccard_mean": 0.28483964230595415,
+    "go_jaccard_mean": 0.5843329009952334,
+    "redundancy_mean": 1.0,
+    "n_genes": 1126,
+    "n_annotated": 466,
+    "n_founders": 24
+  }
+}

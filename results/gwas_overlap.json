@@ -1,0 +1,64 @@
+{
+  "gwas_hits_total": 42778,
+  "gwas_traits": 321,
+  "window_bp": 100000,
+  "causal_with_gwas_hit": 933,
+  "causal_total": 1125,
+  "causal_gwas_pct": 82.93333333333334,
+  "noncausal_with_gwas_hit_pct": 82.06883399061417,
+  "enrichment": 1.0105338324024202,
+  "density_p": 6.903831370015946e-05,
+  "sig_traits": 1,
+  "top_enriched_traits": [
+    {
+      "trait": "stover organic matter digestibility",
+      "fold_enrichment": 2.031606718557968,
+      "fisher_p": 6.111542884457607e-05
+    },
+    {
+      "trait": "root tissue density",
+      "fold_enrichment": 4.399011235955056,
+      "fisher_p": 0.003018958898497022
+    },
+    {
+      "trait": "plant height",
+      "fold_enrichment": 1.1493056800416885,
+      "fisher_p": 0.003399996243414423
+    },
+    {
+      "trait": "Husk number",
+      "fold_enrichment": 5.058294573643411,
+      "fisher_p": 0.0037556959493662626
+    },
+    {
+      "trait": "chlorotic mottle virus resistance",
+      "fold_enrichment": 2.5589019607843135,
+      "fisher_p": 0.004964518956334461
+    },
+    {
+      "trait": "shoot system phosphorus content",
+      "fold_enrichment": 5.800177777777779,
+      "fisher_p": 0.005905432205254206
+    },
+    {
+      "trait": "root tip number",
+      "fold_enrichment": 1.4702239893969518,
+      "fisher_p": 0.007268676983698999
+    },
+    {
+      "trait": "root length",
+      "fold_enrichment": 1.9142088006902502,
+      "fisher_p": 0.016174505151597896
+    },
+    {
+      "trait": "leaf senescence trait",
+      "fold_enrichment": 1.6981652569941443,
+      "fisher_p": 0.025956173567419766
+    },
+    {
+      "trait": "Silking time",
+      "fold_enrichment": 1.2248852297052528,
+      "fisher_p": 0.02604103676032508
+    }
+  ]
+}

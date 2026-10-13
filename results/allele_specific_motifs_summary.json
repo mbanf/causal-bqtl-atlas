@@ -1,0 +1,35 @@
+{
+  "n_causal": 1126,
+  "n_disrupted": 813,
+  "n_created": 831,
+  "pct_disrupted": 72.202486678508,
+  "pct_created": 73.80106571936057,
+  "n_control": 1126,
+  "ctrl_pct_disrupted": 71.31438721136767,
+  "disruption_enrichment_OR": 1.0,
+  "disruption_enrichment_p": 1.0,
+  "top_disrupted_families": {
+    "C2H2": 176,
+    "NAC": 164,
+    "MYB": 131,
+    "bZIP": 120,
+    "ERF": 105,
+    "Trihelix": 101,
+    "Dof": 95,
+    "MYB-related": 94,
+    "WRKY": 74,
+    "C3H": 67
+  },
+  "top_created_families": {
+    "C2H2": 173,
+    "NAC": 150,
+    "bZIP": 107,
+    "MYB": 103,
+    "Trihelix": 99,
+    "MYB-related": 99,
+    "ERF": 98,
+    "WRKY": 97,
+    "Dof": 92,
+    "B3": 73
+  }
+}

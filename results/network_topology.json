@@ -1,0 +1,74 @@
+{
+  "comparison": {
+    "tf_family_degree": {
+      "causal_median": 3.0,
+      "noncausal_median": 2.0,
+      "causal_mean": 2.927947598253275,
+      "noncausal_mean": 2.740740740740741,
+      "U_stat": 40695.5,
+      "p_value": 0.13919459127170467
+    },
+    "total_edges": {
+      "causal_median": 5.0,
+      "noncausal_median": 5.0,
+      "causal_mean": 6.889737991266376,
+      "noncausal_mean": 5.8765432098765435,
+      "U_stat": 40243.0,
+      "p_value": 0.2039908871519106
+    },
+    "n_unique_tfs": {
+      "causal_median": 5.0,
+      "noncausal_median": 5.0,
+      "causal_mean": 6.889737991266376,
+      "noncausal_mean": 5.8765432098765435,
+      "U_stat": 40243.0,
+      "p_value": 0.2039908871519106
+    },
+    "tf_entropy": {
+      "causal_median": 1.207518749639422,
+      "noncausal_median": 0.9709505944546686,
+      "causal_mean": 1.139085478893298,
+      "noncausal_mean": 1.0257726702850354,
+      "U_stat": 40916.5,
+      "p_value": 0.12209746303738422
+    },
+    "disrupted": {
+      "causal_median": 2.0,
+      "noncausal_median": 2.0,
+      "causal_mean": 3.467248908296943,
+      "noncausal_mean": 2.4444444444444446,
+      "U_stat": 42706.0,
+      "p_value": 0.02241431504757398
+    },
+    "created": {
+      "causal_median": 2.0,
+      "noncausal_median": 3.0,
+      "causal_mean": 3.4224890829694323,
+      "noncausal_mean": 3.432098765432099,
+      "U_stat": 35964.5,
+      "p_value": 0.6449576035868002
+    },
+    "disruption_ratio": {
+      "causal_median": 0.5,
+      "noncausal_median": 0.36363636363636365,
+      "causal_mean": 0.49101862472955216,
+      "noncausal_mean": 0.4182764725793048,
+      "U_stat": 41269.5,
+      "p_value": 0.08983239806567322
+    },
+    "hub_enrichment": {
+      "odds_ratio": 0.9074211502782932,
+      "p_value": 0.7523307696787367,
+      "causal_hub_frac": 0.15938864628820962,
+      "noncausal_hub_frac": 0.1728395061728395
+    },
+    "tf_reg_similarity": {
+      "causal_median": 0.09994689754689755,
+      "noncausal_median": 0.10268662448662448,
+      "p_value": 0.42645051976198967
+    }
+  },
+  "n_causal_in_network": 916,
+  "n_noncausal_in_network": 81,
+  "hub_threshold_tf_families": 5.0
+}

@@ -1,0 +1,71 @@
+{
+  "context_enrichment": {
+    "genic": {
+      "causal_n": 463,
+      "causal_frac": 0.20432480141218004,
+      "noncausal_n": 24064,
+      "noncausal_frac": 0.1651885005079766,
+      "enrichment": 1.2369190396659218,
+      "p_value": 1.270756793281184e-06
+    },
+    "proximal_promoter": {
+      "causal_n": 1437,
+      "causal_frac": 0.6341571050308914,
+      "noncausal_n": 26354,
+      "noncausal_frac": 0.18090831708723468,
+      "enrichment": 3.505406026883211,
+      "p_value": 0.0
+    },
+    "proximal_regulatory": {
+      "causal_n": 366,
+      "causal_frac": 0.1615180935569285,
+      "noncausal_n": 21662,
+      "noncausal_frac": 0.14869985447156703,
+      "enrichment": 1.0862020956974943,
+      "p_value": 0.0900983829686745
+    },
+    "distal_enhancer": {
+      "causal_n": 0,
+      "causal_frac": 0.0,
+      "noncausal_n": 1441,
+      "noncausal_frac": 0.009891814712100827,
+      "enrichment": 0.0,
+      "p_value": 3.9826850085525e-10
+    },
+    "distal_regulatory": {
+      "causal_n": 0,
+      "causal_frac": 0.0,
+      "noncausal_n": 29055,
+      "noncausal_frac": 0.19944946319228973,
+      "enrichment": 0.0,
+      "p_value": 1.71773204055826e-217
+    },
+    "intergenic_acr": {
+      "causal_n": 0,
+      "causal_frac": 0.0,
+      "noncausal_n": 1811,
+      "noncausal_frac": 0.01243169774019056,
+      "enrichment": 0.0,
+      "p_value": 1.306094560471266e-12
+    },
+    "intergenic": {
+      "causal_n": 0,
+      "causal_frac": 0.0,
+      "noncausal_n": 41289,
+      "noncausal_frac": 0.28343035228864055,
+      "enrichment": 0.0,
+      "p_value": 0.0
+    }
+  },
+  "n_causal": 2266,
+  "n_noncausal": 145676,
+  "kruskal_wallis": {
+    "H": 10.58183825073213,
+    "p": 0.00503712837891232
+  },
+  "proximal_vs_distal_effect": {
+    "proximal_median_d": 2.017626614639393,
+    "distal_median_d": null,
+    "p_value": null
+  }
+}

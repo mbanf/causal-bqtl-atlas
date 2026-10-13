@@ -1,0 +1,56 @@
+{
+  "maf_comparison": {
+    "causal_mean": 0.31215823254882347,
+    "causal_median": 0.30434782608695654,
+    "noncausal_mean": 0.28021229801727116,
+    "noncausal_median": 0.29166666666666663,
+    "mannwhitney_p": 6.580589890401883e-17,
+    "ks_p": 6.340126506706128e-16
+  },
+  "effect_vs_maf": {
+    "spearman_rho": -0.18080809227776554,
+    "p_value": 9.908589893226322e-10
+  },
+  "tropical_vs_temperate": {
+    "tropical_variant_rate": 0.37985917279878206,
+    "temperate_variant_rate": 0.39247154808877716,
+    "mannwhitney_p": 0.0572318475388672
+  },
+  "ancestry_rates": {
+    "Iodent": 0.3810391978122151,
+    "Lancaster": 0.39854413102820746,
+    "Non-Stiff Stalk": 0.38909157241882525,
+    "Popcorn/Sweet": 0.3585766423357664,
+    "Stiff Stalk": 0.3977014970512627,
+    "Tropical": 0.3788631066977404
+  },
+  "rare_variant_enrichment": {
+    "singleton (1)": {
+      "causal_frac": 0.0,
+      "noncausal_frac": 0.005796331487498042,
+      "enrichment": 0.0
+    },
+    "doubleton (2)": {
+      "causal_frac": 0.0,
+      "noncausal_frac": 0.07783158626044667,
+      "enrichment": 0.0
+    },
+    "rare (3-5)": {
+      "causal_frac": 0.25422222222222224,
+      "noncausal_frac": 0.2435480904799853,
+      "enrichment": 1.0438276141734486
+    },
+    "common (6-12)": {
+      "causal_frac": 0.5057777777777778,
+      "noncausal_frac": 0.4069555977849976,
+      "enrichment": 1.2428328312244763
+    },
+    "major (>12)": {
+      "causal_frac": 0.24,
+      "noncausal_frac": 0.26586839398707235,
+      "enrichment": 0.9027022595685812
+    }
+  },
+  "n_causal": 1125,
+  "n_noncausal": 146817
+}

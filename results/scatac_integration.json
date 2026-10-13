@@ -1,0 +1,38 @@
+{
+  "acr_overlap": {
+    "causal_in_acr": 0.052444444444444446,
+    "noncausal_in_acr": 0.04745363275370018,
+    "enrichment": 1.105172384096455,
+    "fisher_p": 0.4383490687773528
+  },
+  "specificity": {
+    "cell-type-specific": {
+      "causal_frac": 0.012444444444444444,
+      "noncausal_frac": 0.007431019568578571
+    },
+    "tissue-restricted": {
+      "causal_frac": 0.0035555555555555557,
+      "noncausal_frac": 0.00877282603513217
+    },
+    "broadly-accessible": {
+      "causal_frac": 0.017777777777777778,
+      "noncausal_frac": 0.012273783008779637
+    },
+    "ubiquitous": {
+      "causal_frac": 0.018666666666666668,
+      "noncausal_frac": 0.018976004141209805
+    },
+    "no-ACR": {
+      "causal_frac": 0.9475555555555556,
+      "noncausal_frac": 0.9525463672462998
+    }
+  },
+  "cell_type_breadth": {
+    "causal_median": 19.0,
+    "noncausal_median": 21.0,
+    "mannwhitney_p": 0.25947379406020876
+  },
+  "n_acrs": 165913,
+  "n_cell_types": 92,
+  "note": "ACR coordinates are AGPv4; bQTL are NAM5. Direct overlap used (coordinates are highly similar for euchromatic regions)."
+}

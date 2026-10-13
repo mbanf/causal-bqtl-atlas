@@ -1,0 +1,77 @@
+{
+  "te_enrichment": {
+    "DNA": {
+      "causal_n": 98,
+      "causal_frac": 0.04324801412180053,
+      "noncausal_n": 7503,
+      "noncausal_frac": 0.05150470908042505,
+      "enrichment": 0.8396904845005216,
+      "p_value": 0.08404606576835262
+    },
+    "LINE": {
+      "causal_n": 1,
+      "causal_frac": 0.000441306266548985,
+      "noncausal_n": 176,
+      "noncausal_frac": 0.0012081605755237652,
+      "enrichment": 0.3652712027601701,
+      "p_value": 0.5319101628081614
+    },
+    "LTR": {
+      "causal_n": 30,
+      "causal_frac": 0.01323918799646955,
+      "noncausal_n": 13449,
+      "noncausal_frac": 0.09232131579669953,
+      "enrichment": 0.14340337204057538,
+      "p_value": 9.122083416348509e-57
+    },
+    "MITE": {
+      "causal_n": 148,
+      "causal_frac": 0.06531332744924978,
+      "noncausal_n": 8881,
+      "noncausal_frac": 0.06096405722287817,
+      "enrichment": 1.0713415481924233,
+      "p_value": 0.376690796922815
+    },
+    "Simple_repeat": {
+      "causal_n": 0,
+      "causal_frac": 0.0,
+      "noncausal_n": 5,
+      "noncausal_frac": 3.4322743622834236e-05,
+      "enrichment": 0.0,
+      "p_value": 1.0
+    },
+    "knob": {
+      "causal_n": 0,
+      "causal_frac": 0.0,
+      "noncausal_n": 6,
+      "noncausal_frac": 4.118729234740108e-05,
+      "enrichment": 0.0,
+      "p_value": 1.0
+    },
+    "non-TE": {
+      "causal_n": 1989,
+      "causal_frac": 0.8777581641659311,
+      "noncausal_n": 115654,
+      "noncausal_frac": 0.7939125181910541,
+      "enrichment": 1.1056106863838362,
+      "p_value": 2.7726741234411803e-25
+    },
+    "subtelomere": {
+      "causal_n": 0,
+      "causal_frac": 0.0,
+      "noncausal_n": 2,
+      "noncausal_frac": 1.3729097449133695e-05,
+      "enrichment": 0.0,
+      "p_value": 1.0
+    }
+  },
+  "n_causal": 2266,
+  "n_noncausal": 145676,
+  "causal_in_te_frac": 0.12224183583406885,
+  "noncausal_in_te_frac": 0.20608748180894587,
+  "te_vs_nonte_effect": {
+    "te_median_d": 2.0052208504388225,
+    "nonte_median_d": 2.041786633861614,
+    "p_value": 0.4085811255753806
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "mantel_combined": {
+    "r": 0.3492154921891136,
+    "p": 0.0001,
+    "interpretation": "positive=shared genes \u2192 similar phenotype; negative=different genes \u2192 similar phenotype"
+  },
+  "mantel_per_trait": {
+    "DTA": {
+      "r": 0.349070651747981,
+      "p": 0.0001
+    },
+    "height_cm": {
+      "r": 0.35014864491862485,
+      "p": 0.0001
+    },
+    "ear_ht_ratio": {
+      "r": 0.34082370734126677,
+      "p": 0.0001
+    }
+  },
+  "mantel_tf_profile": {
+    "r": NaN,
+    "p": 1.0
+  },
+  "burden_vs_trait": {
+    "DTA": {
+      "rho": -0.25217779602226104,
+      "p": 0.23452012306967002
+    },
+    "height_cm": {
+      "rho": -0.2517422557873349,
+      "p": 0.23535649397943453
+    },
+    "ear_ht_ratio": {
+      "rho": -0.23070215887734413,
+      "p": 0.27810551656245036
+    }
+  },
+  "n_founders": 24,
+  "n_genes": 1126,
+  "mean_burden": 423.7083333333333,
+  "burden_cv": 0.04021715153149492
+}

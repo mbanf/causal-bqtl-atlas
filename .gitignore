@@ -1,9 +1,20 @@
+# Non-pipeline outputs (paper branch only)
+paper/
+figures/
+interactive/
+
 # Large result CSVs (>10MB) — regenerable from pipeline
 results/quantitative_modulation_full.csv
 results/hybrid_binding_features.csv
 results/bound_region_motifs.csv
 results/tf_saturation_analysis_table.csv
 results/pan_cistrome_peaks.csv
+results/population_motif_occupancy.csv
+results/population_motif_DS_occupancy.csv
+results/cross_layer_ww_vs_ds_differential.csv
+results/condition_switching_deepdive.csv
+results/expanded_distance_test.csv
+results/ww_vs_drought_genotype_bqtl.csv
 
 # Large intermediate files in scripts
 scripts/ramp_training/bqtl_peak_mapping.csv
@@ -49,3 +60,11 @@ results/logs/pipeline_*.tsv
 results/logs/
 main.log
 53_download.log
+
+# Large binary files (regenerable)
+*.npy
+*.pt
+*.joblib
+
+# Secrets
+.env

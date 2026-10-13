@@ -1,0 +1,88 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Causal bQTL Atlas Pipeline",
+    "quality_profile": "standard",
+    "viewBox": [1200, 650],
+    "views": [
+      {
+        "id": "core-path",
+        "label": "Core causal filtering",
+        "focus": ["input-data", "pan-peaks", "func-bqtl", "geno-test", "select", "gene-atlas"],
+        "note": "Six-step filtering: 147,942 bQTL to 728 causal variants"
+      },
+      {
+        "id": "characterization",
+        "label": "Characterization",
+        "focus": ["select", "gene-atlas", "sole-motif", "rewiring", "interactive"],
+        "note": "Parallel characterization of 728 causal bQTL target genes"
+      },
+      {
+        "id": "drought",
+        "label": "Drought analysis",
+        "focus": ["geno-test", "ww-drought", "cond-switch"],
+        "note": "Condition-dependent bQTL behavior under drought stress"
+      }
+    ]
+  },
+  "lanes": [
+    { "id": "core", "label": "Core Pipeline" },
+    { "id": "outputs", "label": "Outputs and Analysis" }
+  ],
+  "phases": [
+    { "id": "data-prep", "label": "Data Prep", "fromCol": 0, "toCol": 0 },
+    { "id": "causal-filter", "label": "Causal Filtering", "fromCol": 1, "toCol": 2, "variant": "emphasis" },
+    { "id": "characterize", "label": "Characterize", "fromCol": 3, "toCol": 3, "variant": "dashed" },
+    { "id": "drought", "label": "Drought", "fromCol": 4, "toCol": 5, "variant": "dashed" }
+  ],
+  "mainPath": ["input-data", "pan-peaks", "func-bqtl", "geno-test", "select", "gene-atlas", "rewiring"],
+  "nodes": [
+    { "id": "input-data", "lane": "core", "col": 0, "type": "database", "label": "Input Data", "sublabel": "14 files + 24 peaks", "width": 120 },
+    { "id": "pan-peaks", "lane": "core", "col": 0, "type": "backend", "label": "Pan-Cistrome", "sublabel": "Merge 24 hybrids", "yOffset": 68, "width": 120 },
+    { "id": "func-bqtl", "lane": "core", "col": 1, "type": "backend", "label": "Functional", "sublabel": "Peak x ASE test", "width": 120 },
+    { "id": "geno-test", "lane": "core", "col": 2, "type": "backend", "label": "Genotype Test", "sublabel": "Mann-Whitney FDR", "width": 120 },
+    { "id": "select", "lane": "core", "col": 3, "type": "security", "label": "Select 728", "sublabel": "6-step filter", "width": 120 },
+    { "id": "gene-atlas", "lane": "core", "col": 4, "type": "backend", "label": "Gene Atlas", "sublabel": "Deep characterize", "width": 120 },
+    { "id": "rewiring", "lane": "core", "col": 5, "type": "messagebus", "label": "Rewiring", "sublabel": "TF transitions", "width": 120 },
+    { "id": "sole-motif", "lane": "outputs", "col": 3, "type": "messagebus", "label": "Sole Motif", "width": 120 },
+    { "id": "interactive", "lane": "outputs", "col": 4, "type": "frontend", "label": "Interactive", "sublabel": "HTML atlas", "width": 120 },
+    { "id": "ww-drought", "lane": "outputs", "col": 4, "type": "cloud", "label": "WW vs Drought", "sublabel": "34K pairs", "yOffset": 68, "width": 120 },
+    { "id": "cond-switch", "lane": "outputs", "col": 5, "type": "cloud", "label": "Cond Switch", "sublabel": "6,165 functional", "width": 120 }
+  ],
+  "edges": [
+    { "from": "input-data", "to": "pan-peaks" },
+    { "from": "pan-peaks", "to": "func-bqtl", "variant": "emphasis" },
+    { "from": "func-bqtl", "to": "geno-test", "variant": "emphasis" },
+    { "from": "geno-test", "to": "select", "variant": "emphasis" },
+    { "from": "select", "to": "gene-atlas", "variant": "emphasis" },
+    { "from": "select", "to": "sole-motif", "variant": "dashed", "role": "branch" },
+    { "from": "gene-atlas", "to": "rewiring", "variant": "emphasis" },
+    { "from": "gene-atlas", "to": "interactive" },
+    { "from": "sole-motif", "to": "rewiring" },
+    { "from": "geno-test", "to": "ww-drought", "label": "drought", "variant": "dashed", "role": "branch" },
+    { "from": "ww-drought", "to": "cond-switch" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Input Data Files",
+      "items": [
+        "B73_NAM5.fa + GFF3 -- genome + 39K genes",
+        "24 narrowPeak + bqtl_snp_ww.csv -- 147K bQTL",
+        "engelhorn_ase_ww.csv + genotypes -- ASE data",
+        "maize_tf_pwm_database.json -- 259 PWMs"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Key Outputs",
+      "items": [
+        "causal_bqtl_728.csv + regulatory_map_728.csv",
+        "gene_atlas_728.csv -- deep characterization",
+        "ww_vs_drought + condition_switching CSVs",
+        "28 PDF figures; config via params.yaml"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "burden_distribution": {
+    "n_genes_with_bqtl": 22767,
+    "genes_with_2plus": 16197,
+    "genes_with_5plus": 5357,
+    "genes_with_10plus": 805,
+    "mean_bqtl_per_gene": 3.299951684455572,
+    "max_bqtl_per_gene": 33
+  },
+  "burden_vs_ase": {
+    "rho": 0.07560375488507029,
+    "p": 1.4101014047947722e-24
+  },
+  "burden_vs_ase_variance": {
+    "rho": 0.06382134461046463,
+    "p": 5.886858743346201e-18
+  },
+  "burden_vs_expression_cv": {
+    "rho": 0.048698060922501174,
+    "p": 2.282585154469052e-11
+  },
+  "epistasis": {
+    "n_genes_tested": 12283,
+    "n_additive": 1772,
+    "n_saturating": 688,
+    "mean_slope": 0.056049784067859446,
+    "slope_ttest_p": 4.150683410095542e-92
+  }
+}

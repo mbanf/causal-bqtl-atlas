@@ -1,0 +1,62 @@
+[project]
+name = "causal-bqtl-atlas"
+version = "0.1.0"
+description = "Causal bQTL Atlas — identify and characterize causal regulatory variants in maize"
+authors = [
+    { name = "Michael Banf", email = "michael@perelyn.com" },
+    { name = "Thomas Hartwig", email = "hartwit@hhu.de" },
+]
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.24",
+    "scipy>=1.11",
+    "scikit-learn>=1.3",
+    "matplotlib>=3.7",
+    "statsmodels>=0.14",
+    "pyfaidx>=0.7",
+    "openpyxl>=3.1",
+    "xgboost>=2.0",
+]
+
+[project.optional-dependencies]
+# Pydantic AI agent + TUI
+agent = [
+    "pydantic-ai[openai]>=2.0",
+    "rich>=13.0",
+    "textual>=0.40",
+]
+# Foundation model embeddings (scripts 16, 24)
+embeddings = [
+    "torch>=2.0",
+    "transformers>=4.45,<5",
+    "safetensors",
+    "peft>=0.10",
+    "umap-learn>=0.5",
+]
+# Interactive atlas with AI summaries (script 13)
+interactive = [
+    "openai>=1.0",
+]
+# Everything
+all = [
+    "causal-bqtl-atlas[agent,embeddings,interactive]",
+]
+
+[project.scripts]
+atlas-agent = "atlas_agent:main"
+atlas-tui = "atlas_tui:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+only-include = ["atlas_agent.py", "atlas_tui.py"]
+
+[dependency-groups]
+dev = []

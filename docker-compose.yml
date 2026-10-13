@@ -1,0 +1,65 @@
+services:
+  atlas:
+    build: .
+    volumes:
+      # Mount data (too large for image)
+      - ./data:/app/data:ro
+      # Mount outputs (persist across runs)
+      - ./results:/app/results
+      - ./figures:/app/figures
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+
+  # Quick validate (no LLM needed)
+  validate:
+    build: .
+    volumes:
+      - ./results:/app/results:ro
+    entrypoint: ["python", "atlas_agent.py"]
+    command: ["--validate"]
+
+  # Show results summary
+  explain:
+    build: .
+    volumes:
+      - ./results:/app/results:ro
+    entrypoint: ["python", "atlas_agent.py"]
+    command: ["--explain"]
+
+  # Run full pipeline
+  run:
+    build: .
+    volumes:
+      - ./data:/app/data:ro
+      - ./results:/app/results
+      - ./figures:/app/figures
+    entrypoint: ["python", "atlas_agent.py"]
+    command: ["--run"]
+
+  # Interactive chat
+  chat:
+    build: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/app/data:ro
+      - ./results:/app/results
+      - ./figures:/app/figures
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    entrypoint: ["python", "atlas_agent.py"]
+    command: ["--model", "openai:gpt-4o"]
+
+  # Interactive TUI
+  tui:
+    build: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/app/data:ro
+      - ./results:/app/results
+      - ./figures:/app/figures
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    entrypoint: ["python", "atlas_tui.py"]
+    command: ["--model", "openai:gpt-4o"]
