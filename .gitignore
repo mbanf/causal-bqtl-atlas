@@ -1,7 +1,15 @@
-# Non-pipeline outputs (paper branch only)
-paper/
+# Non-pipeline outputs
 figures/
 interactive/
+
+# Paper build artifacts (keep .tex and figure PDFs)
+paper/*.aux
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.out
+paper/*.synctex.gz
+paper/*.log
+paper/archive/
 
 # Large result CSVs (>10MB) — regenerable from pipeline
 results/quantitative_modulation_full.csv
@@ -36,14 +44,11 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# LaTeX build artifacts
+# LaTeX build artifacts (root level)
 *.aux
 *.fdb_latexmk
 *.fls
-*.out
 *.synctex.gz
-paper/archive/*.aux
-paper/archive/*.out
 
 # Backup from reproduction test
 results_backup/
