@@ -791,12 +791,26 @@ where the rate drops to the 5\% FDR baseline.}
 \label{fig:distance_decay}
 \end{figure}
 
-\subsection{Motif scanning}
+\subsection{Motif scanning and redundancy verification}
 TF binding motifs were scanned using 405 DAP-seq PWMs (33 TF families) with
 a log-odds threshold of 6.0. The variant-overlap constraint required motif
 hits to physically overlap the variant nucleotide position ($\pm$28\,bp, the
 maximum PWM width). For bidirectional analysis, both the B73 reference and NAM
-variant sequences were scanned.
+variant sequences were scanned; motifs present only in the reference were
+classified as disrupted, those only in the variant as created.
+
+For sole-copy verification, the tightest MOA-seq binding peak containing each
+bQTL was identified across all 25 hybrids, and the number of copies of each
+disrupted TF family's motif within that peak was counted. A family was
+classified as ``sole copy'' if the variant-overlapping hit was the only
+instance within the peak. Multi-family disruption (billboard) analysis tested
+the relationship between the number of simultaneously disrupted families and
+Cohen's $d$ using Spearman's $\rho$ and linear regression.
+
+Threshold sensitivity was assessed by repeating the bidirectional motif
+analysis at seven log-odds thresholds (4.0, 5.0, 5.5, 6.0, 6.5, 7.0, 8.0)
+and verifying stability of the zero self-switch finding, motif creation
+fractions, and effect size equivalence across categories.
 
 \subsection{Per-hybrid motif linkage}
 For each causal bQTL, we reconstructed haplotype-specific binding peak
@@ -811,12 +825,67 @@ cross-family rewiring rates were tested against null expectations using
 binomial tests. Cascade reach was computed as the transitive closure of TF
 target sets.
 
-\subsection{Drought pipeline}
-The causal bQTL pipeline was repeated on drought-stress bQTL and ASE data
-using identical parameters. Cross-condition comparisons used position-level
-overlap (chr:pos) and gene-level overlap (gene\_id). Functional enrichment
-differences were tested using Fisher's exact test on EntAP annotation
-categories.
+\subsection{Drought pipeline and expression integration}
+The causal bQTL pipeline was repeated on drought-stress bQTL (supplementary
+Table~S10, 124,504 positions) and ASE data (Table~S13b, 359,162 entries,
+23,218 genes, 24 hybrids) using identical parameters. Cross-condition
+comparisons used position-level overlap (chr:pos) and gene-level overlap
+(gene\_id).
+
+Expression integration cross-referenced causal bQTL targets with
+population-level drought expression data (log2FC well-watered vs
+drought-stressed) from \citet{engelhorn2025}. Signed allelic effect
+correlation with drought direction was tested using Spearman's $\rho$.
+
+\subsection{Functional characterization and comparative enrichment}
+Target gene sets were decomposed into WW-only, DS-only, shared-same-variant,
+and shared-different-variant groups. Each gene was annotated using EntAP
+protein descriptions with keyword-based functional category assignment.
+GO enrichment was computed using Fisher's exact test against genome
+background, with Benjamini--Hochberg correction. Functional category shifts
+between conditions were tested using Fisher's exact test on category
+proportions.
+
+\subsection{Population motif occupancy and cross-layer validation}
+For each of the 1,126 causal target genes, MOA-seq binding peaks across all
+24 hybrids were scanned for TF motif enrichment using 405 DAP-seq PWMs,
+building a gene $\times$ TF family $\times$ hybrid occupancy matrix
+independent of bQTL identity (Layer~1). TF cascade tracing (Layer~3) followed
+directed regulatory chains: bQTL disrupts TF\_A motif $\to$ target gene is
+TF\_B $\to$ TF\_B's downstream targets. Conservation-impact scoring combined
+motif conservation across hybrids with disruption status to predict ASE
+effect magnitude. WW vs DS differential occupancy was tested per TF family
+using Wilcoxon signed-rank tests.
+
+\subsection{TF cooperativity}
+TF co-occupancy was assessed from the Layer~1 population motif occupancy
+matrix. For each TF family pair, co-occurrence at gene promoters was compared
+to expectation under independence using Fisher's exact test. Regulatory logic
+(additive vs synergistic) was classified based on the relationship between
+co-disruption and ASE effect size. Condition-specific cooperativity shifts
+were tested by comparing WW and DS co-occupancy matrices.
+
+\subsection{Distributed regulatory architecture}
+Per-hybrid causal bQTL burden was computed as the number of causal variants
+carried by each hybrid. TF grammar conservation was quantified as pairwise
+Spearman correlation of TF family disruption proportions across hybrids.
+Gene-level implementation divergence was quantified as pairwise Jaccard
+similarity of target gene sets. Functional convergence was assessed by
+comparing gene-level Jaccard to GO biological process Jaccard and KEGG
+pathway Jaccard. Ancestry-specific modules were identified by hierarchical
+clustering of the hybrid $\times$ gene sharing matrix.
+
+\subsection{Hybrid phenotype similarity}
+Phenotype data (days to anthesis, plant height, ear height ratio) from
+\citet{engelhorn2025} were used to compute pairwise phenotype distance
+matrices. Correlation between gene sharing distance and phenotype distance
+was tested using the Mantel test with 10,000 permutations.
+
+\subsection{Network topology}
+Causal and non-causal target genes were compared for network position metrics
+(degree, regulatory entropy, hub status, pairwise Jaccard similarity of
+regulatory neighborhoods) within the TF regulatory network. Hub enrichment
+was tested using Fisher's exact test.
 
 \subsection{Population genetics}
 Allele frequencies were computed from the 24-hybrid genotype matrix. MAF
