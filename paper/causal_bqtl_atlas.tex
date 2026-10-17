@@ -263,9 +263,12 @@ in ref only), created (present in alt only), or unchanged
 Of 1,126 bQTL, 983 (87.3\%) alter at least one TF motif. Strikingly, only
 21.1\% exclusively disrupt motifs; \textbf{25.0\% exclusively create new
 motifs}, and \textbf{41.1\% simultaneously disrupt one family's motif while
-creating another}. Zero self-switches were observed---when a variant disrupts
-a family's motif, it never recreates a motif for the same family, confirming
-that rewiring always involves a \emph{different} TF.
+creating another}. Within this $\pm$28\,bp variant-overlap window, zero
+family-level self-switches were observed---when a variant disrupts a family's
+motif at the variant position, it never recreates a motif for the same family
+within that window, confirming that local rewiring always involves a
+\emph{different} TF family. As shown below
+(Section~\ref{sec:linkage}), this constraint relaxes at broader peak scales.
 
 \begin{table}[htb]
 \centering
@@ -315,6 +318,20 @@ separate variant-carrying from reference hybrids.
 motif ($p < 0.05$, consistency $\geq 80\%$), providing per-variant mechanistic
 explanations. The most frequently identified driver families are NAC (778
 events), C2H2 (701), bZIP (683), WRKY (645), and ERF (640).
+
+\paragraph{Within-family rewiring at peak scale.}
+Among 616 bQTL with both significantly disrupted and created motifs in the
+per-hybrid analysis, 164 (26.6\%) show \emph{within-family} rewiring: the
+same TF family appears on both sides, but with different individual TFs
+(e.g., MYB129 disrupted $\to$ MYB73 created; PBF1/Dof disrupted $\to$
+DOF36/Dof created). This contrasts with the zero family-level self-switches
+observed in the narrow $\pm$28\,bp variant-overlap window
+(Section~\ref{sec:rewiring}). The difference arises because the per-hybrid
+analysis scans the full binding peak (${\sim}$160\,bp), where alternate
+binding sites for the same family can exist outside the immediate variant
+context. Cross-family switches still outnumber within-family events 13.3:1,
+confirming that most rewiring is qualitative (switching TF programs) rather
+than quantitative (fine-tuning within a family).
 
 
 % ------------------------------------------------------------
@@ -705,10 +722,15 @@ cooperative regulation at specific loci, but the dominant mode across the
 genome is additive.
 
 \paragraph{Variants rewire TF occupancy, not just disrupt it.}
-41.1\% of bQTL simultaneously disrupt and create motifs, with zero
-self-switches. However, TF family identity does not predict effect direction or
-magnitude, suggesting the relevant parameter is local binding energy change
-rather than specific TF program switching.
+41.1\% of bQTL simultaneously disrupt and create motifs. At the variant
+position ($\pm$28\,bp), zero family-level self-switches occur---rewiring
+always involves a different TF family. However, at peak scale
+(${\sim}$160\,bp), 164 within-family rewiring events emerge where different
+individual TFs of the same family are exchanged (e.g., MYB129$\to$MYB73),
+though cross-family switches still dominate 13.3:1. TF family identity does
+not predict effect direction or magnitude at either scale, suggesting the
+relevant parameter is local binding energy change rather than specific TF
+program switching.
 
 \paragraph{A distributed regulatory operating system.}
 The most striking finding is the three-level architecture: uniform burden
