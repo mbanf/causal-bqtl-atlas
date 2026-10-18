@@ -1,0 +1,31 @@
+{
+  "ww": {
+    "total": 1126,
+    "b73_bound": 578,
+    "founder_bound": 548,
+    "balanced": 0,
+    "unknown": 0,
+    "b73_fraction": 0.5133214920071048,
+    "mean_abs_d_b73": 2.3123257641016766,
+    "mean_abs_d_founder": 2.195890267670326
+  },
+  "spatial": {
+    "median_same_parent_dist_mb": 0.791536,
+    "median_diff_parent_dist_mb": 0.899414,
+    "nearest_neighbor_p": 0.10413445389677156
+  },
+  "pathway_coordination": {
+    "go_n_tested": 0,
+    "go_n_nominal": 0,
+    "go_n_fdr": 0,
+    "kegg_n_tested": 30,
+    "kegg_n_nominal": 0,
+    "kegg_n_fdr": 0
+  },
+  "ds": {
+    "total": 1267,
+    "b73_bound": 749,
+    "founder_bound": 518,
+    "b73_fraction": 0.5911602209944752
+  }
+}
