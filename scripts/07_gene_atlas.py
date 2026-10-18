@@ -50,6 +50,23 @@ entap_genes = entap.drop_duplicates(subset='gene_id', keep='first').set_index('g
 
 print(f"Loaded: {len(reg)} reg map, {len(causal)} causal bQTL, {len(entap_genes)} EntAP genes")
 
+# MaizeGDB GO terms (much better coverage than EntAP UniProt GO)
+import re as _re
+_maizegdb_go_path = Path(str(config.data_dir)) / 'raw' / 'Zm-B73-REFERENCE-NAM-5.0-GMs-GOTerms.csv.gz'
+_maizegdb_go = {}
+_maizegdb_locus = {}
+if _maizegdb_go_path.exists():
+    _go_raw = pd.read_csv(_maizegdb_go_path)
+    for _, _row in _go_raw[_go_raw['obo_terms'].notna()].iterrows():
+        _terms = _re.findall(r'(GO:\d{7}:[^"{}]+)', str(_row['obo_terms']))
+        if _terms:
+            _maizegdb_go[_row['gene_model']] = ';'.join(t.strip().rstrip(',') for t in _terms)
+        if pd.notna(_row.get('locus_symbol')):
+            _maizegdb_locus[_row['gene_model']] = str(_row['locus_symbol'])
+    print(f"MaizeGDB GO: {len(_maizegdb_go)} genes with GO terms, {len(_maizegdb_locus)} with locus symbols")
+else:
+    print("WARNING: MaizeGDB GO file not found — GO annotations will be sparse")
+
 # ═══════════════════════════════════════════════════════════════
 # STEP 1: Build Gene × TF Family Binary Matrix
 # ═══════════════════════════════════════════════════════════════
@@ -259,12 +276,18 @@ for _, row in merged.iterrows():
     cog = str(row.get('EggNOG COG Description', ''))
     func = row.get('func_category', '')
 
-    # Get additional info from EntAP
-    go_bio = ''
+    # Get GO and KEGG annotations (priority: MaizeGDB > EggNOG > UniProt)
+    go_bio = _maizegdb_go.get(gene_id, '')
+    if not go_bio and gene_id in entap_genes.index:
+        eggnog_go = str(entap_genes.loc[gene_id, 'EggNOG GO Biological'])
+        if eggnog_go != 'nan':
+            go_bio = eggnog_go
+
     kegg_path = ''
     if gene_id in entap_genes.index:
-        go_bio = str(entap_genes.loc[gene_id, 'UniProt GO Biological'])
         kegg_path = str(entap_genes.loc[gene_id, 'EggNOG KEGG Pathway'])
+
+    locus = _maizegdb_locus.get(gene_id, '')
 
     layers = classify_layer(gene_id, desc, cog, func)
 
@@ -283,8 +306,9 @@ for _, row in merged.iterrows():
         'n_families': row['n_families'],
         'log2fc_drought': row.get('log2fc_DS_vs_WW', np.nan),
         'drought_cat': row.get('drought_cat', ''),
-        'go_biological': go_bio[:200] if go_bio != 'nan' else '',
-        'kegg_pathway': kegg_path[:200] if kegg_path != 'nan' else '',
+        'go_biological': go_bio,
+        'kegg_pathway': kegg_path if kegg_path != 'nan' else '',
+        'locus_symbol': locus,
         'n_variant_hybrids': row['n_variant'],
         'n_ref_hybrids': row['n_ref']
     })
