@@ -15,8 +15,8 @@
     "nearest_neighbor_p": 0.10413445389677156
   },
   "pathway_coordination": {
-    "go_n_tested": 0,
-    "go_n_nominal": 0,
+    "go_n_tested": 194,
+    "go_n_nominal": 1,
     "go_n_fdr": 0,
     "kegg_n_tested": 30,
     "kegg_n_nominal": 0,

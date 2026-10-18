@@ -63,9 +63,11 @@ print(f"Genotype matrix: {genotypes.shape[0]} positions × {genotypes.shape[1]-3
 ase_ww = pd.read_csv(config.ase)
 print(f"ASE data (WW): {len(ase_ww)} entries")
 
-# Gene annotations for pathway analysis
-gene_atlas = pd.read_csv(RESULTS_DIR / 'gene_atlas_728.csv')
-print(f"Gene atlas: {len(gene_atlas)} genes with annotations")
+# Gene annotations for pathway analysis (enriched if available)
+enriched_path = RESULTS_DIR / 'gene_atlas_728_enriched.csv'
+atlas_path = enriched_path if enriched_path.exists() else RESULTS_DIR / 'gene_atlas_728.csv'
+gene_atlas = pd.read_csv(atlas_path)
+print(f"Gene atlas: {len(gene_atlas)} genes from {atlas_path.name}")
 
 # Try loading DS gene atlas if available
 ds_atlas_path = RESULTS_DIR / 'gene_atlas_ds.csv'
